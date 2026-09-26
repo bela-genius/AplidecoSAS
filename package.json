@@ -1,0 +1,26 @@
+{
+  "name": "aplidecosas",
+  "version": "1.0.0",
+  "description": "Plataforma web para Aplideco S.A.S.: e-commerce, sitio informativo/branding con enlaces a redes sociales, panel con accesos por rol y un asistente (chatbot) de información puntual.",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./frontend_src/input.css -o ./static/css/tailwind.css --minify",
+    "watch:css": "tailwindcss -i ./frontend_src/input.css -o ./static/css/tailwind.css --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bela-genius/AplidecoSAS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bela-genius/AplidecoSAS/issues"
+  },
+  "homepage": "https://github.com/bela-genius/AplidecoSAS#readme",
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.20",
+    "aos": "^2.3.4",
+    "tailwindcss": "^3.4.19"
+  }
+}

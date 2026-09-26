@@ -7,7 +7,7 @@ panel con accesos por rol y un asistente (chatbot) de información puntual.
 
 - Django 5.2 + Django REST Framework
 - SQLite en desarrollo (configurable vía `DATABASE_URL`)
-- Tailwind CSS (CDN) + AOS para animaciones en el frontend
+- Tailwind CSS + AOS para animaciones (compilados localmente en `static/`, sin depender de CDNs externos)
 - Chatbot basado en reglas (palabras clave), gestionable desde el admin
 
 ## Estructura
@@ -32,6 +32,18 @@ cp .env.example .env
 python manage.py migrate
 python manage.py createsuperuser
 python manage.py runserver
+```
+
+Opcional: cargar marca + catálogo de ejemplo con `python manage.py seed_aplideco`.
+
+### Frontend (Tailwind/AOS)
+
+El CSS de Tailwind y los assets de AOS ya vienen compilados en `static/`. Para
+modificar clases o regenerarlos:
+
+```bash
+npm install
+npm run build:css   # o npm run watch:css durante desarrollo
 ```
 
 ## Roles de usuario (`apps.accounts.User.Role`)
