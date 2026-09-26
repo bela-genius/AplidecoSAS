@@ -10,8 +10,15 @@
     <div data-aos="fade-left">
         <h1 class="text-3xl font-extrabold mb-3">{{ product.name }}</h1>
         <p class="text-slate-400 mb-6">{{ product.short_description }}</p>
+        {% if product.is_service %}
+            <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-wide text-cyan-400 border border-cyan-500/40 rounded-full px-3 py-1">Servicio</span>
+        {% endif %}
         <div class="flex items-baseline gap-3 mb-6">
-            <span class="text-3xl font-bold text-cyan-400">${{ product.price }}</span>
+            {% if product.price_is_estimate %}
+                <span class="text-3xl font-bold text-cyan-400">Desde ${{ product.price }}</span>
+            {% else %}
+                <span class="text-3xl font-bold text-cyan-400">${{ product.price }}</span>
+            {% endif %}
             {% if product.compare_at_price %}
                 <span class="line-through text-slate-500">${{ product.compare_at_price }}</span>
             {% endif %}
@@ -20,8 +27,11 @@
         <form method="post" action="{% url 'store:cart_add' product.id %}" class="flex items-center gap-3 mb-8">
             {% csrf_token %}
             <input type="number" name="quantity" value="1" min="1" class="w-20 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-            <button class="brand-gradient px-6 py-3 rounded-full font-semibold hover:scale-105 transition">Añadir al carrito</button>
+            <button class="brand-gradient px-6 py-3 rounded-full font-semibold hover:scale-105 transition">{{ product.cta_label }}</button>
         </form>
+        {% if product.is_service %}
+        <p class="text-xs text-slate-500 -mt-6 mb-8">El precio final se confirma según el alcance del trabajo, luego de revisar tu solicitud.</p>
+        {% endif %}
         {% else %}
         <p class="text-red-400 font-semibold mb-8">Agotado</p>
         {% endif %}

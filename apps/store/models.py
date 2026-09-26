@@ -26,18 +26,35 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    class ProductType(models.TextChoices):
+        MATERIAL = "material", "Material / producto"
+        SERVICE = "service", "Servicio / paquete"
+
     category = models.ForeignKey(
         Category, on_delete=models.SET_NULL, null=True, blank=True, related_name="products"
+    )
+    product_type = models.CharField(
+        max_length=20, choices=ProductType.choices, default=ProductType.MATERIAL
     )
     name = models.CharField(max_length=200)
     slug = models.SlugField(unique=True, blank=True)
     short_description = models.CharField(max_length=255, blank=True)
     description = models.TextField(blank=True)
-    price = models.DecimalField(max_digits=12, decimal_places=2)
+    price = models.DecimalField(
+        max_digits=12,
+        decimal_places=2,
+        help_text="Para servicios, usar el precio 'desde' o base de la cotización.",
+    )
+    price_is_estimate = models.BooleanField(
+        default=False,
+        help_text="Marca esta opción si el precio es una referencia y debe cotizarse (típico en servicios).",
+    )
     compare_at_price = models.DecimalField(
         max_digits=12, decimal_places=2, null=True, blank=True
     )
-    stock = models.PositiveIntegerField(default=0)
+    stock = models.PositiveIntegerField(
+        default=0, help_text="Solo aplica a materiales/productos físicos."
+    )
     sku = models.CharField(max_length=64, unique=True, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
@@ -56,8 +73,18 @@ class Product(models.Model):
         return self.name
 
     @property
+    def is_service(self) -> bool:
+        return self.product_type == self.ProductType.SERVICE
+
+    @property
     def is_in_stock(self) -> bool:
+        if self.is_service:
+            return True
         return self.stock > 0
+
+    @property
+    def cta_label(self) -> str:
+        return "Solicitar cotización" if self.is_service else "Añadir al carrito"
 
     @property
     def discount_percent(self) -> int:

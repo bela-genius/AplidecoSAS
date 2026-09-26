@@ -24,8 +24,9 @@
     </div>
     <div class="flex items-center justify-between border-t border-slate-800 pt-6">
         <span class="text-xl font-bold">Total: ${{ cart.total }}</span>
-        <a href="{% url 'store:checkout' %}" class="brand-gradient px-8 py-3 rounded-full font-semibold hover:scale-105 transition">Finalizar compra</a>
+        <a href="{% url 'store:checkout' %}" class="brand-gradient px-8 py-3 rounded-full font-semibold hover:scale-105 transition">Finalizar / Cotizar</a>
     </div>
+    <p class="text-xs text-slate-500 mt-4">Si tu carrito incluye servicios, el total mostrado es un estimado: te confirmaremos el valor final tras revisar tu solicitud.</p>
     {% else %}
     <p class="text-slate-400">Tu carrito está vacío. <a href="{% url 'store:product_list' %}" class="text-cyan-400">Ir a la tienda</a></p>
     {% endif %}

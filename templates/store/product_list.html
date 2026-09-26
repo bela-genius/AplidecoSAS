@@ -27,7 +27,10 @@
             </div>
             <div class="p-4">
                 <h3 class="font-semibold text-sm truncate">{{ product.name }}</h3>
-                <p class="text-cyan-400 font-bold">${{ product.price }}</p>
+                {% if product.is_service %}
+                    <span class="text-[10px] uppercase tracking-wide text-cyan-400">Servicio</span>
+                {% endif %}
+                <p class="text-cyan-400 font-bold">{% if product.price_is_estimate %}Desde {% endif %}${{ product.price }}</p>
             </div>
         </a>
         {% empty %}
