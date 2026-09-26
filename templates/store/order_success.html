@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Pedido confirmado · {{ site_settings.site_name }}{% endblock %}
+{% block content %}
+<section class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center" data-aos="zoom-in">
+    <div class="text-6xl mb-6">✅</div>
+    <h1 class="text-3xl font-extrabold mb-4">¡Gracias por tu pedido, {{ order.full_name }}!</h1>
+    <p class="text-slate-400 mb-8">Tu pedido #{{ order.id }} por ${{ order.total }} fue registrado correctamente. Te contactaremos pronto para confirmar el pago y el envío.</p>
+    <a href="{% url 'store:product_list' %}" class="brand-gradient px-8 py-3 rounded-full font-semibold hover:scale-105 transition inline-block">Seguir comprando</a>
+</section>
+{% endblock %}
