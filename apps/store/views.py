@@ -11,6 +11,9 @@ def product_list(request):
     category_slug = request.GET.get("categoria")
     if category_slug:
         products = products.filter(category__slug=category_slug)
+    product_type = request.GET.get("tipo")
+    if product_type in {Product.ProductType.MATERIAL, Product.ProductType.SERVICE}:
+        products = products.filter(product_type=product_type)
     query = request.GET.get("q")
     if query:
         products = products.filter(name__icontains=query)
@@ -19,6 +22,7 @@ def product_list(request):
         "products": products,
         "categories": Category.objects.filter(is_active=True),
         "selected_category": category_slug,
+        "selected_type": product_type,
         "query": query or "",
     }
     return render(request, "store/product_list.html", context)

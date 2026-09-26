@@ -2,12 +2,12 @@
 {% block title %}Crear cuenta · {{ site_settings.site_name }}{% endblock %}
 {% block content %}
 <section class="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-24" data-aos="fade-up">
-    <h1 class="text-3xl font-extrabold mb-10 text-center">Crear cuenta</h1>
+    <h1 class="font-display font-bold text-3xl text-white mb-10 text-center">Crear cuenta</h1>
     <form method="post" class="space-y-4">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="w-full brand-gradient px-8 py-3 rounded-full font-semibold hover:scale-105 transition">Registrarme</button>
+        <button class="w-full bg-accent hover:bg-accent-dark text-white font-semibold px-8 py-3 rounded-md transition-colors">Registrarme</button>
     </form>
-    <p class="text-center text-slate-400 mt-6">¿Ya tienes cuenta? <a href="{% url 'accounts:login' %}" class="text-cyan-400">Ingresa aquí</a></p>
+    <p class="text-center text-graphite-500 mt-6">¿Ya tienes cuenta? <a href="{% url 'accounts:login' %}" class="text-accent hover:underline">Ingresa aquí</a></p>
 </section>
 {% endblock %}

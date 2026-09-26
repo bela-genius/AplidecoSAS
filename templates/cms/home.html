@@ -1,43 +1,195 @@
 {% extends "base.html" %}
+
 {% block content %}
-<section class="relative overflow-hidden">
-    <div class="absolute inset-0 brand-gradient opacity-20"></div>
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center" data-aos="fade-up">
-        <h1 class="text-4xl sm:text-6xl font-extrabold tracking-tight mb-6">
-            {{ site_settings.site_name }}
-        </h1>
-        <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto mb-10">
-            {{ site_settings.tagline|default:"Descubre nuestros productos y conecta con nosotros." }}
+<!-- HERO -->
+<section class="relative overflow-hidden border-b border-graphite-700">
+    {% if site_settings.hero_image %}
+        <div class="absolute inset-0">
+            <img src="{{ site_settings.hero_image.url }}" alt="" class="w-full h-full object-cover opacity-40">
+            <div class="absolute inset-0 bg-gradient-to-t from-graphite-900 via-graphite-900/70 to-graphite-900/40"></div>
+        </div>
+    {% else %}
+        <div class="absolute inset-0 bg-graphite-900">
+            <svg class="absolute inset-0 w-full h-full opacity-[0.07]" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="blueprint" width="48" height="48" patternUnits="userSpaceOnUse">
+                        <path d="M48 0H0V48" fill="none" stroke="white" stroke-width="1"></path>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#blueprint)"></rect>
+            </svg>
+            <div class="absolute inset-0 bg-gradient-to-t from-graphite-900 via-graphite-900/30 to-transparent"></div>
+        </div>
+    {% endif %}
+
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32">
+        <p class="text-accent font-semibold text-sm tracking-widest uppercase mb-5" data-aos="fade-up">
+            Acabados &amp; construcción · Medellín
         </p>
-        <a href="{% url 'store:product_list' %}" class="inline-block brand-gradient px-8 py-3 rounded-full font-semibold shadow-lg shadow-cyan-500/30 hover:scale-105 transition">
-            Ir a la tienda
-        </a>
+        <h1 class="font-display font-extrabold text-4xl sm:text-6xl leading-[1.05] tracking-tightest text-white max-w-3xl mb-6" data-aos="fade-up" data-aos-delay="60">
+            {{ site_settings.tagline|default:"Acabados de construcción con estándares de obra profesional." }}
+        </h1>
+        <p class="text-graphite-300 text-lg max-w-xl mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="120">
+            {{ site_settings.site_name }} ejecuta pisos, enchapes, pinturas y remodelaciones integrales
+            para proyectos residenciales, comerciales e industriales.
+        </p>
+        <div class="flex flex-wrap gap-4" data-aos="fade-up" data-aos-delay="180">
+            <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold px-6 py-3.5 rounded-md transition-colors">
+                Solicitar cotización
+                <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
+            </a>
+            <a href="{% url 'store:product_list' %}" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-graphite-600 text-white font-semibold px-6 py-3.5 rounded-md transition-colors">
+                Ver catálogo
+            </a>
+        </div>
     </div>
 </section>
 
-{% if featured_products %}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <h2 class="text-2xl font-bold mb-8" data-aos="fade-right">Productos destacados</h2>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-        {% for product in featured_products %}
-        <a href="{% url 'store:product_detail' product.slug %}" class="group bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 hover:border-cyan-500/50 transition" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'50' }}">
-            <div class="aspect-square bg-slate-800 overflow-hidden">
-                {% with product.images.first as img %}
-                    {% if img %}
-                        <img src="{{ img.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    {% endif %}
-                {% endwith %}
+<!-- CIFRAS DE CONFIANZA -->
+<section class="border-b border-graphite-700 bg-graphite-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-2 md:grid-cols-4 gap-8">
+        {% for stat in trust_stats %}
+        <div class="flex flex-col items-start" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+            <div class="w-8 h-8 text-accent mb-3">{% include stat.icon %}</div>
+            <span class="counter font-display font-extrabold text-3xl sm:text-4xl text-white" data-target="{{ stat.value }}">0</span>
+            <span class="text-graphite-400 text-sm mt-1">{{ stat.label }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- SERVICIOS -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+    <div class="max-w-2xl mb-14" data-aos="fade-up">
+        <span class="text-accent font-semibold text-sm tracking-widest uppercase">Servicios</span>
+        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Qué hacemos</h2>
+    </div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for category in service_categories %}
+        <a href="{% url 'store:product_list' %}?categoria={{ category.slug }}"
+           class="group border border-graphite-700 hover:border-accent/60 bg-graphite-800/40 rounded-xl p-6 transition-colors"
+           data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+            <div class="w-10 h-10 text-accent mb-5">
+                {% include "partials/icons/"|add:category.icon|add:".svg" %}
             </div>
-            <div class="p-4">
-                <h3 class="font-semibold text-sm truncate">{{ product.name }}</h3>
-                {% if product.is_service %}
-                    <span class="text-[10px] uppercase tracking-wide text-cyan-400">Servicio</span>
-                {% endif %}
-                <p class="text-cyan-400 font-bold">{% if product.price_is_estimate %}Desde {% endif %}${{ product.price }}</p>
-            </div>
+            <h3 class="font-display font-semibold text-white mb-2">{{ category.name }}</h3>
+            <p class="text-graphite-400 text-sm leading-relaxed">{{ category.short_pitch|default:category.description|truncatewords:16 }}</p>
         </a>
+        {% empty %}
+        <p class="text-graphite-400 col-span-full">Aún no hay categorías de servicio configuradas.</p>
+        {% endfor %}
+    </div>
+</section>
+
+<!-- PRODUCTOS DESTACADOS -->
+{% if featured_products %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-graphite-700">
+    <div class="flex items-end justify-between mb-14" data-aos="fade-up">
+        <div>
+            <span class="text-accent font-semibold text-sm tracking-widest uppercase">Catálogo</span>
+            <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Productos destacados</h2>
+        </div>
+        <a href="{% url 'store:product_list' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-accent transition-colors">
+            Ver todo <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
+        </a>
+    </div>
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+        {% for product in featured_products %}
+        {% include "store/_product_card.html" with product=product delay=forloop.counter0 %}
         {% endfor %}
     </div>
 </section>
 {% endif %}
+
+<!-- PROYECTOS DESTACADOS -->
+{% if featured_projects %}
+<section class="bg-graphite-950 border-t border-graphite-700">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div class="flex items-end justify-between mb-14" data-aos="fade-up">
+            <div>
+                <span class="text-accent font-semibold text-sm tracking-widest uppercase">Portafolio</span>
+                <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Proyectos ejecutados</h2>
+            </div>
+            <a href="{% url 'cms:projects' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-accent transition-colors">
+                Ver portafolio <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
+            </a>
+        </div>
+        <div class="grid md:grid-cols-3 gap-6">
+            {% for project in featured_projects %}
+            <a href="{% url 'cms:projects' %}?categoria={{ project.category }}" class="group block rounded-xl overflow-hidden border border-graphite-700 bg-graphite-800/40" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+                <div class="aspect-[4/3] bg-graphite-700 overflow-hidden">
+                    {% if project.cover_image %}
+                        <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% endif %}
+                </div>
+                <div class="p-5">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-accent">{{ project.get_category_display }}</span>
+                    <h3 class="font-display font-semibold text-white mt-1">{{ project.title }}</h3>
+                    <p class="text-graphite-400 text-sm mt-1">{{ project.location }}{% if project.year %} · {{ project.year }}{% endif %}</p>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CERTIFICACIONES -->
+{% if certifications %}
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-graphite-700">
+    <div class="flex flex-wrap items-center gap-x-10 gap-y-6" data-aos="fade-up">
+        {% for cert in certifications %}
+        <div class="flex items-center gap-3 text-graphite-300">
+            <span class="w-6 h-6 text-accent shrink-0">{% include "partials/icons/badge.svg" %}</span>
+            <div>
+                <p class="text-sm font-semibold text-white">{{ cert.name }}</p>
+                {% if cert.description %}<p class="text-xs text-graphite-500">{{ cert.description }}</p>{% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA FINAL -->
+<section class="border-t border-graphite-700 bg-graphite-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8" data-aos="fade-up">
+        <div>
+            <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mb-2">¿Tienes un proyecto en mente?</h2>
+            <p class="text-graphite-400 max-w-lg">Cuéntanos el alcance de tu obra y te enviamos una cotización sin compromiso.</p>
+        </div>
+        <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold px-6 py-3.5 rounded-md transition-colors whitespace-nowrap">
+            Solicitar cotización
+        </a>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".counter");
+    const animate = (el) => {
+        const target = parseInt(el.dataset.target, 10) || 0;
+        const duration = 1200;
+        const start = performance.now();
+        const step = (now) => {
+            const progress = Math.min((now - start) / duration, 1);
+            el.textContent = Math.floor(progress * target).toLocaleString("es-CO");
+            if (progress < 1) requestAnimationFrame(step);
+            else el.textContent = target.toLocaleString("es-CO");
+        };
+        requestAnimationFrame(step);
+    };
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                animate(entry.target);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+    counters.forEach((counter) => observer.observe(counter));
+});
+</script>
 {% endblock %}

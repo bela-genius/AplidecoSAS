@@ -11,7 +11,8 @@ class ProductImageInline(admin.TabularInline):
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("name",)}
-    list_display = ("name", "is_active")
+    list_display = ("name", "icon", "show_as_service", "order", "is_active")
+    list_editable = ("show_as_service", "order", "is_active")
 
 
 @admin.register(Product)

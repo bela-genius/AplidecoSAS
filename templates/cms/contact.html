@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Contacto / Cotización · {{ site_settings.site_name }}{% endblock %}
+{% block content %}
+<section class="border-b border-graphite-700 bg-graphite-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+        <span class="text-accent font-semibold text-sm tracking-widest uppercase">Contacto</span>
+        <h1 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Solicita tu cotización</h1>
+        <p class="text-graphite-400 mt-3 max-w-xl">Cuéntanos qué necesitas y un asesor te contactará en menos de 24 horas hábiles.</p>
+    </div>
+</section>
+
+<section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-[1fr_320px] gap-12">
+    <form method="post" class="space-y-4" data-aos="fade-up">
+        {% csrf_token %}
+        <div>
+            <label>Nombre completo</label>
+            <input type="text" name="full_name" required placeholder="Tu nombre">
+        </div>
+        <div>
+            <label>Correo electrónico</label>
+            <input type="email" name="email" required placeholder="tu@correo.com">
+        </div>
+        <div>
+            <label>Teléfono</label>
+            <input type="tel" name="phone" placeholder="300 000 0000">
+        </div>
+        <div>
+            <label>Cuéntanos tu proyecto</label>
+            <textarea name="message" rows="5" required placeholder="Tipo de obra, m² aproximados, ciudad..."></textarea>
+        </div>
+        <button class="bg-accent hover:bg-accent-dark text-white font-semibold px-8 py-3 rounded-md transition-colors">Enviar solicitud</button>
+    </form>
+
+    <aside class="space-y-6" data-aos="fade-up" data-aos-delay="100">
+        <div class="bg-graphite-800/40 border border-graphite-700 rounded-lg p-6">
+            <h3 class="font-display font-semibold text-white mb-4">Contacto directo</h3>
+            <div class="flex items-start gap-3 mb-3">
+                <span class="w-5 h-5 text-accent shrink-0 mt-0.5">{% include "partials/icons/phone.svg" %}</span>
+                <span class="text-graphite-300 text-sm">{{ site_settings.contact_phone }}</span>
+            </div>
+            <div class="flex items-start gap-3">
+                <span class="w-5 h-5 text-accent shrink-0 mt-0.5">{% include "partials/icons/building.svg" %}</span>
+                <span class="text-graphite-300 text-sm">{{ site_settings.address }}</span>
+            </div>
+        </div>
+        {% if site_settings.whatsapp_number %}
+        <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" rel="noopener" class="flex items-center justify-center gap-2 bg-graphite-800 hover:bg-graphite-700 border border-graphite-600 text-white font-semibold px-6 py-3 rounded-md transition-colors">
+            Escríbenos por WhatsApp
+        </a>
+        {% endif %}
+    </aside>
+</section>
+{% endblock %}

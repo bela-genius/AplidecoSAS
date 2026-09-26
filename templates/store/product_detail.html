@@ -1,41 +1,64 @@
 {% extends "base.html" %}
 {% block title %}{{ product.name }} · {{ site_settings.site_name }}{% endblock %}
 {% block content %}
-<section class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-12">
-    <div class="aspect-square bg-slate-900 rounded-2xl overflow-hidden border border-slate-800" data-aos="fade-right">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid md:grid-cols-2 gap-12">
+    <div class="aspect-square bg-graphite-800 rounded-xl overflow-hidden border border-graphite-700" data-aos="fade-right">
         {% with product.images.first as img %}
             {% if img %}<img src="{{ img.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">{% endif %}
         {% endwith %}
     </div>
     <div data-aos="fade-left">
-        <h1 class="text-3xl font-extrabold mb-3">{{ product.name }}</h1>
-        <p class="text-slate-400 mb-6">{{ product.short_description }}</p>
-        {% if product.is_service %}
-            <span class="inline-block mb-3 text-xs font-semibold uppercase tracking-wide text-cyan-400 border border-cyan-500/40 rounded-full px-3 py-1">Servicio</span>
+        {% if product.category %}
+            <a href="{% url 'store:product_list' %}?categoria={{ product.category.slug }}" class="text-xs font-semibold uppercase tracking-wide text-accent hover:underline">{{ product.category.name }}</a>
         {% endif %}
-        <div class="flex items-baseline gap-3 mb-6">
+        <h1 class="font-display font-bold text-3xl text-white mt-2 mb-3">{{ product.name }}</h1>
+        {% if product.is_service %}
+            <span class="inline-block mb-4 text-xs font-semibold uppercase tracking-wide text-accent border border-accent/40 rounded-full px-3 py-1">Servicio</span>
+        {% endif %}
+        <p class="text-graphite-400 mb-6 leading-relaxed">{{ product.short_description }}</p>
+
+        <div class="flex items-baseline gap-3 mb-2">
             {% if product.price_is_estimate %}
-                <span class="text-3xl font-bold text-cyan-400">Desde ${{ product.price }}</span>
+                <span class="font-display font-bold text-3xl text-white">Desde ${{ product.price }}</span>
             {% else %}
-                <span class="text-3xl font-bold text-cyan-400">${{ product.price }}</span>
+                <span class="font-display font-bold text-3xl text-white">${{ product.price }}</span>
             {% endif %}
             {% if product.compare_at_price %}
-                <span class="line-through text-slate-500">${{ product.compare_at_price }}</span>
+                <span class="line-through text-graphite-500">${{ product.compare_at_price }}</span>
             {% endif %}
+            {% if not product.is_service %}<span class="text-graphite-500 text-sm">/ {{ product.unit }}</span>{% endif %}
         </div>
+
         {% if product.is_in_stock %}
-        <form method="post" action="{% url 'store:cart_add' product.id %}" class="flex items-center gap-3 mb-8">
+        <form method="post" action="{% url 'store:cart_add' product.id %}" class="flex items-center gap-3 my-6">
             {% csrf_token %}
-            <input type="number" name="quantity" value="1" min="1" class="w-20 bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-            <button class="brand-gradient px-6 py-3 rounded-full font-semibold hover:scale-105 transition">{{ product.cta_label }}</button>
+            <input type="number" name="quantity" value="1" min="1" class="w-20 bg-graphite-800 border border-graphite-600 rounded-md px-3 py-2.5 text-sm text-white">
+            <button class="bg-accent hover:bg-accent-dark text-white font-semibold px-6 py-3 rounded-md transition-colors">{{ product.cta_label }}</button>
         </form>
         {% if product.is_service %}
-        <p class="text-xs text-slate-500 -mt-6 mb-8">El precio final se confirma según el alcance del trabajo, luego de revisar tu solicitud.</p>
+        <p class="text-xs text-graphite-500 mb-6">El precio final se confirma según el alcance del trabajo, luego de revisar tu solicitud.</p>
         {% endif %}
         {% else %}
-        <p class="text-red-400 font-semibold mb-8">Agotado</p>
+        <p class="text-red-400 font-semibold my-6">Agotado</p>
         {% endif %}
-        <div class="prose prose-invert max-w-none">{{ product.description|linebreaks }}</div>
+
+        {% if product.specs %}
+        <div class="border-t border-graphite-700 pt-6 mb-6">
+            <h2 class="text-xs font-semibold uppercase tracking-wide text-graphite-500 mb-3">Ficha técnica</h2>
+            <dl class="divide-y divide-graphite-700 border border-graphite-700 rounded-lg overflow-hidden">
+                {% for key, value in product.specs.items %}
+                <div class="flex justify-between px-4 py-3 text-sm {% cycle 'bg-graphite-800/40' '' %}">
+                    <dt class="text-graphite-400">{{ key }}</dt>
+                    <dd class="text-white font-medium">{{ value }}</dd>
+                </div>
+                {% endfor %}
+            </dl>
+        </div>
+        {% endif %}
+
+        {% if product.description %}
+        <div class="prose prose-invert prose-sm max-w-none">{{ product.description|linebreaks }}</div>
+        {% endif %}
     </div>
 </section>
 {% endblock %}

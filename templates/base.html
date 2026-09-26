@@ -7,92 +7,117 @@
     <title>{% block title %}{{ site_settings.site_name }}{% endblock %}</title>
     <meta name="description" content="{{ site_settings.tagline }}">
     <link rel="stylesheet" href="{% static 'css/tailwind.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fonts.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/aos/aos.css' %}">
-    <style>
-        body { font-family: 'Poppins', system-ui, sans-serif; }
-        .brand-gradient { background: linear-gradient(135deg, {{ site_settings.primary_color }}, {{ site_settings.accent_color }}); }
-    </style>
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-slate-950 text-slate-100">
+<body class="bg-graphite-900 text-graphite-100 font-sans antialiased">
 
-    <header class="sticky top-0 z-40 backdrop-blur bg-slate-950/80 border-b border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
-            <a href="{% url 'cms:home' %}" class="text-xl font-extrabold tracking-tight">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-accent focus:text-white focus:px-4 focus:py-2">Saltar al contenido</a>
+
+    <header class="sticky top-0 z-40 bg-graphite-900/95 backdrop-blur border-b border-graphite-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4">
+            <a href="{% url 'cms:home' %}" class="font-display font-extrabold text-lg tracking-tight text-white">
                 {% if site_settings.logo %}
                     <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-9 inline-block">
                 {% else %}
                     {{ site_settings.site_name }}
                 {% endif %}
             </a>
-            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
-                <a href="{% url 'store:product_list' %}" class="hover:text-cyan-400 transition">Tienda</a>
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-graphite-200">
+                <a href="{% url 'store:product_list' %}" class="hover:text-white transition-colors">Catálogo</a>
+                <a href="{% url 'cms:projects' %}" class="hover:text-white transition-colors">Proyectos</a>
                 {% for page in nav_pages %}
-                    <a href="{% url 'cms:page_detail' page.slug %}" class="hover:text-cyan-400 transition">{{ page.title }}</a>
+                    <a href="{% url 'cms:page_detail' page.slug %}" class="hover:text-white transition-colors">{{ page.title }}</a>
                 {% endfor %}
             </nav>
-            <div class="flex items-center gap-4">
-                <a href="{% url 'store:cart_detail' %}" class="relative hover:text-cyan-400 transition" aria-label="Carrito">
-                    🛒
+            <div class="flex items-center gap-4 sm:gap-5">
+                <a href="{% url 'store:cart_detail' %}" class="relative text-graphite-200 hover:text-white transition-colors w-5 h-5" aria-label="Carrito">
+                    {% include "partials/icons/cart.svg" %}
                 </a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'accounts:profile' %}" class="text-sm hover:text-cyan-400">{{ user.username }}</a>
-                    <a href="{% url 'accounts:logout' %}" class="text-sm hover:text-cyan-400">Salir</a>
+                    <a href="{% url 'accounts:profile' %}" class="hidden sm:inline text-sm text-graphite-200 hover:text-white">{{ user.username }}</a>
+                    <a href="{% url 'accounts:logout' %}" class="hidden sm:inline text-sm text-graphite-200 hover:text-white">Salir</a>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="text-sm hover:text-cyan-400">Ingresar</a>
+                    <a href="{% url 'accounts:login' %}" class="hidden sm:inline text-sm text-graphite-200 hover:text-white">Ingresar</a>
                 {% endif %}
+                <a href="{% url 'cms:contact' %}" class="hidden sm:inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white text-sm font-semibold px-4 py-2.5 rounded-md transition-colors">
+                    Cotizar
+                </a>
+                <button id="mobile-menu-toggle" class="md:hidden text-graphite-200 hover:text-white w-6 h-6" aria-label="Abrir menú">
+                    {% include "partials/icons/menu.svg" %}
+                </button>
             </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden border-t border-graphite-700 px-4 py-4 space-y-3">
+            <a href="{% url 'store:product_list' %}" class="block text-sm font-medium text-graphite-200 hover:text-white">Catálogo</a>
+            <a href="{% url 'cms:projects' %}" class="block text-sm font-medium text-graphite-200 hover:text-white">Proyectos</a>
+            {% for page in nav_pages %}
+                <a href="{% url 'cms:page_detail' page.slug %}" class="block text-sm font-medium text-graphite-200 hover:text-white">{{ page.title }}</a>
+            {% endfor %}
+            <a href="{% url 'cms:contact' %}" class="block bg-accent hover:bg-accent-dark text-white text-sm font-semibold px-4 py-2.5 rounded-md text-center transition-colors">Cotizar</a>
         </div>
     </header>
 
     {% if messages %}
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 space-y-2">
         {% for message in messages %}
-            <div class="rounded-lg px-4 py-2 text-sm bg-cyan-500/10 border border-cyan-500/30 text-cyan-200">{{ message }}</div>
+            <div class="rounded-md px-4 py-3 text-sm bg-graphite-800 border border-graphite-600 text-graphite-100">{{ message }}</div>
         {% endfor %}
     </div>
     {% endif %}
 
-    <main>
+    <main id="main">
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="mt-24 border-t border-slate-800 bg-slate-900/60">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 grid gap-8 md:grid-cols-3">
-            <div>
-                <h3 class="font-bold text-lg mb-2">{{ site_settings.site_name }}</h3>
-                <p class="text-slate-400 text-sm">{{ site_settings.tagline }}</p>
+    <footer class="mt-24 border-t border-graphite-700 bg-graphite-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid gap-10 md:grid-cols-4">
+            <div class="md:col-span-2">
+                <h3 class="font-display font-bold text-lg text-white mb-3">{{ site_settings.site_name }}</h3>
+                <p class="text-graphite-400 text-sm max-w-sm leading-relaxed">{{ site_settings.tagline }}</p>
             </div>
             <div>
-                <h4 class="font-semibold mb-2">Contacto</h4>
-                <p class="text-slate-400 text-sm">{{ site_settings.contact_email }}</p>
-                <p class="text-slate-400 text-sm">{{ site_settings.contact_phone }}</p>
-                <p class="text-slate-400 text-sm">{{ site_settings.address }}</p>
+                <h4 class="font-display font-semibold text-sm text-white uppercase tracking-wide mb-3">Contacto</h4>
+                <p class="text-graphite-400 text-sm mb-1">{{ site_settings.contact_phone }}</p>
+                <p class="text-graphite-400 text-sm mb-1">{{ site_settings.contact_email }}</p>
+                <p class="text-graphite-400 text-sm">{{ site_settings.address }}</p>
             </div>
             <div>
-                <h4 class="font-semibold mb-2">Síguenos</h4>
-                <div class="flex gap-3 text-sm">
+                <h4 class="font-display font-semibold text-sm text-white uppercase tracking-wide mb-3">Síguenos</h4>
+                <div class="flex flex-col gap-2 text-sm">
                     {% for link in social_links %}
-                        <a href="{{ link.url }}" target="_blank" rel="noopener" class="hover:text-cyan-400 transition">{{ link.get_platform_display }}</a>
+                        <a href="{{ link.url }}" target="_blank" rel="noopener" class="text-graphite-400 hover:text-accent transition-colors">{{ link.get_platform_display }}</a>
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="text-center text-xs text-slate-500 pb-6">&copy; {% now "Y" %} {{ site_settings.site_name }}. Todos los derechos reservados.</div>
+        <div class="border-t border-graphite-800">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs text-graphite-500">
+                &copy; {% now "Y" %} {{ site_settings.site_name }}. Todos los derechos reservados.
+            </div>
+        </div>
     </footer>
 
-    <button id="chatbot-toggle" class="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full brand-gradient shadow-lg shadow-cyan-500/30 text-2xl flex items-center justify-center hover:scale-105 transition">💬</button>
-    <div id="chatbot-window" class="hidden fixed bottom-24 right-6 z-50 w-80 max-h-[28rem] bg-slate-900 border border-slate-700 rounded-2xl shadow-2xl flex flex-col overflow-hidden">
-        <div class="brand-gradient px-4 py-3 font-semibold">Asistente {{ site_settings.site_name }}</div>
+    <button id="chatbot-toggle" class="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-accent hover:bg-accent-dark shadow-lg shadow-black/40 text-white flex items-center justify-center transition-colors p-3.5" aria-label="Abrir asistente">
+        {% include "partials/icons/chat.svg" %}
+    </button>
+    <div id="chatbot-window" class="hidden fixed bottom-24 right-6 z-50 w-80 max-h-[28rem] bg-graphite-800 border border-graphite-600 rounded-xl shadow-2xl flex flex-col overflow-hidden">
+        <div class="bg-graphite-900 border-b border-graphite-700 px-4 py-3 font-display font-semibold text-white text-sm">Asistente {{ site_settings.site_name }}</div>
         <div id="chatbot-messages" class="flex-1 overflow-y-auto p-3 space-y-2 text-sm"></div>
-        <form id="chatbot-form" class="flex border-t border-slate-700">
-            <input id="chatbot-input" type="text" placeholder="Escribe tu pregunta..." class="flex-1 bg-slate-800 px-3 py-2 text-sm outline-none" autocomplete="off">
-            <button type="submit" class="px-4 bg-cyan-500 text-slate-950 font-semibold">Enviar</button>
+        <form id="chatbot-form" class="flex border-t border-graphite-700">
+            <input id="chatbot-input" type="text" placeholder="Escribe tu pregunta..." class="flex-1 bg-graphite-900 px-3 py-2 text-sm outline-none text-graphite-100 placeholder:text-graphite-500" autocomplete="off">
+            <button type="submit" class="px-4 bg-accent hover:bg-accent-dark text-white font-semibold text-sm transition-colors">Enviar</button>
         </form>
     </div>
 
     <script src="{% static 'vendor/aos/aos.js' %}"></script>
-    <script>AOS.init({ duration: 700, once: true });</script>
+    <script>
+        AOS.init({ duration: 600, once: true, offset: 40 });
+        document.getElementById("mobile-menu-toggle")?.addEventListener("click", () => {
+            document.getElementById("mobile-menu")?.classList.toggle("hidden");
+        });
+    </script>
     <script src="{% static 'js/chatbot.js' %}"></script>
     {% block extra_scripts %}{% endblock %}
 </body>

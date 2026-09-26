@@ -6,15 +6,33 @@ from django.utils.text import slugify
 
 
 class Category(models.Model):
+    class Icon(models.TextChoices):
+        FLOOR = "floor", "Pisos"
+        TILE = "tile", "Enchapes"
+        PAINT = "paint", "Pintura"
+        WALL = "wall", "Muros / drywall"
+        ROOF = "roof", "Cubiertas / azoteas"
+        WATERPROOF = "waterproof", "Impermeabilización"
+        TOOLS = "tools", "Herramientas"
+        REMODEL = "remodel", "Remodelación integral"
+
     name = models.CharField(max_length=100)
     slug = models.SlugField(unique=True, blank=True)
     description = models.TextField(blank=True)
+    short_pitch = models.CharField(
+        max_length=140, blank=True, help_text="Frase corta para la card de servicios en el home."
+    )
+    icon = models.CharField(max_length=20, choices=Icon.choices, default=Icon.TOOLS)
     image = models.ImageField(upload_to="categories/", blank=True, null=True)
     is_active = models.BooleanField(default=True)
+    show_as_service = models.BooleanField(
+        default=True, help_text="Mostrar esta categoría en la sección de servicios del home."
+    )
+    order = models.PositiveIntegerField(default=0)
 
     class Meta:
         verbose_name_plural = "Categories"
-        ordering = ["name"]
+        ordering = ["order", "name"]
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -55,7 +73,18 @@ class Product(models.Model):
     stock = models.PositiveIntegerField(
         default=0, help_text="Solo aplica a materiales/productos físicos."
     )
+    unit = models.CharField(
+        max_length=30,
+        blank=True,
+        default="unidad",
+        help_text="Unidad de venta: m², galón, unidad, caja, etc.",
+    )
     sku = models.CharField(max_length=64, unique=True, blank=True, null=True)
+    specs = models.JSONField(
+        default=dict,
+        blank=True,
+        help_text="Ficha técnica como pares clave-valor, ej. {'Resistencia': 'PEI 4', 'Formato': '60x60 cm'}",
+    )
     is_active = models.BooleanField(default=True)
     is_featured = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)

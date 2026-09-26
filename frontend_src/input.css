@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="tel"],
+  input[type="number"],
+  textarea,
+  select {
+    @apply w-full bg-graphite-800 border border-graphite-600 rounded-md px-4 py-3 text-white focus:outline-none focus:border-accent;
+  }
+
+  input::placeholder,
+  textarea::placeholder {
+    @apply text-graphite-500;
+  }
+
+  form p {
+    @apply mb-4;
+  }
+
+  form label {
+    @apply block text-xs font-semibold uppercase tracking-wide text-graphite-500 mb-2;
+  }
+}
