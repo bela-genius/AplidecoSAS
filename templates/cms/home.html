@@ -2,14 +2,14 @@
 
 {% block content %}
 <!-- HERO -->
-<section class="relative overflow-hidden border-b border-graphite-700">
+<section class="relative overflow-hidden border-b border-carbon-700/15">
     {% if site_settings.hero_image %}
         <div class="absolute inset-0">
             <img src="{{ site_settings.hero_image.url }}" alt="" class="w-full h-full object-cover opacity-40">
-            <div class="absolute inset-0 bg-gradient-to-t from-graphite-900 via-graphite-900/70 to-graphite-900/40"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-obra-800 via-obra-800/70 to-obra-800/40"></div>
         </div>
     {% else %}
-        <div class="absolute inset-0 bg-graphite-900">
+        <div class="absolute inset-0 bg-obra-800">
             <svg class="absolute inset-0 w-full h-full opacity-[0.07]" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
                     <pattern id="blueprint" width="48" height="48" patternUnits="userSpaceOnUse">
@@ -18,27 +18,27 @@
                 </defs>
                 <rect width="100%" height="100%" fill="url(#blueprint)"></rect>
             </svg>
-            <div class="absolute inset-0 bg-gradient-to-t from-graphite-900 via-graphite-900/30 to-transparent"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-obra-800 via-obra-800/30 to-transparent"></div>
         </div>
     {% endif %}
 
     <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-24 sm:pt-28 sm:pb-32">
-        <p class="text-accent font-semibold text-sm tracking-widest uppercase mb-5" data-aos="fade-up">
-            Acabados &amp; construcción · Medellín
+        <p class="text-oliva-300 font-semibold text-sm tracking-widest uppercase mb-5" data-aos="fade-up">
+            Aplicaciones · Decoraciones y Obras Civiles · Medellín
         </p>
-        <h1 class="font-display font-extrabold text-4xl sm:text-6xl leading-[1.05] tracking-tightest text-white max-w-3xl mb-6" data-aos="fade-up" data-aos-delay="60">
-            {{ site_settings.tagline|default:"Acabados de construcción con estándares de obra profesional." }}
+        <h1 class="font-display text-4xl sm:text-6xl leading-[1.05] tracking-tightest text-crema-100 max-w-3xl mb-6" data-aos="fade-up" data-aos-delay="60">
+            {{ site_settings.tagline|default:"Construimos con identidad." }}
         </h1>
-        <p class="text-graphite-300 text-lg max-w-xl mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="120">
+        <p class="text-crema-100/80 text-lg max-w-xl mb-10 leading-relaxed" data-aos="fade-up" data-aos-delay="120">
             {{ site_settings.site_name }} ejecuta pisos, enchapes, pinturas y remodelaciones integrales
             para proyectos residenciales, comerciales e industriales.
         </p>
         <div class="flex flex-wrap gap-4" data-aos="fade-up" data-aos-delay="180">
-            <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold px-6 py-3.5 rounded-md transition-colors">
+            <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-rojo hover:bg-rojo-700 text-crema-100 font-semibold px-6 py-3.5 rounded-md transition-colors">
                 Solicitar cotización
                 <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
             </a>
-            <a href="{% url 'store:product_list' %}" class="inline-flex items-center gap-2 bg-white/5 hover:bg-white/10 border border-graphite-600 text-white font-semibold px-6 py-3.5 rounded-md transition-colors">
+            <a href="{% url 'store:product_list' %}" class="inline-flex items-center gap-2 bg-crema-100/5 hover:bg-crema-100/10 border border-crema-100/20 text-crema-100 font-semibold px-6 py-3.5 rounded-md transition-colors">
                 Ver catálogo
             </a>
         </div>
@@ -46,13 +46,13 @@
 </section>
 
 <!-- CIFRAS DE CONFIANZA -->
-<section class="border-b border-graphite-700 bg-graphite-950">
+<section class="border-b border-carbon-700/15 bg-obra-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-2 md:grid-cols-4 gap-8">
         {% for stat in trust_stats %}
         <div class="flex flex-col items-start" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-            <div class="w-8 h-8 text-accent mb-3">{% include stat.icon %}</div>
-            <span class="counter font-display font-extrabold text-3xl sm:text-4xl text-white" data-target="{{ stat.value }}">0</span>
-            <span class="text-graphite-400 text-sm mt-1">{{ stat.label }}</span>
+            <div class="w-8 h-8 text-oliva-300 mb-3">{% include stat.icon %}</div>
+            <span class="counter font-display text-3xl sm:text-4xl text-crema-100" data-target="{{ stat.value }}">0</span>
+            <span class="text-crema-100/70 text-sm mt-1">{{ stat.label }}</span>
         </div>
         {% endfor %}
     </div>
@@ -61,35 +61,35 @@
 <!-- SERVICIOS -->
 <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
     <div class="max-w-2xl mb-14" data-aos="fade-up">
-        <span class="text-accent font-semibold text-sm tracking-widest uppercase">Servicios</span>
-        <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Qué hacemos</h2>
+        <span class="text-rojo font-semibold text-sm tracking-widest uppercase">Servicios</span>
+        <h2 class="font-display text-3xl sm:text-4xl text-carbon mt-3">Qué hacemos</h2>
     </div>
     <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {% for category in service_categories %}
         <a href="{% url 'store:product_list' %}?categoria={{ category.slug }}"
-           class="group border border-graphite-700 hover:border-accent/60 bg-graphite-800/40 rounded-xl p-6 transition-colors"
+           class="group border border-carbon-700/15 hover:border-rojo/60 bg-white rounded-xl p-6 transition-colors"
            data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-            <div class="w-10 h-10 text-accent mb-5">
+            <div class="w-10 h-10 text-rojo mb-5">
                 {% include "partials/icons/"|add:category.icon|add:".svg" %}
             </div>
-            <h3 class="font-display font-semibold text-white mb-2">{{ category.name }}</h3>
-            <p class="text-graphite-400 text-sm leading-relaxed">{{ category.short_pitch|default:category.description|truncatewords:16 }}</p>
+            <h3 class="font-display text-carbon mb-2">{{ category.name }}</h3>
+            <p class="text-carbon-500 text-sm leading-relaxed">{{ category.short_pitch|default:category.description|truncatewords:16 }}</p>
         </a>
         {% empty %}
-        <p class="text-graphite-400 col-span-full">Aún no hay categorías de servicio configuradas.</p>
+        <p class="text-carbon-500 col-span-full">Aún no hay categorías de servicio configuradas.</p>
         {% endfor %}
     </div>
 </section>
 
 <!-- PRODUCTOS DESTACADOS -->
 {% if featured_products %}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-graphite-700">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-carbon-700/15">
     <div class="flex items-end justify-between mb-14" data-aos="fade-up">
         <div>
-            <span class="text-accent font-semibold text-sm tracking-widest uppercase">Catálogo</span>
-            <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Productos destacados</h2>
+            <span class="text-rojo font-semibold text-sm tracking-widest uppercase">Catálogo</span>
+            <h2 class="font-display text-3xl sm:text-4xl text-carbon mt-3">Productos destacados</h2>
         </div>
-        <a href="{% url 'store:product_list' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-accent transition-colors">
+        <a href="{% url 'store:product_list' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-carbon hover:text-rojo transition-colors">
             Ver todo <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
         </a>
     </div>
@@ -103,29 +103,29 @@
 
 <!-- PROYECTOS DESTACADOS -->
 {% if featured_projects %}
-<section class="bg-graphite-950 border-t border-graphite-700">
+<section class="bg-obra-800 border-t border-carbon-700/15">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div class="flex items-end justify-between mb-14" data-aos="fade-up">
             <div>
-                <span class="text-accent font-semibold text-sm tracking-widest uppercase">Portafolio</span>
-                <h2 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3">Proyectos ejecutados</h2>
+                <span class="text-oliva-300 font-semibold text-sm tracking-widest uppercase">Portafolio</span>
+                <h2 class="font-display text-3xl sm:text-4xl text-crema-100 mt-3">Proyectos ejecutados</h2>
             </div>
-            <a href="{% url 'cms:projects' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-white hover:text-accent transition-colors">
+            <a href="{% url 'cms:projects' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-crema-100 hover:text-oliva-300 transition-colors">
                 Ver portafolio <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
             </a>
         </div>
         <div class="grid md:grid-cols-3 gap-6">
             {% for project in featured_projects %}
-            <a href="{% url 'cms:projects' %}?categoria={{ project.category }}" class="group block rounded-xl overflow-hidden border border-graphite-700 bg-graphite-800/40" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-                <div class="aspect-[4/3] bg-graphite-700 overflow-hidden">
+            <a href="{% url 'cms:projects' %}?categoria={{ project.category }}" class="group block rounded-xl overflow-hidden border border-carbon-700/15 bg-white" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+                <div class="aspect-[4/3] bg-crema-200 overflow-hidden">
                     {% if project.cover_image %}
                         <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                     {% endif %}
                 </div>
                 <div class="p-5">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-accent">{{ project.get_category_display }}</span>
-                    <h3 class="font-display font-semibold text-white mt-1">{{ project.title }}</h3>
-                    <p class="text-graphite-400 text-sm mt-1">{{ project.location }}{% if project.year %} · {{ project.year }}{% endif %}</p>
+                    <span class="text-xs font-semibold uppercase tracking-wide text-rojo">{{ project.get_category_display }}</span>
+                    <h3 class="font-display text-carbon mt-1">{{ project.title }}</h3>
+                    <p class="text-carbon-500 text-sm mt-1">{{ project.location }}{% if project.year %} · {{ project.year }}{% endif %}</p>
                 </div>
             </a>
             {% endfor %}
@@ -136,14 +136,14 @@
 
 <!-- CERTIFICACIONES -->
 {% if certifications %}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-graphite-700">
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-carbon-700/15">
     <div class="flex flex-wrap items-center gap-x-10 gap-y-6" data-aos="fade-up">
         {% for cert in certifications %}
-        <div class="flex items-center gap-3 text-graphite-300">
-            <span class="w-6 h-6 text-accent shrink-0">{% include "partials/icons/badge.svg" %}</span>
+        <div class="flex items-center gap-3 text-carbon-700">
+            <span class="w-6 h-6 text-rojo shrink-0">{% include "partials/icons/badge.svg" %}</span>
             <div>
-                <p class="text-sm font-semibold text-white">{{ cert.name }}</p>
-                {% if cert.description %}<p class="text-xs text-graphite-500">{{ cert.description }}</p>{% endif %}
+                <p class="text-sm font-semibold text-carbon">{{ cert.name }}</p>
+                {% if cert.description %}<p class="text-xs text-carbon-500">{{ cert.description }}</p>{% endif %}
             </div>
         </div>
         {% endfor %}
@@ -152,13 +152,13 @@
 {% endif %}
 
 <!-- CTA FINAL -->
-<section class="border-t border-graphite-700 bg-graphite-950">
+<section class="border-t border-carbon-700/15 bg-obra-800">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8" data-aos="fade-up">
         <div>
-            <h2 class="font-display font-bold text-2xl sm:text-3xl text-white mb-2">¿Tienes un proyecto en mente?</h2>
-            <p class="text-graphite-400 max-w-lg">Cuéntanos el alcance de tu obra y te enviamos una cotización sin compromiso.</p>
+            <h2 class="font-display text-2xl sm:text-3xl text-crema-100 mb-2">¿Tienes un proyecto en mente?</h2>
+            <p class="text-crema-100/70 max-w-lg">Cuéntanos el alcance de tu obra y te enviamos una cotización sin compromiso.</p>
         </div>
-        <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-accent hover:bg-accent-dark text-white font-semibold px-6 py-3.5 rounded-md transition-colors whitespace-nowrap">
+        <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-rojo hover:bg-rojo-700 text-crema-100 font-semibold px-6 py-3.5 rounded-md transition-colors whitespace-nowrap">
             Solicitar cotización
         </a>
     </div>

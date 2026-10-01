@@ -1,20 +1,20 @@
 {% load static %}
 <a href="{% url 'store:product_detail' product.slug %}"
-   class="group border border-graphite-700 hover:border-accent/60 bg-graphite-800/40 rounded-xl overflow-hidden transition-colors"
+   class="group border border-carbon-700/15 hover:border-rojo/60 bg-white rounded-xl overflow-hidden transition-colors"
    data-aos="fade-up" data-aos-delay="{{ delay|default:0 }}00">
-    <div class="aspect-square bg-graphite-700 overflow-hidden relative">
+    <div class="aspect-square bg-crema-200 overflow-hidden relative">
         {% with product.images.first as img %}
             {% if img %}
                 <img src="{{ img.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
             {% endif %}
         {% endwith %}
         {% if product.is_service %}
-            <span class="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wide bg-graphite-900/90 text-accent px-2 py-1 rounded">Servicio</span>
+            <span class="absolute top-3 left-3 text-[10px] font-semibold uppercase tracking-wide bg-obra-800/90 text-crema-100 px-2 py-1 rounded">Servicio</span>
         {% endif %}
     </div>
     <div class="p-4">
-        <h3 class="font-display font-semibold text-sm text-white truncate">{{ product.name }}</h3>
-        {% if product.category %}<p class="text-xs text-graphite-500 mt-0.5">{{ product.category.name }}</p>{% endif %}
-        <p class="text-accent font-semibold mt-2">{% if product.price_is_estimate %}Desde {% endif %}${{ product.price }}{% if not product.is_service %}<span class="text-graphite-500 font-normal text-xs"> / {{ product.unit }}</span>{% endif %}</p>
+        <h3 class="font-display text-sm text-carbon truncate">{{ product.name }}</h3>
+        {% if product.category %}<p class="text-xs text-carbon-500 mt-0.5">{{ product.category.name }}</p>{% endif %}
+        <p class="text-rojo font-semibold mt-2">{% if product.price_is_estimate %}Desde {% endif %}${{ product.price }}{% if not product.is_service %}<span class="text-carbon-500 font-normal text-xs"> / {{ product.unit }}</span>{% endif %}</p>
     </div>
 </a>

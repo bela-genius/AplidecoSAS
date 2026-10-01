@@ -17,12 +17,13 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         settings_obj = SiteSettings.load()
         settings_obj.site_name = "Aplideco S.A.S."
-        settings_obj.tagline = "Acabados y remodelaciones de edificaciones en Medellín"
+        settings_obj.tagline = "Construimos con identidad."
         settings_obj.contact_phone = "310 392 9839"
         settings_obj.whatsapp_number = "573103929839"
         settings_obj.address = "Calle 49 Cr 65 A 29, Medellín, Antioquia"
-        settings_obj.primary_color = "#1A1A1A"
-        settings_obj.accent_color = "#FF5A1F"
+        # Paleta institucional — Manual de Identidad Corporativa APLIDECO S.A.S.
+        settings_obj.primary_color = "#185100"  # Verde Obra
+        settings_obj.accent_color = "#C90003"  # Rojo Aplideco
         settings_obj.years_experience = 12
         settings_obj.projects_completed = 180
         settings_obj.sqm_built = 45000
@@ -44,16 +45,22 @@ class Command(BaseCommand):
             slug="quienes-somos",
             defaults={
                 "title": "Quiénes somos",
-                "subtitle": "Especialistas en acabados y terminación de edificaciones",
+                "subtitle": "Aplicaciones · Decoraciones y Obras Civiles",
                 "body": (
-                    "Aplideco S.A.S. es una empresa de Medellín dedicada a la terminación y "
-                    "acabado de edificaciones y obras de ingeniería civil: pisos, enchapes, "
-                    "revestimientos y remodelaciones integrales.\n\n"
+                    "APLIDECO S.A.S. es una empresa colombiana que aplica acabados, decora "
+                    "espacios y ejecuta obras civiles, con la seguridad y la calidad como "
+                    "base de cada proyecto.\n\n"
+                    "Aplicaciones: pintura, estucos, impermeabilizaciones y recubrimientos "
+                    "en interiores y fachadas.\n"
+                    "Decoraciones: acabados y detalles que transforman espacios "
+                    "residenciales y comerciales.\n"
+                    "Obras civiles: construcción, adecuación y mantenimiento de "
+                    "infraestructura.\n\n"
+                    "Nuestros valores: Seguridad, Calidad, Cumplimiento, Responsabilidad y "
+                    "Trabajo en equipo.\n\n"
                     "Sostenibilidad (ejemplo): priorizamos materiales de bajo impacto y "
                     "procesos que reducen el desperdicio de obra. Reemplazar con la política "
-                    "real de sostenibilidad de la empresa.\n\n"
-                    "Este contenido es un punto de partida — actualízalo con la historia, "
-                    "misión y diferenciales reales de la empresa."
+                    "real de sostenibilidad de la empresa."
                 ),
                 "nav_order": 1,
             },

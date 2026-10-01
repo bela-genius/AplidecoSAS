@@ -3,6 +3,15 @@
 @tailwind utilities;
 
 @layer base {
+  h1, h2, h3, h4 {
+    @apply font-display uppercase tracking-tightest;
+  }
+
+  .font-display {
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+  }
+
   input[type="text"],
   input[type="email"],
   input[type="password"],
@@ -10,12 +19,12 @@
   input[type="number"],
   textarea,
   select {
-    @apply w-full bg-graphite-800 border border-graphite-600 rounded-md px-4 py-3 text-white focus:outline-none focus:border-accent;
+    @apply w-full bg-white border border-carbon-700/20 rounded-md px-4 py-3 text-carbon focus:outline-none focus:border-rojo;
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-graphite-500;
+    @apply text-carbon-500;
   }
 
   form p {
@@ -23,6 +32,6 @@
   }
 
   form label {
-    @apply block text-xs font-semibold uppercase tracking-wide text-graphite-500 mb-2;
+    @apply block text-xs font-semibold uppercase tracking-wide text-carbon-500 mb-2;
   }
 }

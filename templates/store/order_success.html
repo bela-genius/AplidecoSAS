@@ -2,9 +2,9 @@
 {% block title %}Pedido confirmado · {{ site_settings.site_name }}{% endblock %}
 {% block content %}
 <section class="max-w-xl mx-auto px-4 sm:px-6 lg:px-8 py-24 text-center" data-aos="zoom-in">
-    <div class="w-14 h-14 mx-auto mb-6 text-accent">{% include "partials/icons/check.svg" %}</div>
-    <h1 class="font-display font-bold text-3xl text-white mb-4">¡Gracias por tu pedido, {{ order.full_name }}!</h1>
-    <p class="text-graphite-400 mb-8">Tu pedido #{{ order.id }} por ${{ order.total }} fue registrado correctamente. Te contactaremos pronto para confirmar el pago y el envío.</p>
-    <a href="{% url 'store:product_list' %}" class="bg-accent hover:bg-accent-dark text-white font-semibold px-8 py-3 rounded-md transition-colors inline-block">Seguir comprando</a>
+    <div class="w-14 h-14 mx-auto mb-6 text-rojo">{% include "partials/icons/check.svg" %}</div>
+    <h1 class="font-display text-3xl text-carbon mb-4">¡Gracias por tu pedido, {{ order.full_name }}!</h1>
+    <p class="text-carbon-500 mb-8">Tu pedido #{{ order.id }} por ${{ order.total }} fue registrado correctamente. Te contactaremos pronto para confirmar el pago y el envío.</p>
+    <a href="{% url 'store:product_list' %}" class="bg-rojo hover:bg-rojo-700 text-white font-semibold px-8 py-3 rounded-md transition-colors inline-block">Seguir comprando</a>
 </section>
 {% endblock %}

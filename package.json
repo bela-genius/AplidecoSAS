@@ -24,7 +24,7 @@
     "tailwindcss": "^3.4.19"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.3.0",
-    "@fontsource/manrope": "^5.3.0"
+    "@fontsource/bebas-neue": "^5.3.0",
+    "@fontsource/jost": "^5.3.0"
   }
 }

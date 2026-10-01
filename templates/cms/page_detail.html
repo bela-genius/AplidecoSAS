@@ -1,32 +1,32 @@
 {% extends "base.html" %}
 {% block title %}{{ page.title }} · {{ site_settings.site_name }}{% endblock %}
 {% block content %}
-<section class="border-b border-graphite-700 bg-graphite-950">
+<section class="border-b border-carbon-700/15 bg-obra-800">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16" data-aos="fade-up">
         {% if page.hero_image %}
-            <img src="{{ page.hero_image.url }}" alt="{{ page.title }}" class="w-full rounded-xl mb-8 border border-graphite-700">
+            <img src="{{ page.hero_image.url }}" alt="{{ page.title }}" class="w-full rounded-xl mb-8 border border-carbon-700/15">
         {% endif %}
-        <span class="text-accent font-semibold text-sm tracking-widest uppercase">Institucional</span>
-        <h1 class="font-display font-bold text-3xl sm:text-4xl text-white mt-3 mb-2">{{ page.title }}</h1>
-        {% if page.subtitle %}<p class="text-graphite-400">{{ page.subtitle }}</p>{% endif %}
+        <span class="text-oliva-300 font-semibold text-sm tracking-widest uppercase">Institucional</span>
+        <h1 class="font-display text-3xl sm:text-4xl text-crema-100 mt-3 mb-2">{{ page.title }}</h1>
+        {% if page.subtitle %}<p class="text-crema-100/70">{{ page.subtitle }}</p>{% endif %}
     </div>
 </section>
 
 <section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-    <div class="prose prose-invert max-w-none" data-aos="fade-up">{{ page.body|linebreaks }}</div>
+    <div class="prose max-w-none" data-aos="fade-up">{{ page.body|linebreaks }}</div>
 </section>
 
 {% if certifications %}
-<section class="border-t border-graphite-700 bg-graphite-950">
+<section class="border-t border-carbon-700/15 bg-crema-200">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <h2 class="font-display font-bold text-2xl text-white mb-8" data-aos="fade-up">Certificaciones y alianzas</h2>
+        <h2 class="font-display text-2xl text-carbon mb-8" data-aos="fade-up">Certificaciones y alianzas</h2>
         <div class="grid sm:grid-cols-2 gap-4">
             {% for cert in certifications %}
-            <div class="flex items-start gap-3 bg-graphite-800/40 border border-graphite-700 rounded-lg p-5" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-                <span class="w-6 h-6 text-accent shrink-0 mt-0.5">{% include "partials/icons/badge.svg" %}</span>
+            <div class="flex items-start gap-3 bg-white border border-carbon-700/15 rounded-lg p-5" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+                <span class="w-6 h-6 text-rojo shrink-0 mt-0.5">{% include "partials/icons/badge.svg" %}</span>
                 <div>
-                    <p class="font-semibold text-white">{{ cert.name }}</p>
-                    {% if cert.description %}<p class="text-sm text-graphite-400 mt-1">{{ cert.description }}</p>{% endif %}
+                    <p class="font-semibold text-carbon">{{ cert.name }}</p>
+                    {% if cert.description %}<p class="text-sm text-carbon-500 mt-1">{{ cert.description }}</p>{% endif %}
                 </div>
             </div>
             {% endfor %}
