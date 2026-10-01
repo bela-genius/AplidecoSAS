@@ -10,6 +10,7 @@ def home(request):
     featured_products = Product.objects.filter(is_active=True, is_featured=True)[:4]
     service_categories = Category.objects.filter(is_active=True, show_as_service=True)
     featured_projects = Project.objects.filter(is_published=True, is_featured=True)[:3]
+    slider_projects = Project.objects.filter(is_published=True)[:7]
     certifications = Certification.objects.all()
     settings_obj = SiteSettings.load()
     trust_stats = [
@@ -38,6 +39,7 @@ def home(request):
         "featured_products": featured_products,
         "service_categories": service_categories,
         "featured_projects": featured_projects,
+        "slider_projects": slider_projects,
         "certifications": certifications,
         "trust_stats": trust_stats,
     }
