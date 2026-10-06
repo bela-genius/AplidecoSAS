@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 {% block title %}Ingresar · {{ site_settings.site_name }}{% endblock %}
 {% block content %}
-<section class="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-24" data-aos="fade-up">
-    <h1 class="font-display text-3xl text-carbon mb-10 text-center">Ingresar</h1>
+<section class="px-6 sm:px-10 py-24 max-w-md mx-auto" data-aos="fade-up">
+    <h1 class="font-display text-detonate text-bone text-5xl mb-10 text-center">Ingresar</h1>
     <form method="post" class="space-y-4">
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="w-full bg-rojo hover:bg-rojo-700 text-white font-semibold px-8 py-3 rounded-md transition-colors">Entrar</button>
+        <button class="pill pill-active w-full justify-center">Entrar</button>
     </form>
-    <p class="text-center text-carbon-500 mt-6">¿No tienes cuenta? <a href="{% url 'accounts:register' %}" class="text-rojo hover:underline">Regístrate</a></p>
+    <p class="text-center text-ash mt-6">¿No tienes cuenta? <a href="{% url 'accounts:register' %}" class="text-alarm hover:underline">Regístrate</a></p>
 </section>
 {% endblock %}

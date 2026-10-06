@@ -1,183 +1,78 @@
 {% extends "base.html" %}
 
 {% block content %}
-<!-- HERO INMERSIVO -->
-<section id="inicio" class="relative bg-obra-800 overflow-visible">
+<!-- WORDMARK -->
+<section class="px-6 sm:px-10 pt-6 pb-10">
+    <h1 class="font-display text-detonate text-bone text-[16vw] sm:text-[14vw] lg:text-[9vw] tracking-display-lg" data-aos="fade-up">
+        {{ site_settings.site_name|default:"Aplideco" }}
+    </h1>
+    <p class="text-ash text-sm sm:text-[19px] font-bold uppercase tracking-wide mt-6 max-w-xl" data-aos="fade-up" data-aos-delay="80">
+        Una empresa de aplicaciones, decoraciones y obras civiles en Medellín.
+    </p>
+</section>
 
-    <a href="{% url 'cms:contact' %}" class="hidden md:inline-flex absolute top-6 right-10 z-10 items-center gap-1 text-xs font-semibold uppercase tracking-wide text-crema-100 border-b border-rojo pb-0.5 hover:text-oliva-300 hover:border-oliva-300 transition-colors">
-        Cotizar &#8594;
-    </a>
-
-    <div class="flex flex-col lg:flex-row min-h-[620px] lg:min-h-[700px]">
-
-        <!-- NAV VERTICAL (stepper) -->
-        <div class="hidden lg:flex w-24 flex-shrink-0 border-r border-crema-100/10 pt-16 pl-7">
-            <div class="relative pl-5">
-                <div class="absolute left-[3px] top-1.5 bottom-1.5 w-px bg-gradient-to-b from-rojo/70 to-crema-100/10"></div>
-                <div class="flex flex-col gap-6">
-                    <a href="#inicio" class="group relative flex items-baseline gap-2">
-                        <span class="absolute -left-5 top-1 w-2 h-2 rounded-full bg-crema-100/30 group-hover:bg-oliva-300 transition-colors"></span>
-                        <span class="text-[9px] font-bold text-crema-100/30 tracking-wide">01</span>
-                        <span class="text-sm text-crema-100/60 group-hover:text-crema-100 transition-colors">Inicio</span>
-                    </a>
-                    <a href="#servicios" class="group relative flex items-baseline gap-2">
-                        <span class="absolute -left-[22px] top-0 w-3.5 h-3.5 rounded-full bg-rojo shadow-[0_0_0_3px_rgba(201,0,3,0.25)]"></span>
-                        <span class="text-[9px] font-bold text-rojo tracking-wide">02</span>
-                        <span class="font-display text-sm text-crema-100">Servicios</span>
-                    </a>
-                    <a href="#catalogo" class="group relative flex items-baseline gap-2">
-                        <span class="absolute -left-5 top-1 w-2 h-2 rounded-full bg-crema-100/30 group-hover:bg-oliva-300 transition-colors"></span>
-                        <span class="text-[9px] font-bold text-crema-100/30 tracking-wide">03</span>
-                        <span class="text-sm text-crema-100/60 group-hover:text-crema-100 transition-colors">Catálogo</span>
-                    </a>
-                    <a href="#proyectos" class="group relative flex items-baseline gap-2">
-                        <span class="absolute -left-5 top-1 w-2 h-2 rounded-full bg-crema-100/30 group-hover:bg-oliva-300 transition-colors"></span>
-                        <span class="text-[9px] font-bold text-crema-100/30 tracking-wide">04</span>
-                        <span class="text-sm text-crema-100/60 group-hover:text-crema-100 transition-colors">Proyectos</span>
-                    </a>
-                    <a href="{% url 'cms:contact' %}" class="group relative flex items-baseline gap-2">
-                        <span class="absolute -left-5 top-1 w-2 h-2 rounded-full bg-crema-100/30 group-hover:bg-oliva-300 transition-colors"></span>
-                        <span class="text-[9px] font-bold text-crema-100/30 tracking-wide">05</span>
-                        <span class="text-sm text-crema-100/60 group-hover:text-crema-100 transition-colors">Contacto</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-
-        <!-- SLIDER DE PROYECTOS -->
-        <div class="relative w-full lg:w-[420px] flex-shrink-0 min-h-[320px] lg:min-h-0" data-hero-slider style="perspective: 1400px;">
-            <div class="absolute inset-0 bg-carbon-700/20">
-                {% for project in slider_projects %}
-                <div data-slide class="{% if forloop.first %}is-active{% endif %} absolute inset-0 items-center justify-center bg-obra-700/40">
-                    {% if project.cover_image %}
-                        <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
-                    {% else %}
-                        <span class="text-crema-100/50 text-xs text-center px-6">[ Foto de {{ project.title }} — reemplazar ]</span>
-                    {% endif %}
-                </div>
-                {% empty %}
-                <div data-slide class="is-active absolute inset-0 items-center justify-center bg-obra-700/40">
-                    <span class="text-crema-100/50 text-xs text-center px-6">[ Fotos de proyectos — reemplazar ]</span>
-                </div>
-                {% endfor %}
-            </div>
-            <span class="absolute top-5 left-5 z-10 inline-block transform -rotate-3 bg-rojo text-crema-100 text-[11px] font-bold uppercase tracking-wide px-3.5 py-1.5 rounded-full">
-                Portafolio
-            </span>
-            <span data-slide-counter class="absolute bottom-5 left-5 z-10 font-semibold text-xs text-crema-100">01 / 01</span>
-        </div>
-
-        <!-- PANEL DE TEXTO -->
-        <div class="relative flex-grow px-6 sm:px-10 lg:px-14 pt-12 lg:pt-16 pb-10 flex flex-col">
-            <span class="inline-block w-fit transform -rotate-2 bg-rojo text-crema-100 text-[11px] font-bold uppercase tracking-wide px-3.5 py-1.5 rounded-full mb-6" data-aos="fade-up">
-                Aplicaciones · Decoraciones y Obras Civiles
-            </span>
-            <h1 class="font-display text-4xl sm:text-5xl leading-[1.1] text-crema-100 max-w-xl mb-5" data-aos="fade-up" data-aos-delay="60">
-                {{ site_settings.tagline|default:"Construimos con identidad." }}
-            </h1>
-            <p class="text-crema-100/70 text-base max-w-sm leading-relaxed mb-8" data-aos="fade-up" data-aos-delay="120">
-                {{ site_settings.site_name }} ejecuta pisos, enchapes, pinturas y remodelaciones integrales
-                para proyectos residenciales, comerciales e industriales.
-            </p>
-
-            <div class="flex flex-wrap gap-4 mb-10" data-aos="fade-up" data-aos-delay="180">
-                <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-rojo hover:bg-rojo-700 text-crema-100 font-semibold px-6 py-3 rounded-md transition-colors">
-                    Solicitar cotización
-                    <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
-                </a>
-                <a href="#catalogo" class="inline-flex items-center gap-2 bg-crema-100/5 hover:bg-crema-100/10 border border-crema-100/20 text-crema-100 font-semibold px-6 py-3 rounded-md transition-colors">
-                    Ver catálogo
-                </a>
-            </div>
-
-            <div class="flex items-center gap-6 mt-auto">
-                <button data-slide-prev aria-label="Proyecto anterior" class="text-crema-100/70 hover:text-crema-100 text-[11px] font-bold uppercase tracking-[0.2em] border-t border-b border-crema-100/30 px-4 py-2.5 transition-colors">
-                    &#171; Prev
-                </button>
-                <button data-slide-next aria-label="Siguiente proyecto" class="text-crema-100/70 hover:text-crema-100 text-[11px] font-bold uppercase tracking-[0.2em] border-t border-b border-crema-100/30 px-4 py-2.5 transition-colors">
-                    Next &#187;
-                </button>
-            </div>
-
-            <!-- foto secundaria -->
-            <div class="hidden sm:flex absolute top-8 right-8 lg:right-14 w-40 h-52 bg-obra-700/40 border border-crema-100/10 rounded shadow-2xl shadow-carbon/40 transform rotate-2 items-center justify-center text-center p-3">
-                {% if site_settings.hero_image %}
-                    <img src="{{ site_settings.hero_image.url }}" alt="" class="w-full h-full object-cover rounded-sm">
-                {% else %}
-                    <span class="text-crema-100/40 text-[11px]">[ Foto destacada — reemplazar ]</span>
-                {% endif %}
-            </div>
-
-            <!-- botón play -->
-            <button aria-label="Ver historia en video" class="hidden lg:flex absolute -left-9 bottom-14 w-20 h-20 rounded-full bg-rojo hover:bg-rojo-700 border-4 border-obra-800 shadow-[0_0_0_2px_rgba(249,250,245,0.3)] text-crema-100 items-center justify-center text-lg transition-colors">
-                &#9654;
-            </button>
-        </div>
-    </div>
-
-    <!-- CINTA DIAGONAL -->
-    <div class="relative h-16 lg:h-20 overflow-hidden">
-        <div class="absolute left-[-6%] w-[112%] top-1/2 -translate-y-1/2 -rotate-2 bg-rojo py-3.5">
-            <span class="block whitespace-nowrap text-center text-crema-100 font-bold text-sm tracking-wide uppercase">
-                {{ site_settings.site_name }} &#9733; {{ site_settings.tagline|default:"Construimos con identidad." }} &#9733;
-                {{ site_settings.site_name }} &#9733; {{ site_settings.tagline|default:"Construimos con identidad." }} &#9733;
-            </span>
+<!-- BLOQUE DE DETONACIÓN ROJA -->
+<section class="bg-alarm" data-aos="fade-up">
+    <div class="px-6 sm:px-10 py-14 sm:py-20">
+        <p class="text-obsidian text-xs sm:text-sm font-bold uppercase tracking-[0.2em] mb-4">
+            Aplicaciones &middot; Decoraciones &middot; Obras Civiles
+        </p>
+        <h2 class="font-display text-detonate text-obsidian text-[13vw] sm:text-[10vw] lg:text-[6.5vw] tracking-display-lg">
+            {{ site_settings.tagline|default:"Construimos con identidad." }}
+        </h2>
+        <div class="mt-10">
+            <a href="{% url 'cms:contact' %}" class="pill bg-obsidian text-bone border-obsidian text-base px-7 py-2.5">
+                Solicitar cotización
+            </a>
         </div>
     </div>
 </section>
 
-<!-- CIFRAS DE CONFIANZA -->
-<section class="border-b border-carbon-700/15 bg-obra-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 grid grid-cols-2 md:grid-cols-4 gap-8">
+<!-- CIFRAS -->
+<section class="border-b border-bone/10">
+    <div class="px-6 sm:px-10 py-14 grid grid-cols-2 md:grid-cols-4">
         {% for stat in trust_stats %}
-        <div class="flex flex-col items-start" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-            <div class="w-8 h-8 text-oliva-300 mb-3">{% include stat.icon %}</div>
-            <span class="counter font-display text-3xl sm:text-4xl text-crema-100" data-target="{{ stat.value }}">0</span>
-            <span class="text-crema-100/70 text-sm mt-1">{{ stat.label }}</span>
+        <div class="flex flex-col items-start border-t border-bone/10 pt-6" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+            <div class="w-6 h-6 text-ash mb-4">{% include stat.icon %}</div>
+            <span class="counter font-display text-detonate text-5xl sm:text-6xl text-bone" data-target="{{ stat.value }}">0</span>
+            <span class="text-ash text-xs font-bold uppercase tracking-wide mt-2">{{ stat.label }}</span>
         </div>
         {% endfor %}
     </div>
 </section>
 
 <!-- SERVICIOS -->
-<section id="servicios" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 scroll-mt-20">
-    <div class="max-w-2xl mb-14" data-aos="fade-up">
-        <span class="text-rojo font-semibold text-sm tracking-widest uppercase">Servicios</span>
-        <h2 class="font-display text-3xl sm:text-4xl text-carbon mt-3">Qué hacemos</h2>
+<section id="servicios" class="px-6 sm:px-10 py-20 border-b border-bone/10">
+    <div class="flex items-end justify-between mb-14 flex-wrap gap-4" data-aos="fade-up">
+        <h2 class="font-display text-detonate text-bone text-[9vw] sm:text-5xl">Qué hacemos</h2>
+        <span class="text-ash text-xs font-bold uppercase tracking-wide">01 &mdash; 0{{ service_categories.count }}</span>
     </div>
-    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4">
         {% for category in service_categories %}
         <a href="{% url 'store:product_list' %}?categoria={{ category.slug }}"
-           class="group relative border border-carbon-700/15 hover:border-rojo/60 bg-white rounded-xl p-6 pt-8 transition-colors"
+           class="group border-t border-l border-bone/10 lg:border-l-0 lg:first:border-l p-8 hover:bg-bone hover:text-obsidian transition-colors"
            data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-            <span class="absolute -top-3 left-6 transform {% cycle '-rotate-3' 'rotate-2' '-rotate-2' 'rotate-3' %} bg-rojo text-crema-100 text-[10px] font-bold px-2.5 py-1 rounded-full">
-                0{{ forloop.counter }}
-            </span>
-            <div class="w-10 h-10 text-rojo mb-5">
+            <span class="text-xs font-bold text-ash group-hover:text-obsidian/60 block mb-6">0{{ forloop.counter }}</span>
+            <div class="w-9 h-9 text-bone group-hover:text-obsidian mb-6">
                 {% include "partials/icons/"|add:category.icon|add:".svg" %}
             </div>
-            <h3 class="font-display text-carbon mb-2">{{ category.name }}</h3>
-            <p class="text-carbon-500 text-sm leading-relaxed">{{ category.short_pitch|default:category.description|truncatewords:16 }}</p>
+            <h3 class="font-display text-detonate text-2xl mb-2">{{ category.name }}</h3>
+            <p class="text-ash group-hover:text-obsidian/70 text-sm leading-relaxed">{{ category.short_pitch|default:category.description|truncatewords:16 }}</p>
         </a>
         {% empty %}
-        <p class="text-carbon-500 col-span-full">Aún no hay categorías de servicio configuradas.</p>
+        <p class="text-ash col-span-full">Aún no hay categorías de servicio configuradas.</p>
         {% endfor %}
     </div>
 </section>
 
-<!-- PRODUCTOS DESTACADOS -->
+<!-- CATÁLOGO DESTACADO -->
 {% if featured_products %}
-<section id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 border-t border-carbon-700/15 scroll-mt-20">
-    <div class="flex items-end justify-between mb-14" data-aos="fade-up">
-        <div>
-            <span class="text-rojo font-semibold text-sm tracking-widest uppercase">Catálogo</span>
-            <h2 class="font-display text-3xl sm:text-4xl text-carbon mt-3">Productos destacados</h2>
-        </div>
-        <a href="{% url 'store:product_list' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-carbon hover:text-rojo transition-colors">
-            Ver todo <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
-        </a>
+<section id="catalogo" class="px-6 sm:px-10 py-20 border-b border-bone/10">
+    <div class="flex items-end justify-between mb-14 flex-wrap gap-4" data-aos="fade-up">
+        <h2 class="font-display text-detonate text-bone text-[9vw] sm:text-5xl">Catálogo</h2>
+        <a href="{% url 'store:product_list' %}" class="pill">Ver todo</a>
     </div>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+    <div class="grid grid-cols-2 lg:grid-cols-4">
         {% for product in featured_products %}
         {% include "store/_product_card.html" with product=product delay=forloop.counter0 %}
         {% endfor %}
@@ -185,49 +80,44 @@
 </section>
 {% endif %}
 
-<!-- PROYECTOS DESTACADOS -->
+<!-- PROYECTOS -->
 {% if featured_projects %}
-<section id="proyectos" class="bg-obra-800 border-t border-carbon-700/15 scroll-mt-20">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
-        <div class="flex items-end justify-between mb-14" data-aos="fade-up">
-            <div>
-                <span class="text-oliva-300 font-semibold text-sm tracking-widest uppercase">Portafolio</span>
-                <h2 class="font-display text-3xl sm:text-4xl text-crema-100 mt-3">Proyectos ejecutados</h2>
+<section id="proyectos" class="px-6 sm:px-10 py-20 border-b border-bone/10">
+    <div class="flex items-end justify-between mb-14 flex-wrap gap-4" data-aos="fade-up">
+        <h2 class="font-display text-detonate text-bone text-[9vw] sm:text-5xl">Proyectos</h2>
+        <a href="{% url 'cms:projects' %}" class="pill">Ver portafolio</a>
+    </div>
+    <div class="grid md:grid-cols-3 gap-px bg-bone/10">
+        {% for project in featured_projects %}
+        <a href="{% url 'cms:projects' %}?categoria={{ project.category }}" class="group block bg-obsidian" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+            <div class="aspect-[4/3] bg-bone/5 overflow-hidden">
+                {% if project.cover_image %}
+                    <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500">
+                {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-ash text-xs px-6 text-center">[ Foto de {{ project.title }} — reemplazar ]</div>
+                {% endif %}
             </div>
-            <a href="{% url 'cms:projects' %}" class="hidden sm:inline-flex items-center gap-2 text-sm font-semibold text-crema-100 hover:text-oliva-300 transition-colors">
-                Ver portafolio <span class="w-4 h-4">{% include "partials/icons/arrow-right.svg" %}</span>
-            </a>
-        </div>
-        <div class="grid md:grid-cols-3 gap-6">
-            {% for project in featured_projects %}
-            <a href="{% url 'cms:projects' %}?categoria={{ project.category }}" class="group block rounded-xl overflow-hidden border border-carbon-700/15 bg-white" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
-                <div class="aspect-[4/3] bg-crema-200 overflow-hidden">
-                    {% if project.cover_image %}
-                        <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                    {% endif %}
-                </div>
-                <div class="p-5">
-                    <span class="text-xs font-semibold uppercase tracking-wide text-rojo">{{ project.get_category_display }}</span>
-                    <h3 class="font-display text-carbon mt-1">{{ project.title }}</h3>
-                    <p class="text-carbon-500 text-sm mt-1">{{ project.location }}{% if project.year %} · {{ project.year }}{% endif %}</p>
-                </div>
-            </a>
-            {% endfor %}
-        </div>
+            <div class="p-6">
+                <span class="text-xs font-bold uppercase tracking-wide text-alarm">{{ project.get_category_display }}</span>
+                <h3 class="font-display text-detonate text-xl text-bone mt-1">{{ project.title }}</h3>
+                <p class="text-ash text-sm mt-1">{{ project.location }}{% if project.year %} &middot; {{ project.year }}{% endif %}</p>
+            </div>
+        </a>
+        {% endfor %}
     </div>
 </section>
 {% endif %}
 
 <!-- CERTIFICACIONES -->
 {% if certifications %}
-<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-carbon-700/15">
-    <div class="flex flex-wrap items-center gap-x-10 gap-y-6" data-aos="fade-up">
+<section class="px-6 sm:px-10 py-14 border-b border-bone/10">
+    <div class="flex flex-wrap items-center gap-x-12 gap-y-6" data-aos="fade-up">
         {% for cert in certifications %}
-        <div class="flex items-center gap-3 text-carbon-700">
-            <span class="w-6 h-6 text-rojo shrink-0">{% include "partials/icons/badge.svg" %}</span>
+        <div class="flex items-center gap-3">
+            <span class="w-5 h-5 text-ash shrink-0">{% include "partials/icons/badge.svg" %}</span>
             <div>
-                <p class="text-sm font-semibold text-carbon">{{ cert.name }}</p>
-                {% if cert.description %}<p class="text-xs text-carbon-500">{{ cert.description }}</p>{% endif %}
+                <p class="text-sm font-bold text-bone">{{ cert.name }}</p>
+                {% if cert.description %}<p class="text-xs text-ash">{{ cert.description }}</p>{% endif %}
             </div>
         </div>
         {% endfor %}
@@ -236,13 +126,10 @@
 {% endif %}
 
 <!-- CTA FINAL -->
-<section class="border-t border-carbon-700/15 bg-obra-800">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8" data-aos="fade-up">
-        <div>
-            <h2 class="font-display text-2xl sm:text-3xl text-crema-100 mb-2">¿Tienes un proyecto en mente?</h2>
-            <p class="text-crema-100/70 max-w-lg">Cuéntanos el alcance de tu obra y te enviamos una cotización sin compromiso.</p>
-        </div>
-        <a href="{% url 'cms:contact' %}" class="inline-flex items-center gap-2 bg-rojo hover:bg-rojo-700 text-crema-100 font-semibold px-6 py-3.5 rounded-md transition-colors whitespace-nowrap">
+<section class="px-6 sm:px-10 py-20">
+    <div class="flex flex-col sm:flex-row items-start sm:items-end justify-between gap-8" data-aos="fade-up">
+        <h2 class="font-display text-detonate text-bone text-[11vw] sm:text-6xl max-w-2xl">¿Tienes un proyecto en mente?</h2>
+        <a href="{% url 'cms:contact' %}" class="pill pill-active whitespace-nowrap">
             Solicitar cotización
         </a>
     </div>
@@ -250,8 +137,6 @@
 {% endblock %}
 
 {% block extra_scripts %}
-{% load static %}
-<script src="{% static 'js/hero-slider.js' %}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const counters = document.querySelectorAll(".counter");

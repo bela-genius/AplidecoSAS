@@ -3,13 +3,18 @@
 @tailwind utilities;
 
 @layer base {
+  body {
+    @apply bg-obsidian text-bone;
+  }
+
   h1, h2, h3, h4 {
-    @apply font-display uppercase tracking-tightest;
+    @apply font-display uppercase;
+    line-height: 0.85;
+    letter-spacing: -0.03em;
   }
 
   .font-display {
     text-transform: uppercase;
-    letter-spacing: -0.02em;
   }
 
   input[type="text"],
@@ -19,12 +24,12 @@
   input[type="number"],
   textarea,
   select {
-    @apply w-full bg-white border border-carbon-700/20 rounded-md px-4 py-3 text-carbon focus:outline-none focus:border-rojo;
+    @apply w-full bg-transparent border border-bone/30 rounded-none px-4 py-3 text-bone focus:outline-none focus:border-alarm;
   }
 
   input::placeholder,
   textarea::placeholder {
-    @apply text-carbon-500;
+    @apply text-ash;
   }
 
   form p {
@@ -32,11 +37,34 @@
   }
 
   form label {
-    @apply block text-xs font-semibold uppercase tracking-wide text-carbon-500 mb-2;
+    @apply block text-xs font-bold uppercase tracking-wide text-ash mb-2;
   }
 }
 
 @layer components {
+  /* Display wordmark — crushed line-height, extreme negative tracking */
+  .text-detonate {
+    font-family: theme("fontFamily.display");
+    line-height: 0.86;
+    letter-spacing: -0.03em;
+  }
+
+  @media (min-width: 640px) {
+    .text-detonate {
+      line-height: 0.70;
+      letter-spacing: -0.04em;
+    }
+  }
+
+  /* Outlined / filled nav pills */
+  .pill {
+    @apply inline-flex items-center rounded-full border border-bone px-5 py-1.5 text-[15px] transition-colors;
+  }
+
+  .pill-active {
+    @apply bg-bone text-obsidian border-bone;
+  }
+
   [data-hero-slider] [data-slide] {
     @apply absolute inset-0 hidden items-center justify-center;
   }

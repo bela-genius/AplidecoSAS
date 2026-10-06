@@ -22,8 +22,8 @@ class Command(BaseCommand):
         settings_obj.whatsapp_number = "573103929839"
         settings_obj.address = "Calle 49 Cr 65 A 29, Medellín, Antioquia"
         # Paleta institucional — Manual de Identidad Corporativa APLIDECO S.A.S.
-        settings_obj.primary_color = "#185100"  # Verde Obra
-        settings_obj.accent_color = "#C90003"  # Rojo Aplideco
+        settings_obj.primary_color = "#000000"  # Obsidian
+        settings_obj.accent_color = "#ED1C24"  # Alarm Red
         settings_obj.years_experience = 12
         settings_obj.projects_completed = 180
         settings_obj.sqm_built = 45000

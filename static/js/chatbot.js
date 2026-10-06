@@ -15,8 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
     function appendMessage(text, sender) {
         const bubble = document.createElement("div");
         bubble.className = sender === "user"
-            ? "ml-auto bg-rojo text-crema-100 rounded-xl px-3 py-2 max-w-[80%]"
-            : "mr-auto bg-crema-200 text-carbon rounded-xl px-3 py-2 max-w-[80%]";
+            ? "ml-auto bg-alarm text-obsidian px-3 py-2 max-w-[80%]"
+            : "mr-auto border border-bone/20 text-bone px-3 py-2 max-w-[80%]";
         bubble.textContent = text;
         messages.appendChild(bubble);
         messages.scrollTop = messages.scrollHeight;

@@ -11,58 +11,58 @@
     <link rel="stylesheet" href="{% static 'vendor/aos/aos.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-crema text-carbon font-sans antialiased">
+<body class="bg-obsidian text-bone font-sans antialiased">
 
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-rojo focus:text-crema-100 focus:px-4 focus:py-2">Saltar al contenido</a>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-alarm focus:text-obsidian focus:px-4 focus:py-2">Saltar al contenido</a>
 
-    <header class="sticky top-0 z-40 bg-crema/95 backdrop-blur border-b border-carbon-700/15">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between py-4">
-            <a href="{% url 'cms:home' %}" class="font-display text-xl tracking-tightest text-carbon">
+    <header class="relative z-40">
+        <div class="max-w-[1600px] mx-auto px-6 sm:px-10 flex items-center justify-between py-8">
+            <a href="{% url 'cms:home' %}" class="font-display text-2xl text-bone">
                 {% if site_settings.logo %}
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-10 inline-block">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-9 inline-block">
                 {% else %}
                     {{ site_settings.site_name }}
                 {% endif %}
             </a>
-            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-carbon-700">
-                <a href="{% url 'store:product_list' %}" class="hover:text-obra transition-colors">Catálogo</a>
-                <a href="{% url 'cms:projects' %}" class="hover:text-obra transition-colors">Proyectos</a>
+
+            <nav class="hidden md:flex items-center">
+                <a href="{% url 'store:product_list' %}" class="pill mr-[15px]">Catálogo</a>
+                <a href="{% url 'cms:projects' %}" class="pill mr-[15px]">Proyectos</a>
                 {% for page in nav_pages %}
-                    <a href="{% url 'cms:page_detail' page.slug %}" class="hover:text-obra transition-colors">{{ page.title }}</a>
+                    <a href="{% url 'cms:page_detail' page.slug %}" class="pill mr-[15px]">{{ page.title }}</a>
                 {% endfor %}
+                <a href="{% url 'cms:contact' %}" class="pill pill-active">Cotizar</a>
             </nav>
-            <div class="flex items-center gap-4 sm:gap-5">
-                <a href="{% url 'store:cart_detail' %}" class="relative text-carbon-700 hover:text-rojo transition-colors w-5 h-5" aria-label="Carrito">
+
+            <div class="flex items-center gap-5">
+                <a href="{% url 'store:cart_detail' %}" class="text-bone hover:text-alarm transition-colors w-5 h-5" aria-label="Carrito">
                     {% include "partials/icons/cart.svg" %}
                 </a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'accounts:profile' %}" class="hidden sm:inline text-sm text-carbon-700 hover:text-obra">{{ user.username }}</a>
-                    <a href="{% url 'accounts:logout' %}" class="hidden sm:inline text-sm text-carbon-700 hover:text-obra">Salir</a>
+                    <a href="{% url 'accounts:profile' %}" class="hidden sm:inline text-sm text-ash hover:text-bone">{{ user.username }}</a>
+                    <a href="{% url 'accounts:logout' %}" class="hidden sm:inline text-sm text-ash hover:text-bone">Salir</a>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="hidden sm:inline text-sm text-carbon-700 hover:text-obra">Ingresar</a>
+                    <a href="{% url 'accounts:login' %}" class="hidden sm:inline text-sm text-ash hover:text-bone">Ingresar</a>
                 {% endif %}
-                <a href="{% url 'cms:contact' %}" class="hidden sm:inline-flex items-center gap-2 bg-rojo hover:bg-rojo-700 text-crema-100 text-sm font-semibold px-4 py-2.5 rounded-md transition-colors">
-                    Cotizar
-                </a>
-                <button id="mobile-menu-toggle" class="md:hidden text-carbon-700 hover:text-rojo w-6 h-6" aria-label="Abrir menú">
+                <button id="mobile-menu-toggle" class="md:hidden text-bone w-6 h-6" aria-label="Abrir menú">
                     {% include "partials/icons/menu.svg" %}
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden border-t border-carbon-700/15 px-4 py-4 space-y-3">
-            <a href="{% url 'store:product_list' %}" class="block text-sm font-medium text-carbon-700 hover:text-obra">Catálogo</a>
-            <a href="{% url 'cms:projects' %}" class="block text-sm font-medium text-carbon-700 hover:text-obra">Proyectos</a>
+        <div id="mobile-menu" class="hidden md:hidden px-6 py-4 space-y-3 border-t border-bone/10">
+            <a href="{% url 'store:product_list' %}" class="block text-sm font-medium text-bone">Catálogo</a>
+            <a href="{% url 'cms:projects' %}" class="block text-sm font-medium text-bone">Proyectos</a>
             {% for page in nav_pages %}
-                <a href="{% url 'cms:page_detail' page.slug %}" class="block text-sm font-medium text-carbon-700 hover:text-obra">{{ page.title }}</a>
+                <a href="{% url 'cms:page_detail' page.slug %}" class="block text-sm font-medium text-bone">{{ page.title }}</a>
             {% endfor %}
-            <a href="{% url 'cms:contact' %}" class="block bg-rojo hover:bg-rojo-700 text-crema-100 text-sm font-semibold px-4 py-2.5 rounded-md text-center transition-colors">Cotizar</a>
+            <a href="{% url 'cms:contact' %}" class="pill pill-active w-fit">Cotizar</a>
         </div>
     </header>
 
     {% if messages %}
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4 space-y-2">
+    <div class="max-w-[1600px] mx-auto px-6 sm:px-10 mt-4 space-y-2">
         {% for message in messages %}
-            <div class="rounded-md px-4 py-3 text-sm bg-obra-100 border border-obra-600/30 text-obra-800">{{ message }}</div>
+            <div class="px-4 py-3 text-sm border border-bone/20 text-bone">{{ message }}</div>
         {% endfor %}
     </div>
     {% endif %}
@@ -71,43 +71,43 @@
         {% block content %}{% endblock %}
     </main>
 
-    <footer class="mt-24 bg-obra-800 text-crema-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid gap-10 md:grid-cols-4">
+    <footer class="mt-24 border-t border-bone/10">
+        <div class="max-w-[1600px] mx-auto px-6 sm:px-10 py-16 grid gap-10 md:grid-cols-4">
             <div class="md:col-span-2">
-                <h3 class="font-display text-lg mb-3">{{ site_settings.site_name }}</h3>
-                <p class="text-crema-100/70 text-sm max-w-sm leading-relaxed">{{ site_settings.tagline }}</p>
+                <h3 class="font-display text-xl mb-3">{{ site_settings.site_name }}</h3>
+                <p class="text-ash text-sm max-w-sm leading-relaxed">{{ site_settings.tagline }}</p>
             </div>
             <div>
                 <h4 class="font-display text-sm uppercase tracking-wide mb-3">Contacto</h4>
-                <p class="text-crema-100/70 text-sm mb-1">{{ site_settings.contact_phone }}</p>
-                <p class="text-crema-100/70 text-sm mb-1">{{ site_settings.contact_email }}</p>
-                <p class="text-crema-100/70 text-sm">{{ site_settings.address }}</p>
+                <p class="text-ash text-sm mb-1">{{ site_settings.contact_phone }}</p>
+                <p class="text-ash text-sm mb-1">{{ site_settings.contact_email }}</p>
+                <p class="text-ash text-sm">{{ site_settings.address }}</p>
             </div>
             <div>
                 <h4 class="font-display text-sm uppercase tracking-wide mb-3">Síguenos</h4>
                 <div class="flex flex-col gap-2 text-sm">
                     {% for link in social_links %}
-                        <a href="{{ link.url }}" target="_blank" rel="noopener" class="text-crema-100/70 hover:text-oliva-300 transition-colors">{{ link.get_platform_display }}</a>
+                        <a href="{{ link.url }}" target="_blank" rel="noopener" class="text-ash hover:text-alarm transition-colors">{{ link.get_platform_display }}</a>
                     {% endfor %}
                 </div>
             </div>
         </div>
-        <div class="border-t border-crema-100/10">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 text-xs text-crema-100/50">
+        <div class="border-t border-bone/10">
+            <div class="max-w-[1600px] mx-auto px-6 sm:px-10 py-6 text-xs text-ash">
                 &copy; {% now "Y" %} {{ site_settings.site_name }}. Todos los derechos reservados.
             </div>
         </div>
     </footer>
 
-    <button id="chatbot-toggle" class="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-rojo hover:bg-rojo-700 shadow-lg shadow-carbon/30 text-crema-100 flex items-center justify-center transition-colors p-3.5" aria-label="Abrir asistente">
+    <button id="chatbot-toggle" class="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-alarm hover:bg-alarm-dark text-obsidian flex items-center justify-center transition-colors p-3.5" aria-label="Abrir asistente">
         {% include "partials/icons/chat.svg" %}
     </button>
-    <div id="chatbot-window" class="hidden fixed bottom-24 right-6 z-50 w-80 max-h-[28rem] bg-white border border-carbon-700/15 rounded-xl shadow-2xl flex flex-col overflow-hidden">
-        <div class="bg-obra-700 px-4 py-3 font-display text-crema-100 text-sm">Asistente {{ site_settings.site_name }}</div>
+    <div id="chatbot-window" class="hidden fixed bottom-24 right-6 z-50 w-80 max-h-[28rem] bg-obsidian border border-bone/20 flex flex-col overflow-hidden">
+        <div class="bg-alarm px-4 py-3 font-display text-obsidian text-sm">Asistente {{ site_settings.site_name }}</div>
         <div id="chatbot-messages" class="flex-1 overflow-y-auto p-3 space-y-2 text-sm"></div>
-        <form id="chatbot-form" class="flex border-t border-carbon-700/15">
-            <input id="chatbot-input" type="text" placeholder="Escribe tu pregunta..." class="flex-1 bg-crema-200 px-3 py-2 text-sm outline-none text-carbon placeholder:text-carbon-500" autocomplete="off">
-            <button type="submit" class="px-4 bg-rojo hover:bg-rojo-700 text-crema-100 font-semibold text-sm transition-colors">Enviar</button>
+        <form id="chatbot-form" class="flex border-t border-bone/20">
+            <input id="chatbot-input" type="text" placeholder="Escribe tu pregunta..." class="flex-1 bg-transparent border-0 px-3 py-2 text-sm outline-none text-bone placeholder:text-ash" autocomplete="off">
+            <button type="submit" class="px-4 bg-alarm hover:bg-alarm-dark text-obsidian font-bold text-sm transition-colors">Enviar</button>
         </form>
     </div>
 
