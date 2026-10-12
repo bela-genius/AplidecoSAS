@@ -19,7 +19,7 @@
     <h2 class="font-display text-detonate text-2xl text-bone mb-8" data-aos="fade-up">Certificaciones y alianzas</h2>
     <div class="grid sm:grid-cols-2 gap-px bg-bone/10">
         {% for cert in certifications %}
-        <div class="flex items-start gap-3 bg-obsidian p-5" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="flex items-start gap-3 bg-black/30 rounded-2xl p-5" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
             <span class="w-6 h-6 text-alarm shrink-0 mt-0.5">{% include "partials/icons/badge.svg" %}</span>
             <div>
                 <p class="font-bold text-bone">{{ cert.name }}</p>

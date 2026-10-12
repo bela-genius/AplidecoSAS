@@ -31,14 +31,15 @@ class Command(BaseCommand):
         settings_obj.save()
         self.stdout.write(self.style.SUCCESS("SiteSettings actualizado."))
 
-        SocialLink.objects.get_or_create(
-            platform=SocialLink.Platform.FACEBOOK,
-            defaults={"url": "https://www.facebook.com/aplideco/", "order": 1},
-        )
-        SocialLink.objects.get_or_create(
-            platform=SocialLink.Platform.WHATSAPP,
-            defaults={"url": "https://wa.me/573103929839", "order": 2},
-        )
+        for order, (platform, url) in enumerate(
+            [
+                (SocialLink.Platform.FACEBOOK, "https://www.facebook.com/p/Aplideco-sas-100064813512941/"),
+                (SocialLink.Platform.INSTAGRAM, "https://www.instagram.com/aplideco/"),
+                (SocialLink.Platform.WHATSAPP, "https://wa.me/573103929839"),
+            ],
+            start=1,
+        ):
+            SocialLink.objects.update_or_create(platform=platform, defaults={"url": url, "order": order})
         self.stdout.write(self.style.SUCCESS("Redes sociales cargadas."))
 
         Page.objects.get_or_create(

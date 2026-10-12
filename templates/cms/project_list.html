@@ -16,7 +16,7 @@
 
     <div class="grid md:grid-cols-3 gap-px bg-bone/10">
         {% for project in projects %}
-        <div class="bg-obsidian" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+        <div class="bg-black/40" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
             <div class="aspect-[4/3] bg-bone/5 overflow-hidden">
                 {% if project.cover_image %}
                     <img src="{{ project.cover_image.url }}" alt="{{ project.title }}" class="w-full h-full object-cover grayscale">

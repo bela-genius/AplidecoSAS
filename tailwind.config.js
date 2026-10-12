@@ -13,13 +13,21 @@ module.exports = {
         },
         ash: "#838383",
         alarm: {
-          DEFAULT: "#ed1c24",
-          dark: "#c8151c",
+          DEFAULT: "#c0392b",
+          dark: "#a02f23",
+          soft: "#e9968c",
         },
         cream: {
-          DEFAULT: "#f3ead6",
+          DEFAULT: "#f5efe0",
           dark: "#d9cdb0",
         },
+        azure: {
+          DEFAULT: "#1a7bff",
+          dark: "#1262d0",
+          soft: "#8fbaff",
+        },
+        sage: "#c9c9a6",
+        butter: "#fbf7b5",
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
