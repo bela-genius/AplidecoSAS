@@ -65,31 +65,47 @@
     @apply bg-bone text-obsidian border-bone;
   }
 
+  /* Hero nav buttons (cream / brick red, soft-rounded like the mockup) */
+  .pill-cream {
+    @apply inline-flex items-center rounded-2xl border border-cream-dark bg-cream px-5 py-2.5 text-[15px] font-bold text-neutral-700 transition hover:brightness-95 sm:px-7 sm:py-3 sm:text-lg;
+  }
+
+  .pill-brick {
+    @apply inline-flex items-center rounded-2xl border border-alarm bg-alarm-dark px-5 py-2.5 text-[15px] font-bold text-cream transition hover:brightness-110 sm:px-7 sm:py-3 sm:text-lg;
+  }
+
+  /* Hero carousel: crossfade + slow zoom */
   [data-hero-slider] [data-slide] {
-    @apply absolute inset-0 hidden items-center justify-center;
+    @apply absolute inset-0 opacity-0 transition-opacity duration-1000 ease-in-out;
+  }
+
+  [data-hero-slider] [data-slide] img {
+    @apply h-full w-full object-cover;
+    transform: scale(1.08);
+    transition: transform 6s ease-out;
   }
 
   [data-hero-slider] [data-slide].is-active {
-    @apply flex;
+    @apply opacity-100;
   }
 
-  @keyframes flipDown {
-    0% {
-      transform: rotateX(-95deg);
-      opacity: 0;
-    }
-    60% {
-      transform: rotateX(8deg);
-      opacity: 1;
-    }
-    100% {
-      transform: rotateX(0deg);
-      opacity: 1;
-    }
+  [data-hero-slider] [data-slide].is-active img {
+    transform: scale(1);
   }
 
-  [data-hero-slider] .slide-flip {
-    animation: flipDown 0.65s cubic-bezier(0.2, 0.7, 0.3, 1);
-    transform-origin: top center;
+  [data-hero-slider] [data-slide-dot].is-active {
+    @apply w-8 bg-bone;
+  }
+
+  .checker-strip {
+    height: 8px;
+    background: repeating-conic-gradient(#000 0 25%, #8a8a8a 0 50%) 0 0 / 16px 16px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-hero-slider] [data-slide],
+    [data-hero-slider] [data-slide] img {
+      transition: none;
+    }
   }
 }

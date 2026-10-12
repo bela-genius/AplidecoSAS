@@ -1,14 +1,69 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
 
 {% block content %}
-<!-- WORDMARK -->
-<section class="px-6 sm:px-10 pt-6 pb-10">
-    <h1 class="font-display text-detonate text-bone text-[16vw] sm:text-[14vw] lg:text-[9vw] tracking-display-lg" data-aos="fade-up">
-        {{ site_settings.site_name|default:"Aplideco" }}
-    </h1>
-    <p class="text-ash text-sm sm:text-[19px] font-bold uppercase tracking-wide mt-6 max-w-xl" data-aos="fade-up" data-aos-delay="80">
-        Una empresa de aplicaciones, decoraciones y obras civiles en Medellín.
-    </p>
+<!-- HERO -->
+<section class="relative isolate overflow-hidden flex flex-col min-h-[100svh] lg:min-h-[680px]">
+    <img src="{% static 'img/hero/trabajo-alturas.webp' %}" alt="" aria-hidden="true"
+         class="absolute inset-0 -z-20 h-full w-full object-cover object-[70%_55%] opacity-40">
+    <div class="absolute inset-0 -z-10 bg-gradient-to-r from-obsidian via-obsidian/60 to-obsidian/10"></div>
+    <div class="absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-obsidian/80 to-transparent"></div>
+
+    <h1 class="sr-only">{{ site_settings.site_name|default:"Aplideco" }} — {{ site_settings.tagline|default:"Construimos con identidad." }}</h1>
+
+    <div class="flex-1 flex items-center w-full max-w-[1600px] mx-auto px-6 sm:px-10 pt-32 sm:pt-44 pb-10 sm:pb-14">
+        <div data-hero-slider class="relative w-full lg:w-[52%] rounded-[2rem] sm:rounded-[2.75rem] bg-bone/20 p-3 sm:p-5 backdrop-blur-sm" data-aos="fade-up" role="region" aria-roledescription="carrusel" aria-label="Trabajos de Aplideco">
+            <div class="relative aspect-[4/3] sm:aspect-[16/10] overflow-hidden rounded-[1.4rem] sm:rounded-[2.1rem] bg-obsidian">
+                <div data-slide>
+                    <img src="{% static 'img/hero/muro-relieve.webp' %}" alt="Muro con acabado texturizado en relieve" class="object-[50%_40%]">
+                    <span class="sr-only">Acabado texturizado en muro</span>
+                </div>
+                <div data-slide>
+                    <img src="{% static 'img/hero/muro-piedra.webp' %}" alt="Muro con revestimiento efecto piedra e iluminación" class="object-[50%_45%]" loading="lazy">
+                    <span class="sr-only">Revestimiento efecto piedra</span>
+                </div>
+                <div data-slide>
+                    <img src="{% static 'img/hero/fachada-andamio.webp' %}" alt="Operario pintando una fachada desde un andamio" class="object-[50%_36%]" loading="lazy">
+                    <span class="sr-only">Pintura de fachadas</span>
+                </div>
+                <div data-slide>
+                    <img src="{% static 'img/hero/trabajo-alturas.webp' %}" alt="Operario con arnés trabajando en altura en una fachada" class="object-[50%_58%]" loading="lazy">
+                    <span class="sr-only">Trabajo en alturas</span>
+                </div>
+
+                <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-obsidian/70 to-transparent"></div>
+
+                <div class="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-4 sm:px-6 pb-3 sm:pb-4">
+                    <div class="flex items-center gap-2" role="tablist" aria-label="Elegir imagen">
+                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 1"></button>
+                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 2"></button>
+                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 3"></button>
+                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 4"></button>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <span data-slide-counter class="text-xs font-bold text-bone/80 mr-2" aria-hidden="true">01 / 04</span>
+                        <button type="button" data-slide-prev class="h-9 w-9 rounded-full border border-bone/60 text-bone hover:bg-bone hover:text-obsidian transition-colors flex items-center justify-center" aria-label="Imagen anterior">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
+                        </button>
+                        <button type="button" data-slide-next class="h-9 w-9 rounded-full border border-bone/60 text-bone hover:bg-bone hover:text-obsidian transition-colors flex items-center justify-center" aria-label="Imagen siguiente">
+                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CINTA DE CATÁLOGO -->
+    <div class="bg-alarm-dark/90">
+        <div class="max-w-[1600px] mx-auto px-6 sm:px-10 py-4 sm:py-5 flex flex-wrap items-center gap-x-5 gap-y-3">
+            <p class="font-script italic font-medium text-cream text-xl sm:text-3xl">Conoce más de nuestro Catálogo haciendo</p>
+            <a href="{% url 'store:product_list' %}" class="font-script italic font-medium text-cream text-xl sm:text-3xl rounded-full border border-cream px-6 py-0.5 hover:bg-cream hover:text-alarm-dark transition-colors">Click Aquí</a>
+        </div>
+        <div class="checker-strip" aria-hidden="true"></div>
+    </div>
 </section>
 
 <!-- BLOQUE DE DETONACIÓN ROJA -->
@@ -137,6 +192,7 @@
 {% endblock %}
 
 {% block extra_scripts %}
+<script src="{% static 'js/hero-slider.js' %}"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
     const counters = document.querySelectorAll(".counter");

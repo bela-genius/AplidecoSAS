@@ -16,10 +16,16 @@ module.exports = {
           DEFAULT: "#ed1c24",
           dark: "#c8151c",
         },
+        cream: {
+          DEFAULT: "#f3ead6",
+          dark: "#d9cdb0",
+        },
       },
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         display: ["Antonio", "Inter", "system-ui", "sans-serif"],
+        wordmark: ['"Krona One"', "Inter", "system-ui", "sans-serif"],
+        script: ['"Playfair Display"', "Georgia", "serif"],
       },
       letterSpacing: {
         display: "-0.079em",

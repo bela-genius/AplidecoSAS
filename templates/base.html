@@ -15,22 +15,27 @@
 
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-alarm focus:text-obsidian focus:px-4 focus:py-2">Saltar al contenido</a>
 
-    <header class="relative z-40">
-        <div class="max-w-[1600px] mx-auto px-6 sm:px-10 flex items-center justify-between py-8">
-            <a href="{% url 'cms:home' %}" class="font-display text-2xl text-bone">
+    <header class="{% block header_class %}relative z-40{% endblock %}">
+        <div class="max-w-[1600px] mx-auto px-6 sm:px-10 flex items-center justify-between py-5 sm:py-6">
+            <a href="{% url 'cms:home' %}" class="flex items-center gap-3 sm:gap-4 text-bone" aria-label="{{ site_settings.site_name }} — inicio">
                 {% if site_settings.logo %}
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-9 inline-block">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-12 sm:h-16 inline-block">
                 {% else %}
-                    {{ site_settings.site_name }}
+                    <img src="{% static 'img/logo-emblem.png' %}" alt="" class="h-14 w-14 sm:h-[76px] sm:w-[76px] rounded-full shrink-0">
+                    <span class="relative font-wordmark leading-none uppercase select-none" aria-hidden="true">
+                        <span class="absolute -top-3 right-1 font-script italic text-alarm text-sm sm:text-lg normal-case">sas</span>
+                        <span class="block text-xl sm:text-[34px] pb-1 sm:pb-1.5 border-b-2 border-bone tracking-[0.04em]">Pli</span>
+                        <span class="block text-xl sm:text-[34px] mt-1 pb-1 sm:pb-1.5 border-b-2 border-bone tracking-[0.04em]">Deco</span>
+                    </span>
                 {% endif %}
             </a>
 
-            <nav class="hidden md:flex items-center">
-                <a href="{% url 'store:product_list' %}" class="pill mr-[15px]">Catálogo</a>
-                <a href="{% url 'cms:projects' %}" class="pill mr-[15px]">Proyectos</a>
+            <nav class="hidden md:flex items-center gap-3 lg:gap-4">
                 {% for page in nav_pages %}
-                    <a href="{% url 'cms:page_detail' page.slug %}" class="pill mr-[15px]">{{ page.title }}</a>
+                    <a href="{% url 'cms:page_detail' page.slug %}" class="pill-cream">{{ page.title }}</a>
                 {% endfor %}
+                <a href="{% url 'cms:projects' %}" class="pill-brick">Proyectos</a>
+                <a href="{% url 'store:product_list' %}" class="pill">Catálogo</a>
                 <a href="{% url 'cms:contact' %}" class="pill pill-active">Cotizar</a>
             </nav>
 
@@ -49,7 +54,7 @@
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden px-6 py-4 space-y-3 border-t border-bone/10">
+        <div id="mobile-menu" class="hidden md:hidden px-6 py-4 space-y-3 border-t border-bone/10 bg-obsidian/95">
             <a href="{% url 'store:product_list' %}" class="block text-sm font-medium text-bone">Catálogo</a>
             <a href="{% url 'cms:projects' %}" class="block text-sm font-medium text-bone">Proyectos</a>
             {% for page in nav_pages %}
