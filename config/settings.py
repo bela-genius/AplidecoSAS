@@ -26,6 +26,10 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["localhost", "127.0.0.1"])
 CSRF_TRUSTED_ORIGINS = env.list("CSRF_TRUSTED_ORIGINS", default=[])
 
 # Render expone el dominio público del servicio en esta variable.
+# URL pública canónica del sitio (para sitemap, etiquetas canónicas y datos estructurados).
+SITE_URL = env("SITE_URL", default="https://www.aplideco.co").rstrip("/")
+GOOGLE_SITE_VERIFICATION = env("GOOGLE_SITE_VERIFICATION", default="")
+
 RENDER_EXTERNAL_HOSTNAME = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -46,6 +50,7 @@ DJANGO_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django.contrib.sitemaps",
 ]
 
 THIRD_PARTY_APPS = [
