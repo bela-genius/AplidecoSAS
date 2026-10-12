@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
-{% block header_logo %}<span aria-hidden="true"></span>{% endblock %}
 {% block main_open %}{% endblock %}
 {% block main_close %}{% endblock %}
 
@@ -16,19 +14,22 @@
 
     <h1 class="sr-only">{{ site_settings.site_name|default:"Aplideco" }} — {{ site_settings.tagline|default:"Construimos con identidad." }}</h1>
 
-    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16 grid gap-12 lg:grid-cols-[1fr_1.12fr] items-stretch lg:min-h-[800px]">
+    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-10 sm:pt-14 pb-12 sm:pb-16 grid gap-12 lg:grid-cols-[1fr_1.12fr] items-stretch lg:min-h-[760px]">
         <div class="flex flex-col justify-between gap-12">
-            <a href="{% url 'cms:home' %}" class="hov flex w-fit items-center gap-3 sm:gap-5" aria-label="{{ site_settings.site_name }}">
-                <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-24 w-24 sm:h-36 sm:w-36 lg:h-48 lg:w-48 shrink-0">
-                <span class="leading-none">
-                    <span class="block text-5xl sm:text-7xl lg:text-[80px] tracking-[-0.035em] font-normal text-[#f6f2ec]">Aplideco</span>
-                    <span class="block mt-2 text-xl sm:text-3xl italic text-bone/60">S.A.S</span>
-                </span>
-            </a>
+            <div>
+                <a href="{% url 'cms:home' %}" class="hov flex w-fit items-center gap-4 sm:gap-6" aria-label="{{ site_settings.site_name }}">
+                    <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-24 w-24 sm:h-36 sm:w-36 lg:h-44 lg:w-44 shrink-0">
+                    <span class="leading-none">
+                        <span class="wordmark block text-[3.4rem] sm:text-[5.5rem] lg:text-[6.5rem] text-[#f6f2ec]">Aplideco</span>
+                        <span class="mt-3 flex items-center gap-3 font-brand text-xl sm:text-3xl font-medium tracking-[0.35em] text-bone/70">S.A.S<span class="h-px flex-1 bg-bone/30" aria-hidden="true"></span></span>
+                    </span>
+                </a>
+                <p class="tagline mt-6 !text-[10px] sm:!text-sm !tracking-[0.18em] sm:!tracking-[0.2em]">Aplicaciones <span class="text-rose">&middot;</span> Decoraciones <span class="text-rose">&middot;</span> Obras Civiles</p>
+            </div>
 
-            <a href="{% url 'cms:page_detail' 'quienes-somos' %}" class="hov group flex w-full max-w-[600px] flex-col items-start justify-center gap-0.5 rounded-r-[999px] -ml-4 sm:-ml-8 pl-4 sm:pl-14 pr-10 py-6 bg-[rgba(29,28,28,.93)]">
+            <a href="{% url 'cms:page_detail' 'quienes-somos' %}" class="hov group bleed-l flex w-[calc(100%+var(--edge))] max-w-[calc(600px+var(--edge))] flex-col items-start justify-center gap-0.5 rounded-r-[999px] pr-10 py-6 bg-[rgba(29,28,28,.93)]">
                 <span class="rounded-2xl bg-wine px-6 py-2.5 text-xl sm:text-[28px] leading-tight">¿Quiénes somos?</span>
-                <span class="ml-2 text-2xl sm:text-4xl italic text-bone/90">Conócenos</span>
+                <span class="ml-1 text-2xl sm:text-4xl italic text-bone/90">Conócenos</span>
             </a>
         </div>
 
@@ -80,29 +81,25 @@
 
     <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 py-12 sm:py-16 grid gap-12 lg:grid-cols-12 items-start">
         <div class="lg:col-span-7 space-y-8" data-aos="fade-up">
-            <div>
-                <div class="flex flex-wrap items-center gap-x-7 gap-y-3 rounded-r-[110px] -ml-4 sm:-ml-8 pl-4 sm:pl-10 pr-8 sm:pr-14 py-5 sm:py-6 bg-[rgba(37,38,41,.95)]">
-                    <svg viewBox="0 0 160 160" class="h-20 w-20 sm:h-[110px] sm:w-[110px] shrink-0" aria-hidden="true">
-                        <circle cx="80" cy="9" r="7" fill="#fff"/><rect x="77" y="14" width="6" height="20" fill="#fff"/>
-                        <path d="M22 70C22 28 52 22 80 22s58 6 58 48" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
-                        <rect x="12" y="58" width="20" height="46" rx="10" fill="#fff"/><rect x="128" y="58" width="20" height="46" rx="10" fill="#fff"/>
-                        <rect x="30" y="34" width="100" height="84" rx="38" fill="#fff"/>
-                        <circle cx="62" cy="72" r="9" fill="#252629"/><circle cx="98" cy="72" r="9" fill="#252629"/>
-                        <path d="M62 92Q80 106 98 92" fill="none" stroke="#252629" stroke-width="6" stroke-linecap="round"/>
-                        <path d="M138 100Q138 128 104 132" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
-                        <rect x="92" y="126" width="18" height="12" rx="6" fill="#fff"/>
-                    </svg>
-                    <div class="leading-none">
-                        <p class="text-3xl sm:text-5xl italic">Conversa</p>
-                        <p class="mt-1 text-2xl sm:text-[40px]">Con nuestro <span class="text-azure-link">ChatBot</span></p>
-                    </div>
+            <div class="bleed-l flex flex-wrap items-center gap-x-5 gap-y-4 rounded-r-[110px] pr-8 sm:pr-10 py-5 sm:py-6 bg-[rgba(37,38,41,.95)]">
+                <svg viewBox="0 0 160 160" class="h-16 w-16 sm:h-[84px] sm:w-[84px] shrink-0" aria-hidden="true">
+                    <circle cx="80" cy="9" r="7" fill="#fff"/><rect x="77" y="14" width="6" height="20" fill="#fff"/>
+                    <path d="M22 70C22 28 52 22 80 22s58 6 58 48" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
+                    <rect x="12" y="58" width="20" height="46" rx="10" fill="#fff"/><rect x="128" y="58" width="20" height="46" rx="10" fill="#fff"/>
+                    <rect x="30" y="34" width="100" height="84" rx="38" fill="#fff"/>
+                    <circle cx="62" cy="72" r="9" fill="#252629"/><circle cx="98" cy="72" r="9" fill="#252629"/>
+                    <path d="M62 92Q80 106 98 92" fill="none" stroke="#252629" stroke-width="6" stroke-linecap="round"/>
+                    <path d="M138 100Q138 128 104 132" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+                    <rect x="92" y="126" width="18" height="12" rx="6" fill="#fff"/>
+                </svg>
+                <div class="leading-none">
+                    <p class="text-3xl sm:text-[42px] italic">Conversa</p>
+                    <p class="mt-1 text-xl sm:text-[28px]">Con nuestro <span class="text-azure-link">ChatBot</span></p>
                 </div>
-                <div class="relative -mt-6 sm:-mt-8 ml-6 sm:ml-[28rem]">
-                    <button type="button" data-open-chat class="btn btn-azure btn-lg relative !px-10 sm:!px-14 !text-2xl sm:!text-[34px] border-4 border-azure-dark shadow-[inset_0_3px_0_rgba(255,255,255,.3)]">
-                        Aplideco_bot
-                        <img src="{% static 'img/hand.png' %}" alt="" class="pointer-events-none absolute -right-5 sm:-right-7 -bottom-8 sm:-bottom-11 w-10 sm:w-16 h-auto">
-                    </button>
-                </div>
+                <button type="button" data-open-chat class="btn btn-azure relative ml-auto !px-6 !pr-14 sm:!pr-16 !py-3 !text-xl sm:!text-2xl border-4 border-azure-dark shadow-[inset_0_3px_0_rgba(255,255,255,.3)]">
+                    Aplideco_bot
+                    <img src="{% static 'img/hand.png' %}" alt="" class="pointer-events-none absolute right-2 bottom-1 w-8 sm:w-10 h-auto">
+                </button>
             </div>
 
             <p class="min-h-[2.15em] ml-0 sm:ml-2 font-display uppercase text-[2.5rem] sm:text-[4.4rem] leading-[1.04] tracking-[0.01em]" aria-label="Aplideco Bot, solicitud" aria-live="off">
@@ -110,12 +107,12 @@
             </p>
 
             <div>
-                <div class="max-w-[800px] rounded-r-[30px] -ml-4 sm:-ml-8 pl-4 sm:pl-14 pr-8 py-5 bg-[rgba(103,111,125,.72)] text-xl sm:text-[30px] leading-[1.4]">
+                <div class="bleed-l max-w-[calc(800px+var(--edge))] rounded-r-[30px] pr-8 py-5 bg-[rgba(103,111,125,.72)] text-xl sm:text-[30px] leading-[1.4]">
                     <p>Puedes consultar sobre <em>nuestros servicios</em></p>
                     <p class="pl-4">Planificar tu <em>próxima fachada</em>…</p>
                     <p class="pl-4"><em>Conocernos más…</em></p>
                 </div>
-                <div class="relative mt-2 ml-8 sm:ml-[32rem] flex h-14 w-48 sm:w-[230px] sm:h-[60px] items-center justify-center gap-2.5 rounded-full bg-[#e4e4e4]" aria-hidden="true">
+                <div class="relative mt-2 ml-8 sm:ml-[26rem] flex h-14 w-48 sm:w-[230px] sm:h-[60px] items-center justify-center gap-2.5 rounded-full bg-[#e4e4e4]" aria-hidden="true">
                     <span class="typing-dot !h-3 !w-3 !bg-[#5b5b5f]"></span><span class="typing-dot !h-3 !w-3 !bg-[#5b5b5f]" style="animation-delay:.2s"></span><span class="typing-dot !h-3 !w-3 !bg-[#5b5b5f]" style="animation-delay:.4s"></span>
                     <span class="absolute -left-0.5 -bottom-1.5 h-0 w-0 border-t-[18px] border-l-[16px] border-t-[#e4e4e4] border-l-transparent"></span>
                 </div>
@@ -154,7 +151,7 @@
             <a href="{% url 'cms:schedule' %}?modalidad=virtual" class="btn btn-cream btn-lg mt-6 w-full lg:w-auto !px-14 sm:!px-20 !text-4xl sm:!text-5xl italic font-bold tracking-[-0.03em]">Virtual</a>
         </div>
 
-        <div class="-ml-4 sm:-ml-8 lg:max-w-[1010px] rounded-r-[60px] sm:rounded-r-[120px] pl-4 sm:pl-16 pr-6 sm:pr-12 py-8 bg-[rgba(15,13,12,.95)] grid gap-6 sm:grid-cols-[230px_1fr] items-center" data-aos="fade-up">
+        <div class="bleed-l lg:max-w-[calc(1010px+var(--edge))] rounded-r-[60px] sm:rounded-r-[120px] pr-6 sm:pr-12 py-8 bg-[rgba(15,13,12,.95)] grid gap-6 sm:grid-cols-[230px_1fr] items-center" data-aos="fade-up">
             <div>
                 <p class="text-base sm:text-[21px] leading-snug">Escanea cada QR o haz click en cada ícono…</p>
                 <p class="mt-5 text-2xl sm:text-3xl italic leading-none">Nuestras</p>
