@@ -21,23 +21,23 @@
 
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-cream focus:text-neutral-900 focus:px-4 focus:py-2 focus:rounded-full">Saltar al contenido</a>
 
-    <header class="sticky top-0 z-40 border-b border-bone/10 bg-ink/75 backdrop-blur-md">
-        <div class="max-w-[1400px] mx-auto px-4 sm:px-8 flex h-16 sm:h-[72px] items-center justify-between gap-4">
+    <header class="{% block header_class %}relative z-40{% endblock %}">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-8 flex items-center justify-between gap-4 py-4 sm:py-5">
             {% block header_logo %}
             <a href="{% url 'cms:home' %}" class="flex items-center gap-3 text-bone" aria-label="{{ site_settings.site_name }} — inicio">
                 {% if site_settings.logo %}
-                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-10 sm:h-12 inline-block">
+                    <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-12 sm:h-14 inline-block">
                 {% else %}
-                    <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-10 w-10 sm:h-12 sm:w-12 shrink-0">
+                    <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-11 w-11 sm:h-14 sm:w-14 shrink-0">
                     <span class="leading-none">
-                        <span class="wordmark block text-[26px] sm:text-[32px]">Aplideco</span>
-                        <span class="tagline mt-1 block !text-[10px] !tracking-[0.3em]">S.A.S</span>
+                        <span class="block text-2xl sm:text-[32px] tracking-tight">Aplideco</span>
+                        <span class="block text-xs sm:text-sm italic text-bone/55 mt-0.5">S.A.S</span>
                     </span>
                 {% endif %}
             </a>
             {% endblock %}
 
-            <nav class="hidden xl:flex items-center gap-1 ml-auto" aria-label="Principal">
+            <nav class="hidden xl:flex flex-wrap items-center justify-end gap-2.5 ml-auto" aria-label="Principal">
                 <a href="{% url 'cms:home' %}" class="navp {% if request.path == '/' %}is-active{% endif %}" {% if request.path == '/' %}aria-current="page"{% endif %}>Inicio</a>
                 {% for page in nav_pages %}
                     <a href="{% url 'cms:page_detail' page.slug %}" class="navp {% if '/p/'|add:page.slug in request.path %}is-active{% endif %}">{{ page.title }}</a>
@@ -45,37 +45,35 @@
                 <a href="{% url 'store:product_list' %}" class="navp {% if '/tienda' in request.path %}is-active{% endif %}">Catálogo</a>
                 <a href="{% url 'cms:projects' %}" class="navp {% if '/proyectos' in request.path %}is-active{% endif %}">Proyectos</a>
                 <button type="button" data-open-chat class="navp">Chatbot</button>
+                <a href="{% url 'cms:schedule' %}" class="navp {% if '/agenda' in request.path %}is-active{% endif %}">Agenda tu cita</a>
                 <a href="{% url 'cms:contact' %}" class="navp {% if '/contacto' in request.path %}is-active{% endif %}">Contacto</a>
-                <a href="{% url 'cms:schedule' %}" class="navcta ml-3" {% if '/agenda' in request.path %}aria-current="page"{% endif %}>Agenda tu cita</a>
             </nav>
 
-            <div class="flex items-center gap-1 xl:ml-2 xl:border-l xl:border-bone/15 xl:pl-3">
-                <a href="{% url 'store:cart_detail' %}" class="flex h-10 w-10 items-center justify-center rounded-lg text-bone transition-colors hover:bg-bone/10" aria-label="Carrito">
-                    <span class="block h-5 w-5">{% include "partials/icons/cart.svg" %}</span>
+            <div class="flex items-center gap-4 rounded-full bg-bone/10 border border-bone/20 backdrop-blur-sm px-4 py-2.5">
+                <a href="{% url 'store:cart_detail' %}" class="text-bone hover:text-rose transition-colors w-5 h-5" aria-label="Carrito">
+                    {% include "partials/icons/cart.svg" %}
                 </a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'accounts:profile' %}" class="hidden sm:inline rounded-lg px-3 py-2 text-sm text-bone/80 hover:bg-bone/10 hover:text-bone">{{ user.username }}</a>
-                    <a href="{% url 'accounts:logout' %}" class="hidden sm:inline rounded-lg px-3 py-2 text-sm text-bone/80 hover:bg-bone/10 hover:text-bone">Salir</a>
+                    <a href="{% url 'accounts:profile' %}" class="hidden sm:inline text-sm text-bone/80 hover:text-bone">{{ user.username }}</a>
+                    <a href="{% url 'accounts:logout' %}" class="hidden sm:inline text-sm text-bone/80 hover:text-bone">Salir</a>
                 {% else %}
-                    <a href="{% url 'accounts:login' %}" class="hidden sm:inline rounded-lg px-3 py-2 text-sm text-bone/80 hover:bg-bone/10 hover:text-bone">Ingresar</a>
+                    <a href="{% url 'accounts:login' %}" class="hidden sm:inline text-sm text-bone/80 hover:text-bone">Ingresar</a>
                 {% endif %}
-                <button id="mobile-menu-toggle" class="xl:hidden flex h-10 w-10 items-center justify-center rounded-lg text-bone hover:bg-bone/10" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
-                    <span class="block h-6 w-6">{% include "partials/icons/menu.svg" %}</span>
+                <button id="mobile-menu-toggle" class="xl:hidden text-bone w-6 h-6" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                    {% include "partials/icons/menu.svg" %}
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden xl:hidden border-t border-bone/10 bg-ink/95 px-4 sm:px-8 py-4">
-            <div class="max-w-[1400px] mx-auto grid gap-1">
-                <a href="{% url 'cms:home' %}" class="rounded-lg px-3 py-2.5 text-base text-bone hover:bg-bone/10">Inicio</a>
-                {% for page in nav_pages %}
-                    <a href="{% url 'cms:page_detail' page.slug %}" class="rounded-lg px-3 py-2.5 text-base text-bone hover:bg-bone/10">{{ page.title }}</a>
-                {% endfor %}
-                <a href="{% url 'store:product_list' %}" class="rounded-lg px-3 py-2.5 text-base text-bone hover:bg-bone/10">Catálogo</a>
-                <a href="{% url 'cms:projects' %}" class="rounded-lg px-3 py-2.5 text-base text-bone hover:bg-bone/10">Proyectos</a>
-                <button type="button" data-open-chat class="rounded-lg px-3 py-2.5 text-left text-base text-bone hover:bg-bone/10">Chatbot</button>
-                <a href="{% url 'cms:contact' %}" class="rounded-lg px-3 py-2.5 text-base text-bone hover:bg-bone/10">Contacto</a>
-                <a href="{% url 'cms:schedule' %}" class="navcta mt-2 justify-center !py-3">Agenda tu cita</a>
-            </div>
+        <div id="mobile-menu" class="hidden xl:hidden mx-4 mb-2 rounded-3xl bg-ink/90 backdrop-blur-md border border-bone/15 px-6 py-5 space-y-1">
+            <a href="{% url 'cms:home' %}" class="block py-2 text-base text-bone">Inicio</a>
+            {% for page in nav_pages %}
+                <a href="{% url 'cms:page_detail' page.slug %}" class="block py-2 text-base text-bone">{{ page.title }}</a>
+            {% endfor %}
+            <a href="{% url 'store:product_list' %}" class="block py-2 text-base text-bone">Catálogo</a>
+            <a href="{% url 'cms:projects' %}" class="block py-2 text-base text-bone">Proyectos</a>
+            <button type="button" data-open-chat class="block py-2 text-base text-bone">Chatbot</button>
+            <a href="{% url 'cms:contact' %}" class="block py-2 text-base text-bone">Contacto</a>
+            <a href="{% url 'cms:schedule' %}" class="btn btn-cream mt-3 w-fit !text-base !py-2.5">Agenda tu cita</a>
         </div>
     </header>
 
@@ -98,7 +96,7 @@
         <div class="max-w-[1400px] mx-auto px-4 sm:px-8 py-8 grid gap-6 lg:grid-cols-[auto_1fr_auto] lg:items-center">
             <div class="flex items-center gap-3.5">
                 <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-12 w-12">
-                <span class="wordmark text-2xl">Aplideco <span class="tagline !text-xs !tracking-[0.25em]">S.A.S</span></span>
+                <span class="text-xl font-bold">Aplideco S.A.S</span>
             </div>
             <p class="text-sm text-bone/70 lg:text-center">NIT 901.079.715-6 &middot; Medellín, Antioquia</p>
             <nav class="flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-bone/90" aria-label="Pie de página">

@@ -38,7 +38,6 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         display: ["Antonio", "Inter", "system-ui", "sans-serif"],
-        brand: ["Jost", "Inter", "system-ui", "sans-serif"],
       },
       letterSpacing: {
         display: "-0.079em",
