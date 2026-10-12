@@ -22,10 +22,10 @@
                     <img src="{{ site_settings.logo.url }}" alt="{{ site_settings.site_name }}" class="h-12 sm:h-16 inline-block">
                 {% else %}
                     <img src="{% static 'img/logo-emblem.png' %}" alt="" class="h-14 w-14 sm:h-[76px] sm:w-[76px] rounded-full shrink-0">
-                    <span class="relative font-wordmark leading-none uppercase select-none" aria-hidden="true">
-                        <span class="absolute -top-3 right-1 font-script italic text-alarm text-sm sm:text-lg normal-case">sas</span>
-                        <span class="block text-xl sm:text-[34px] pb-1 sm:pb-1.5 border-b-2 border-bone tracking-[0.04em]">Pli</span>
-                        <span class="block text-xl sm:text-[34px] mt-1 pb-1 sm:pb-1.5 border-b-2 border-bone tracking-[0.04em]">Deco</span>
+                    <span class="relative font-display leading-none uppercase select-none" aria-hidden="true">
+                        <span class="absolute -top-3 right-1 font-sans italic text-alarm text-sm sm:text-base normal-case">sas</span>
+                        <span class="block text-2xl sm:text-[40px] pb-1 border-b-2 border-bone tracking-[0.02em]">Pli</span>
+                        <span class="block text-2xl sm:text-[40px] mt-1 pb-1 border-b-2 border-bone tracking-[0.02em]">Deco</span>
                     </span>
                 {% endif %}
             </a>
@@ -36,7 +36,7 @@
                 {% endfor %}
                 <a href="{% url 'cms:projects' %}" class="pill-brick">Proyectos</a>
                 <a href="{% url 'store:product_list' %}" class="pill">Catálogo</a>
-                <a href="{% url 'cms:contact' %}" class="pill pill-active">Cotizar</a>
+                <a href="{% url 'cms:contact' %}" class="pill">Cotizar</a>
             </nav>
 
             <div class="flex items-center gap-5">

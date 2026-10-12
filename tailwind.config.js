@@ -24,8 +24,6 @@ module.exports = {
       fontFamily: {
         sans: ["Inter", "system-ui", "sans-serif"],
         display: ["Antonio", "Inter", "system-ui", "sans-serif"],
-        wordmark: ['"Krona One"', "Inter", "system-ui", "sans-serif"],
-        script: ['"Playfair Display"', "Georgia", "serif"],
       },
       letterSpacing: {
         display: "-0.079em",

@@ -67,11 +67,11 @@
 
   /* Hero nav buttons (cream / brick red, soft-rounded like the mockup) */
   .pill-cream {
-    @apply inline-flex items-center rounded-2xl border border-cream-dark bg-cream px-5 py-2.5 text-[15px] font-bold text-neutral-700 transition hover:brightness-95 sm:px-7 sm:py-3 sm:text-lg;
+    @apply inline-flex items-center rounded-full border border-cream bg-cream px-5 py-1.5 text-[15px] text-obsidian transition-colors hover:bg-bone;
   }
 
   .pill-brick {
-    @apply inline-flex items-center rounded-2xl border border-alarm bg-alarm-dark px-5 py-2.5 text-[15px] font-bold text-cream transition hover:brightness-110 sm:px-7 sm:py-3 sm:text-lg;
+    @apply inline-flex items-center rounded-full border border-alarm-dark bg-alarm-dark px-5 py-1.5 text-[15px] text-bone transition-colors hover:bg-alarm hover:border-alarm;
   }
 
   /* Hero carousel: crossfade + slow zoom */
@@ -91,10 +91,6 @@
 
   [data-hero-slider] [data-slide].is-active img {
     transform: scale(1);
-  }
-
-  [data-hero-slider] [data-slide-dot].is-active {
-    @apply w-8 bg-bone;
   }
 
   .checker-strip {

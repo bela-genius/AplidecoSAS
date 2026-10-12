@@ -32,26 +32,6 @@
                     <img src="{% static 'img/hero/trabajo-alturas.webp' %}" alt="Operario con arnés trabajando en altura en una fachada" class="object-[50%_58%]" loading="lazy">
                     <span class="sr-only">Trabajo en alturas</span>
                 </div>
-
-                <div class="pointer-events-none absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-obsidian/70 to-transparent"></div>
-
-                <div class="absolute inset-x-0 bottom-0 flex items-center justify-between gap-3 px-4 sm:px-6 pb-3 sm:pb-4">
-                    <div class="flex items-center gap-2" role="tablist" aria-label="Elegir imagen">
-                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 1"></button>
-                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 2"></button>
-                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 3"></button>
-                        <button type="button" data-slide-dot class="h-2 w-2 rounded-full bg-bone/50 transition-all duration-300" aria-label="Imagen 4"></button>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span data-slide-counter class="text-xs font-bold text-bone/80 mr-2" aria-hidden="true">01 / 04</span>
-                        <button type="button" data-slide-prev class="h-9 w-9 rounded-full border border-bone/60 text-bone hover:bg-bone hover:text-obsidian transition-colors flex items-center justify-center" aria-label="Imagen anterior">
-                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M15 5l-7 7 7 7"/></svg>
-                        </button>
-                        <button type="button" data-slide-next class="h-9 w-9 rounded-full border border-bone/60 text-bone hover:bg-bone hover:text-obsidian transition-colors flex items-center justify-center" aria-label="Imagen siguiente">
-                            <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5l7 7-7 7"/></svg>
-                        </button>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -59,8 +39,8 @@
     <!-- CINTA DE CATÁLOGO -->
     <div class="bg-alarm-dark/90">
         <div class="max-w-[1600px] mx-auto px-6 sm:px-10 py-4 sm:py-5 flex flex-wrap items-center gap-x-5 gap-y-3">
-            <p class="font-script italic font-medium text-cream text-xl sm:text-3xl">Conoce más de nuestro Catálogo haciendo</p>
-            <a href="{% url 'store:product_list' %}" class="font-script italic font-medium text-cream text-xl sm:text-3xl rounded-full border border-cream px-6 py-0.5 hover:bg-cream hover:text-alarm-dark transition-colors">Click Aquí</a>
+            <p class="font-sans italic text-cream text-lg sm:text-2xl">Conoce más de nuestro Catálogo haciendo</p>
+            <a href="{% url 'store:product_list' %}" class="pill-cream !bg-transparent !text-cream !border-cream hover:!bg-cream hover:!text-alarm-dark">Click Aquí</a>
         </div>
         <div class="checker-strip" aria-hidden="true"></div>
     </div>
