@@ -124,11 +124,32 @@
 
   /* Header nav: translucent pills, the active page is brighter and bold */
   .navp {
-    @apply rounded-full border border-bone/20 bg-bone/10 px-4 py-2 text-[15px] text-bone backdrop-blur-sm transition-colors hover:bg-bone/20;
+    @apply rounded-xl border border-bone/20 bg-bone/10 px-4 py-2 text-[15px] text-bone backdrop-blur-sm transition-colors hover:bg-bone/20;
   }
 
   .navp.is-active {
     @apply border-bone/45 bg-bone/20 font-bold;
+  }
+
+  .tagline {
+    @apply font-brand text-[11px] font-medium uppercase tracking-[0.2em] text-bone/70 sm:text-sm;
+  }
+
+  /* Shapes that touch the screen edge instead of floating next to it */
+  :root {
+    --gutter: 1rem;
+    --edge: calc(max(0px, (100vw - 1400px) / 2) + var(--gutter));
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --gutter: 2rem;
+    }
+  }
+
+  .bleed-l {
+    margin-left: calc(var(--edge) * -1);
+    padding-left: var(--edge);
   }
 
   /* Gentle lift on buttons and tiles */
