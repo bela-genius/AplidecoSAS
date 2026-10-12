@@ -37,7 +37,7 @@
             </a>
             {% endblock %}
 
-            <nav class="hidden lg:flex flex-wrap items-center justify-end gap-2.5 ml-auto" aria-label="Principal">
+            <nav class="hidden xl:flex flex-wrap items-center justify-end gap-2.5 ml-auto" aria-label="Principal">
                 <a href="{% url 'cms:home' %}" class="navp {% if request.path == '/' %}is-active{% endif %}" {% if request.path == '/' %}aria-current="page"{% endif %}>Inicio</a>
                 {% for page in nav_pages %}
                     <a href="{% url 'cms:page_detail' page.slug %}" class="navp {% if '/p/'|add:page.slug in request.path %}is-active{% endif %}">{{ page.title }}</a>
@@ -45,7 +45,8 @@
                 <a href="{% url 'store:product_list' %}" class="navp {% if '/tienda' in request.path %}is-active{% endif %}">Catálogo</a>
                 <a href="{% url 'cms:projects' %}" class="navp {% if '/proyectos' in request.path %}is-active{% endif %}">Proyectos</a>
                 <button type="button" data-open-chat class="navp">Chatbot</button>
-                <a href="{% url 'cms:contact' %}" class="navp {% if '/contacto' in request.path %}is-active{% endif %}">Agenda tu cita</a>
+                <a href="{% url 'cms:schedule' %}" class="navp {% if '/agenda' in request.path %}is-active{% endif %}">Agenda tu cita</a>
+                <a href="{% url 'cms:contact' %}" class="navp {% if '/contacto' in request.path %}is-active{% endif %}">Contacto</a>
             </nav>
 
             <div class="flex items-center gap-4 rounded-full bg-bone/10 border border-bone/20 backdrop-blur-sm px-4 py-2.5">
@@ -58,12 +59,12 @@
                 {% else %}
                     <a href="{% url 'accounts:login' %}" class="hidden sm:inline text-sm text-bone/80 hover:text-bone">Ingresar</a>
                 {% endif %}
-                <button id="mobile-menu-toggle" class="lg:hidden text-bone w-6 h-6" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+                <button id="mobile-menu-toggle" class="xl:hidden text-bone w-6 h-6" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
                     {% include "partials/icons/menu.svg" %}
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden lg:hidden mx-4 mb-2 rounded-3xl bg-ink/90 backdrop-blur-md border border-bone/15 px-6 py-5 space-y-1">
+        <div id="mobile-menu" class="hidden xl:hidden mx-4 mb-2 rounded-3xl bg-ink/90 backdrop-blur-md border border-bone/15 px-6 py-5 space-y-1">
             <a href="{% url 'cms:home' %}" class="block py-2 text-base text-bone">Inicio</a>
             {% for page in nav_pages %}
                 <a href="{% url 'cms:page_detail' page.slug %}" class="block py-2 text-base text-bone">{{ page.title }}</a>
@@ -71,7 +72,8 @@
             <a href="{% url 'store:product_list' %}" class="block py-2 text-base text-bone">Catálogo</a>
             <a href="{% url 'cms:projects' %}" class="block py-2 text-base text-bone">Proyectos</a>
             <button type="button" data-open-chat class="block py-2 text-base text-bone">Chatbot</button>
-            <a href="{% url 'cms:contact' %}" class="pill-cream mt-3 w-fit">Agenda tu cita</a>
+            <a href="{% url 'cms:contact' %}" class="block py-2 text-base text-bone">Contacto</a>
+            <a href="{% url 'cms:schedule' %}" class="btn btn-cream mt-3 w-fit !text-base !py-2.5">Agenda tu cita</a>
         </div>
     </header>
 
@@ -102,7 +104,8 @@
                 <a href="{% url 'store:product_list' %}" class="hover:text-rose transition-colors">Catálogo</a>
                 <a href="{% url 'cms:projects' %}" class="hover:text-rose transition-colors">Proyectos</a>
                 <button type="button" data-open-chat class="hover:text-rose transition-colors">Chatbot</button>
-                <a href="{% url 'cms:contact' %}" class="hover:text-rose transition-colors">Agenda tu cita</a>
+                <a href="{% url 'cms:schedule' %}" class="hover:text-rose transition-colors">Agenda tu cita</a>
+                <a href="{% url 'cms:contact' %}" class="hover:text-rose transition-colors">Contacto</a>
             </nav>
         </div>
         <div class="border-t border-bone/10">

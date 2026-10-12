@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Certification, ContactRequest, Page, Project, SiteSettings, SocialLink
+from .models import Appointment, Certification, ContactRequest, Page, Project, SiteSettings, SocialLink
 
 
 @admin.register(SiteSettings)
@@ -45,3 +45,12 @@ class ContactRequestAdmin(admin.ModelAdmin):
     list_editable = ("is_handled",)
     list_filter = ("is_handled",)
     readonly_fields = ("full_name", "email", "phone", "message", "created_at")
+
+
+@admin.register(Appointment)
+class AppointmentAdmin(admin.ModelAdmin):
+    list_display = ("full_name", "modality", "preferred_date", "preferred_slot", "phone", "status", "created_at")
+    list_editable = ("status",)
+    list_filter = ("status", "modality", "preferred_date")
+    search_fields = ("full_name", "phone", "email")
+    readonly_fields = ("created_at",)

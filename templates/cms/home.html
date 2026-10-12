@@ -18,11 +18,11 @@
 
     <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16 grid gap-12 lg:grid-cols-[1fr_1.12fr] items-stretch lg:min-h-[800px]">
         <div class="flex flex-col justify-between gap-12">
-            <a href="{% url 'cms:home' %}" class="flex w-fit items-center gap-2 sm:gap-3 hov" aria-label="{{ site_settings.site_name }}">
-                <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-28 w-28 sm:h-44 sm:w-44 lg:h-56 lg:w-56 shrink-0">
+            <a href="{% url 'cms:home' %}" class="hov flex w-fit items-center gap-3 sm:gap-5" aria-label="{{ site_settings.site_name }}">
+                <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-24 w-24 sm:h-36 sm:w-36 lg:h-48 lg:w-48 shrink-0">
                 <span class="leading-none">
-                    <span class="block text-5xl sm:text-7xl lg:text-[84px] tracking-[-0.035em] font-normal text-[#f6f2ec]">Aplideco</span>
-                    <span class="block ml-1.5 mt-1 text-xl sm:text-3xl italic text-bone/55">S.A.S</span>
+                    <span class="block text-5xl sm:text-7xl lg:text-[80px] tracking-[-0.035em] font-normal text-[#f6f2ec]">Aplideco</span>
+                    <span class="block mt-2 text-xl sm:text-3xl italic text-bone/60">S.A.S</span>
                 </span>
             </a>
 
@@ -53,6 +53,9 @@
                 <span class="block text-3xl sm:text-5xl font-bold tracking-[-0.02em] leading-[1.05]">Explora nuestro <em class="text-rose">Catálogo</em></span>
                 <span class="mt-1 block text-xl sm:text-3xl italic text-bone/90">Haz click en las imágenes</span>
             </p>
+            <div class="mt-6 flex justify-center">
+                <a href="{% url 'store:product_list' %}" class="btn btn-outline">Ver catálogo completo <span aria-hidden="true">&rarr;</span></a>
+            </div>
         </div>
     </div>
 </section>
@@ -95,7 +98,7 @@
                     </div>
                 </div>
                 <div class="relative -mt-6 sm:-mt-8 ml-6 sm:ml-[28rem]">
-                    <button type="button" data-open-chat class="hov relative inline-block rounded-full border-4 border-azure-dark bg-azure px-9 sm:px-14 py-2.5 sm:py-3.5 text-2xl sm:text-[38px] leading-tight shadow-[inset_0_3px_0_rgba(255,255,255,.3)]">
+                    <button type="button" data-open-chat class="btn btn-azure btn-lg relative !px-10 sm:!px-14 !text-2xl sm:!text-[34px] border-4 border-azure-dark shadow-[inset_0_3px_0_rgba(255,255,255,.3)]">
                         Aplideco_bot
                         <img src="{% static 'img/hand.png' %}" alt="" class="pointer-events-none absolute -right-5 sm:-right-7 -bottom-8 sm:-bottom-11 w-10 sm:w-16 h-auto">
                     </button>
@@ -127,7 +130,7 @@
                     <span class="text-4xl sm:text-[60px] font-bold tracking-[-0.03em]">Whatsapp</span>
                 </div>
                 <p class="mt-1 text-2xl sm:text-[38px] tracking-[0.05em]">{{ site_settings.contact_phone }}</p>
-                <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" rel="noopener" class="hov mt-7 block rounded-[2.25rem] bg-azure-sky px-4 pt-6 pb-7 shadow-[inset_0_3px_0_rgba(255,255,255,.35)]">
+                <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hola%20Aplideco%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios." target="_blank" rel="noopener" class="hov mt-7 block rounded-[2.25rem] bg-azure-sky px-4 pt-6 pb-7 shadow-[inset_0_3px_0_rgba(255,255,255,.35)]">
                     <span class="block text-3xl sm:text-[42px] italic font-semibold leading-none">Presiona para</span>
                     <span class="block mt-1 text-4xl sm:text-[52px] font-bold italic tracking-[-0.03em] text-[#1d3a5c] leading-[1.1]">Escribirnos</span>
                 </a>
@@ -143,27 +146,21 @@
     <div class="absolute inset-0 -z-20 bg-[rgba(48,46,46,.62)]"></div>
     <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
 
-    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-10 sm:pt-12 pb-12 sm:pb-16 grid gap-x-10 gap-y-10 lg:grid-cols-[1.6fr_1fr]">
+    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-14 sm:pb-20 grid gap-x-12 gap-y-12 lg:grid-cols-[1.6fr_1fr] lg:items-start">
         <h2 class="font-sans normal-case italic font-bold text-6xl sm:text-8xl lg:text-[112px] leading-none tracking-[-0.04em]" data-aos="fade-up">Visítanos</h2>
 
-        <div class="lg:row-span-2 lg:text-right" data-aos="fade-up" data-aos-delay="100">
+        <div class="lg:text-right" data-aos="fade-up" data-aos-delay="100">
             <p class="text-4xl sm:text-6xl leading-none tracking-[-0.03em]"><b><em>Agenda</em></b> tu cita:</p>
-            <a href="{% url 'cms:contact' %}" class="hov mt-5 inline-block rounded-full bg-cream px-12 sm:px-24 pt-1.5 pb-2.5 text-4xl sm:text-6xl italic font-bold tracking-[-0.03em] text-[#1d1c1c]">Virtual</a>
-
-            <div class="mt-12 lg:ml-auto lg:w-[330px] text-left">
-                <p class="text-4xl sm:text-[58px] leading-none tracking-[-0.03em]">Presencial:</p>
-                <a href="https://wa.me/{{ site_settings.whatsapp_number }}" target="_blank" rel="noopener" class="hov mt-6 block rounded-full bg-stone px-10 pt-3.5 pb-4 text-center text-3xl sm:text-4xl text-[#1d1c1c]">Whatsapp</a>
-                <button type="button" data-open-chat class="hov mt-4 block w-full rounded-full bg-sage px-4 pt-3 pb-4 text-center text-2xl sm:text-[28px] text-white">con Aplideco_Bot</button>
-            </div>
+            <a href="{% url 'cms:schedule' %}?modalidad=virtual" class="btn btn-cream btn-lg mt-6 w-full lg:w-auto !px-14 sm:!px-20 !text-4xl sm:!text-5xl italic font-bold tracking-[-0.03em]">Virtual</a>
         </div>
 
-        <div class="-ml-4 sm:-ml-8 lg:max-w-[1010px] rounded-r-[60px] sm:rounded-r-[120px] pl-4 sm:pl-16 pr-6 sm:pr-12 py-8 bg-[rgba(15,13,12,.95)] grid gap-6 sm:grid-cols-[250px_1fr] items-center" data-aos="fade-up">
+        <div class="-ml-4 sm:-ml-8 lg:max-w-[1010px] rounded-r-[60px] sm:rounded-r-[120px] pl-4 sm:pl-16 pr-6 sm:pr-12 py-8 bg-[rgba(15,13,12,.95)] grid gap-6 sm:grid-cols-[230px_1fr] items-center" data-aos="fade-up">
             <div>
                 <p class="text-base sm:text-[21px] leading-snug">Escanea cada QR o haz click en cada ícono…</p>
                 <p class="mt-5 text-2xl sm:text-3xl italic leading-none">Nuestras</p>
                 <p class="text-2xl sm:text-3xl leading-[1.1]">Redes <span class="text-azure-link">Sociales</span></p>
             </div>
-            <div class="flex flex-wrap lg:flex-nowrap items-center gap-x-5 gap-y-5">
+            <div class="flex flex-wrap lg:flex-nowrap items-center gap-x-6 gap-y-5">
                 <a href="https://www.facebook.com/p/Aplideco-sas-100064813512941/" target="_blank" rel="noopener" class="hov flex items-center gap-3" aria-label="Facebook de Aplideco">
                     <svg viewBox="0 0 24 24" class="h-14 w-14 sm:h-[68px] sm:w-[68px] shrink-0" fill="#fff" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
                     <img src="{% static 'img/qr-2.png' %}" alt="Código QR de Facebook" class="h-24 w-24 sm:h-[118px] sm:w-[118px]">
@@ -175,17 +172,34 @@
             </div>
         </div>
 
+        <div class="lg:max-w-[330px] lg:justify-self-end w-full" data-aos="fade-up" data-aos-delay="100">
+            <p class="text-4xl sm:text-[58px] leading-none tracking-[-0.03em]">Presencial:</p>
+            <div class="mt-6 flex flex-col gap-3">
+                <a href="{% url 'cms:schedule' %}?modalidad=presencial" class="btn btn-cream btn-lg">Reservar en línea</a>
+                <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hola%20Aplideco%2C%20quiero%20agendar%20una%20visita%20presencial." target="_blank" rel="noopener" class="btn btn-stone btn-lg">
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                    Whatsapp
+                </a>
+                <button type="button" data-open-chat class="btn btn-sage btn-lg">
+                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/></svg>
+                    con Aplideco_Bot
+                </button>
+            </div>
+        </div>
+
         <div class="lg:col-span-2 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between" data-aos="fade-up">
             <div class="flex items-center gap-5 sm:gap-7">
                 <svg viewBox="0 0 64 80" class="h-24 w-[4.8rem] sm:h-[132px] sm:w-[104px] shrink-0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" aria-hidden="true"><path d="M32 4C17 4 7 15 7 28c0 18 25 46 25 46s25-28 25-46C57 15 47 4 32 4z"/><circle cx="32" cy="28" r="11"/></svg>
                 <div>
                     <p class="text-2xl sm:text-[32px] italic leading-none">Nuestra Oficina</p>
-                    <p class="text-4xl sm:text-[62px] leading-[1.05] tracking-[-0.03em]">Medellín, Colombia</p>
-                    <p class="mt-1 text-lg sm:text-[30px]"><span class="text-azure-link">Dirección:</span> <span class="text-bone/75">{% if site_settings.address %}{{ site_settings.address }}{% else %}[por completar]{% endif %}</span></p>
+                    <p class="mt-1 text-4xl sm:text-[62px] leading-[1.05] tracking-[-0.03em]">Medellín, Colombia</p>
+                    <p class="mt-2 text-lg sm:text-[28px] leading-snug"><span class="text-azure-link">Dirección:</span> <span class="text-bone/80">{% if site_settings.address %}{{ site_settings.address }}{% else %}[por completar]{% endif %}</span></p>
                 </div>
             </div>
-            <a href="https://www.google.com/maps/search/?api=1&query={{ site_settings.address|default:'Aplideco S.A.S Medellín'|urlencode }}" target="_blank" rel="noopener"
-               class="hov flex items-center rounded-full lg:rounded-r-none lg:rounded-l-full lg:-mr-8 bg-butter pl-8 sm:pl-14 pr-12 py-4 sm:py-6 text-3xl sm:text-[44px] text-[#1d1c1c] lg:min-w-[480px]">Ver en Maps…</a>
+            <a href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&query={{ site_settings.address|default:'Aplideco S.A.S Medellín'|urlencode }}{% endif %}" target="_blank" rel="noopener" class="btn btn-butter btn-lg w-full lg:w-auto lg:min-w-[300px] shrink-0">
+                <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
+                Ver en Maps
+            </a>
         </div>
     </div>
 </section>

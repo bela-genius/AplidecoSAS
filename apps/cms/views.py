@@ -3,7 +3,8 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from apps.store.models import Category, Product
 
-from .models import Certification, ContactRequest, Page, Project, SiteSettings
+from .forms import AppointmentForm
+from .models import Appointment, Certification, ContactRequest, Page, Project, SiteSettings
 
 
 def home(request):
@@ -76,3 +77,21 @@ def contact(request):
         messages.success(request, "Recibimos tu solicitud. Te contactaremos muy pronto.")
         return redirect("cms:contact")
     return render(request, "cms/contact.html")
+
+
+def schedule(request):
+    if request.method == "POST":
+        form = AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save()
+            request.session["last_appointment"] = appointment.pk
+            return redirect(f"{request.path}?enviado=1")
+    else:
+        modality = request.GET.get("modalidad")
+        initial = {"modality": modality} if modality in Appointment.Modality.values else {}
+        form = AppointmentForm(initial=initial)
+
+    appointment = None
+    if request.GET.get("enviado") and request.session.get("last_appointment"):
+        appointment = Appointment.objects.filter(pk=request.session["last_appointment"]).first()
+    return render(request, "cms/schedule.html", {"form": form, "appointment": appointment})

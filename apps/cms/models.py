@@ -20,6 +20,11 @@ class SiteSettings(models.Model):
     contact_phone = models.CharField(max_length=30, blank=True)
     whatsapp_number = models.CharField(max_length=30, blank=True)
     address = models.CharField(max_length=255, blank=True)
+    maps_url = models.URLField(
+        blank=True,
+        verbose_name="Enlace de Google Maps",
+        help_text="Pega aquí el enlace de tu ficha de Google Maps (botón Compartir). Si queda vacío se busca por la dirección.",
+    )
 
     years_experience = models.PositiveIntegerField(default=0)
     projects_completed = models.PositiveIntegerField(default=0)
@@ -135,6 +140,41 @@ class ContactRequest(models.Model):
 
     def __str__(self) -> str:
         return f"{self.full_name} ({self.created_at:%Y-%m-%d})"
+
+
+class Appointment(models.Model):
+    """Solicitud de cita (virtual o presencial) hecha desde la página Agenda tu cita."""
+
+    class Modality(models.TextChoices):
+        VIRTUAL = "virtual", "Virtual"
+        IN_PERSON = "presencial", "Presencial"
+
+    class Slot(models.TextChoices):
+        MORNING = "manana", "Mañana"
+        AFTERNOON = "tarde", "Tarde"
+
+    class Status(models.TextChoices):
+        PENDING = "pendiente", "Pendiente"
+        CONFIRMED = "confirmada", "Confirmada"
+        CANCELLED = "cancelada", "Cancelada"
+
+    full_name = models.CharField("Nombre completo", max_length=150)
+    phone = models.CharField("Teléfono / WhatsApp", max_length=30)
+    email = models.EmailField("Correo electrónico", blank=True)
+    modality = models.CharField("Modalidad", max_length=12, choices=Modality.choices, default=Modality.VIRTUAL)
+    preferred_date = models.DateField("Fecha preferida")
+    preferred_slot = models.CharField("Franja preferida", max_length=10, choices=Slot.choices, default=Slot.MORNING)
+    message = models.TextField("Cuéntanos qué necesitas", blank=True)
+    status = models.CharField(max_length=12, choices=Status.choices, default=Status.PENDING)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+        verbose_name = "Cita"
+        verbose_name_plural = "Citas"
+
+    def __str__(self) -> str:
+        return f"{self.full_name} · {self.get_modality_display()} · {self.preferred_date:%Y-%m-%d}"
 
 
 class Certification(models.Model):

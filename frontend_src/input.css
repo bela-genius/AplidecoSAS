@@ -36,6 +36,7 @@
   input[type="password"],
   input[type="tel"],
   input[type="number"],
+  input[type="date"],
   textarea,
   select {
     @apply w-full bg-transparent border border-bone/30 rounded-2xl px-4 py-3 text-bone focus:outline-none focus:border-alarm;
@@ -82,6 +83,43 @@
   /* Hero nav buttons (cream / brick red, soft-rounded like the mockup) */
   .pill-cream {
     @apply inline-flex items-center justify-center rounded-full border border-cream bg-cream px-5 py-2 text-[15px] font-bold text-neutral-800 transition-colors hover:bg-bone;
+  }
+
+  /* One button system for the whole site: same shape, rhythm and motion */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2.5 rounded-full px-7 py-3 text-lg font-semibold leading-none transition duration-200 hover:-translate-y-0.5 hover:brightness-110 active:translate-y-0;
+  }
+
+  .btn-lg {
+    @apply px-9 py-4 text-xl sm:text-2xl;
+  }
+
+  .btn-cream {
+    @apply bg-cream text-[#1d1c1c];
+  }
+
+  .btn-stone {
+    @apply bg-stone text-[#1d1c1c];
+  }
+
+  .btn-sage {
+    @apply bg-sage text-[#1d1c1c];
+  }
+
+  .btn-butter {
+    @apply bg-butter text-[#1d1c1c];
+  }
+
+  .btn-sky {
+    @apply bg-azure-sky text-[#0f2a47];
+  }
+
+  .btn-azure {
+    @apply bg-azure text-bone;
+  }
+
+  .btn-outline {
+    @apply border border-bone/40 text-bone hover:bg-bone/10 hover:brightness-100;
   }
 
   /* Header nav: translucent pills, the active page is brighter and bold */
