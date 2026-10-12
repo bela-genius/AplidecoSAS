@@ -11,12 +11,12 @@
     <link rel="stylesheet" href="{% static 'vendor/aos/aos.css' %}">
     {% block extra_head %}{% endblock %}
 </head>
-<body class="bg-[#1b1b1b] text-bone font-sans antialiased relative overflow-x-hidden">
+<body class="bg-ink text-bone font-sans antialiased relative overflow-x-hidden">
 
     <!-- Fondo global: foto de obra en gris + grano -->
     <div class="fixed inset-0 -z-10 grain" aria-hidden="true">
         <img src="{% static 'img/hero/bg-fachada.webp' %}" alt="" class="h-full w-full object-cover grayscale opacity-40">
-        <div class="absolute inset-0 bg-[#1b1b1b]/60"></div>
+        <div class="absolute inset-0 bg-ink/60"></div>
     </div>
 
     <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:bg-cream focus:text-neutral-900 focus:px-4 focus:py-2 focus:rounded-full">Saltar al contenido</a>
@@ -31,23 +31,25 @@
                     <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-11 w-11 sm:h-14 sm:w-14 shrink-0">
                     <span class="leading-none">
                         <span class="block text-2xl sm:text-[32px] tracking-tight">Aplideco</span>
-                        <span class="block text-xs sm:text-sm italic text-ash mt-0.5">S.A.S</span>
+                        <span class="block text-xs sm:text-sm italic text-bone/55 mt-0.5">S.A.S</span>
                     </span>
                 {% endif %}
             </a>
             {% endblock %}
 
-            <nav class="hidden md:flex items-center gap-1 rounded-full bg-black/55 backdrop-blur-md p-1.5 ml-auto" aria-label="Principal">
-                <a href="{% url 'store:product_list' %}" class="nav-link">Catálogo</a>
-                <a href="{% url 'cms:projects' %}" class="nav-link">Proyectos</a>
+            <nav class="hidden lg:flex flex-wrap items-center justify-end gap-2.5 ml-auto" aria-label="Principal">
+                <a href="{% url 'cms:home' %}" class="navp {% if request.path == '/' %}is-active{% endif %}" {% if request.path == '/' %}aria-current="page"{% endif %}>Inicio</a>
                 {% for page in nav_pages %}
-                    <a href="{% url 'cms:page_detail' page.slug %}" class="nav-link">{{ page.title }}</a>
+                    <a href="{% url 'cms:page_detail' page.slug %}" class="navp {% if '/p/'|add:page.slug in request.path %}is-active{% endif %}">{{ page.title }}</a>
                 {% endfor %}
-                <a href="{% url 'cms:contact' %}" class="pill-cream ml-1">Cotizar</a>
+                <a href="{% url 'store:product_list' %}" class="navp {% if '/tienda' in request.path %}is-active{% endif %}">Catálogo</a>
+                <a href="{% url 'cms:projects' %}" class="navp {% if '/proyectos' in request.path %}is-active{% endif %}">Proyectos</a>
+                <button type="button" data-open-chat class="navp">Chatbot</button>
+                <a href="{% url 'cms:contact' %}" class="navp {% if '/contacto' in request.path %}is-active{% endif %}">Agenda tu cita</a>
             </nav>
 
-            <div class="flex items-center gap-4 rounded-full bg-black/55 backdrop-blur-md px-4 py-2.5">
-                <a href="{% url 'store:cart_detail' %}" class="text-bone hover:text-alarm-soft transition-colors w-5 h-5" aria-label="Carrito">
+            <div class="flex items-center gap-4 rounded-full bg-bone/10 border border-bone/20 backdrop-blur-sm px-4 py-2.5">
+                <a href="{% url 'store:cart_detail' %}" class="text-bone hover:text-rose transition-colors w-5 h-5" aria-label="Carrito">
                     {% include "partials/icons/cart.svg" %}
                 </a>
                 {% if user.is_authenticated %}
@@ -56,25 +58,27 @@
                 {% else %}
                     <a href="{% url 'accounts:login' %}" class="hidden sm:inline text-sm text-bone/80 hover:text-bone">Ingresar</a>
                 {% endif %}
-                <button id="mobile-menu-toggle" class="md:hidden text-bone w-6 h-6" aria-label="Abrir menú">
+                <button id="mobile-menu-toggle" class="lg:hidden text-bone w-6 h-6" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
                     {% include "partials/icons/menu.svg" %}
                 </button>
             </div>
         </div>
-        <div id="mobile-menu" class="hidden md:hidden mx-4 mb-2 rounded-3xl bg-black/80 backdrop-blur-md px-6 py-5 space-y-3">
-            <a href="{% url 'store:product_list' %}" class="block text-sm font-medium text-bone">Catálogo</a>
-            <a href="{% url 'cms:projects' %}" class="block text-sm font-medium text-bone">Proyectos</a>
+        <div id="mobile-menu" class="hidden lg:hidden mx-4 mb-2 rounded-3xl bg-ink/90 backdrop-blur-md border border-bone/15 px-6 py-5 space-y-1">
+            <a href="{% url 'cms:home' %}" class="block py-2 text-base text-bone">Inicio</a>
             {% for page in nav_pages %}
-                <a href="{% url 'cms:page_detail' page.slug %}" class="block text-sm font-medium text-bone">{{ page.title }}</a>
+                <a href="{% url 'cms:page_detail' page.slug %}" class="block py-2 text-base text-bone">{{ page.title }}</a>
             {% endfor %}
-            <a href="{% url 'cms:contact' %}" class="pill-cream w-fit">Cotizar</a>
+            <a href="{% url 'store:product_list' %}" class="block py-2 text-base text-bone">Catálogo</a>
+            <a href="{% url 'cms:projects' %}" class="block py-2 text-base text-bone">Proyectos</a>
+            <button type="button" data-open-chat class="block py-2 text-base text-bone">Chatbot</button>
+            <a href="{% url 'cms:contact' %}" class="pill-cream mt-3 w-fit">Agenda tu cita</a>
         </div>
     </header>
 
     {% if messages %}
     <div class="max-w-[1400px] mx-auto px-4 sm:px-8 mt-2 space-y-2">
         {% for message in messages %}
-            <div class="px-5 py-3 text-sm rounded-2xl bg-black/60 backdrop-blur-md text-bone">{{ message }}</div>
+            <div class="px-5 py-3 text-sm rounded-2xl bg-ink/70 backdrop-blur-md border border-bone/15 text-bone">{{ message }}</div>
         {% endfor %}
     </div>
     {% endif %}
@@ -86,33 +90,29 @@
     </main>
 
     {% block footer %}
-    <footer class="mt-10 mx-3 sm:mx-6">
-        <div class="max-w-[1400px] mx-auto glass rounded-t-[2rem] sm:rounded-t-[3rem]">
-            <div class="px-6 sm:px-10 py-12 grid gap-10 md:grid-cols-4">
-                <div class="md:col-span-2">
-                    <div class="flex items-center gap-3 mb-3">
-                        <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-10 w-10">
-                        <span class="text-2xl tracking-tight">Aplideco <span class="text-sm italic text-ash">S.A.S</span></span>
-                    </div>
-                    <p class="text-ash text-sm max-w-sm leading-relaxed">{{ site_settings.tagline }}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm mb-3">Contacto</h4>
-                    <p class="text-ash text-sm mb-1">{{ site_settings.contact_phone }}</p>
-                    <p class="text-ash text-sm mb-1">{{ site_settings.contact_email }}</p>
-                    <p class="text-ash text-sm">{{ site_settings.address }}</p>
-                </div>
-                <div>
-                    <h4 class="font-bold text-sm mb-3">Síguenos</h4>
-                    <div class="flex flex-col gap-2 text-sm">
-                        {% for link in social_links %}
-                            <a href="{{ link.url }}" target="_blank" rel="noopener" class="text-ash hover:text-bone transition-colors">{{ link.get_platform_display }}</a>
-                        {% endfor %}
-                    </div>
-                </div>
+    <footer class="mt-12 bg-ink border-t border-bone/10">
+        <div class="max-w-[1400px] mx-auto px-4 sm:px-8 py-8 grid gap-6 lg:grid-cols-[auto_1fr_auto] lg:items-center">
+            <div class="flex items-center gap-3.5">
+                <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-12 w-12">
+                <span class="text-xl font-bold">Aplideco S.A.S</span>
             </div>
-            <div class="border-t border-bone/10 px-6 sm:px-10 py-5 text-xs text-ash">
-                &copy; {% now "Y" %} {{ site_settings.site_name }}. Todos los derechos reservados.
+            <p class="text-sm text-bone/70 lg:text-center">NIT 901.079.715-6 &middot; Medellín, Antioquia</p>
+            <nav class="flex flex-wrap gap-x-6 gap-y-2 text-[15px] text-bone/90" aria-label="Pie de página">
+                {% for page in nav_pages %}<a href="{% url 'cms:page_detail' page.slug %}" class="hover:text-rose transition-colors">{{ page.title }}</a>{% endfor %}
+                <a href="{% url 'store:product_list' %}" class="hover:text-rose transition-colors">Catálogo</a>
+                <a href="{% url 'cms:projects' %}" class="hover:text-rose transition-colors">Proyectos</a>
+                <button type="button" data-open-chat class="hover:text-rose transition-colors">Chatbot</button>
+                <a href="{% url 'cms:contact' %}" class="hover:text-rose transition-colors">Agenda tu cita</a>
+            </nav>
+        </div>
+        <div class="border-t border-bone/10">
+            <div class="max-w-[1400px] mx-auto pl-4 pr-20 sm:pl-8 sm:pr-24 py-4 flex flex-wrap items-center justify-between gap-x-6 gap-y-2 text-xs text-bone/50">
+                <span>&copy; {% now "Y" %} {{ site_settings.site_name }}. Todos los derechos reservados.</span>
+                <span class="flex flex-wrap gap-x-5 gap-y-1">
+                    {% if site_settings.contact_phone %}<span>{{ site_settings.contact_phone }}</span>{% endif %}
+                    {% if site_settings.contact_email %}<span>{{ site_settings.contact_email }}</span>{% endif %}
+                    {% for link in social_links %}<a href="{{ link.url }}" target="_blank" rel="noopener" class="hover:text-bone transition-colors">{{ link.get_platform_display }}</a>{% endfor %}
+                </span>
             </div>
         </div>
     </footer>
@@ -121,7 +121,7 @@
     <button id="chatbot-toggle" class="fixed bottom-6 right-6 z-50 h-14 w-14 rounded-full bg-azure hover:bg-azure-dark text-bone flex items-center justify-center transition-colors p-3.5 shadow-none" aria-label="Abrir asistente">
         {% include "partials/icons/chat.svg" %}
     </button>
-    <div id="chatbot-window" class="hidden fixed bottom-24 right-6 z-50 w-80 max-w-[calc(100vw-3rem)] max-h-[28rem] bg-[#1b1b1b]/95 backdrop-blur-md rounded-3xl flex flex-col overflow-hidden border border-bone/15">
+    <div id="chatbot-window" class="hidden fixed bottom-24 right-6 z-50 w-80 max-w-[calc(100vw-3rem)] max-h-[28rem] bg-ink/95 backdrop-blur-md rounded-3xl flex flex-col overflow-hidden border border-bone/15">
         <div class="bg-azure px-5 py-3 font-bold text-bone text-sm">Asistente {{ site_settings.site_name }}</div>
         <div id="chatbot-messages" class="flex-1 overflow-y-auto p-3 space-y-2 text-sm"></div>
         <form id="chatbot-form" class="flex border-t border-bone/15">
@@ -133,8 +133,18 @@
     <script src="{% static 'vendor/aos/aos.js' %}"></script>
     <script>
         AOS.init({ duration: 600, once: true, offset: 40 });
-        document.getElementById("mobile-menu-toggle")?.addEventListener("click", () => {
-            document.getElementById("mobile-menu")?.classList.toggle("hidden");
+        const menuBtn = document.getElementById("mobile-menu-toggle");
+        menuBtn?.addEventListener("click", () => {
+            const menu = document.getElementById("mobile-menu");
+            menu?.classList.toggle("hidden");
+            menuBtn.setAttribute("aria-expanded", String(!menu?.classList.contains("hidden")));
+        });
+        document.querySelectorAll("[data-open-chat]").forEach((btn) => {
+            btn.addEventListener("click", () => {
+                const win = document.getElementById("chatbot-window");
+                if (win && win.classList.contains("hidden")) document.getElementById("chatbot-toggle")?.click();
+                document.getElementById("chatbot-input")?.focus();
+            });
         });
     </script>
     <script src="{% static 'js/chatbot.js' %}"></script>

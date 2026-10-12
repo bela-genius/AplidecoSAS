@@ -3,8 +3,22 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.azure.soft");
+    outline-offset: 3px;
+  }
+
+  ::selection {
+    background: theme("colors.wine");
+    color: #fff;
+  }
+
   body {
-    @apply bg-[#1b1b1b] text-bone;
+    @apply bg-ink text-bone;
   }
 
   h1, h2, h3, h4 {
@@ -67,16 +81,31 @@
 
   /* Hero nav buttons (cream / brick red, soft-rounded like the mockup) */
   .pill-cream {
-    @apply inline-flex items-center justify-center rounded-full border border-cream bg-cream px-5 py-1.5 text-[15px] font-bold text-neutral-800 transition-colors hover:bg-bone;
+    @apply inline-flex items-center justify-center rounded-full border border-cream bg-cream px-5 py-2 text-[15px] font-bold text-neutral-800 transition-colors hover:bg-bone;
   }
 
-  .nav-link {
-    @apply rounded-full px-4 py-1.5 text-[15px] text-bone transition-colors hover:bg-bone/15;
+  /* Header nav: translucent pills, the active page is brighter and bold */
+  .navp {
+    @apply rounded-full border border-bone/20 bg-bone/10 px-4 py-2 text-[15px] text-bone backdrop-blur-sm transition-colors hover:bg-bone/20;
+  }
+
+  .navp.is-active {
+    @apply border-bone/45 bg-bone/20 font-bold;
+  }
+
+  /* Gentle lift on buttons and tiles */
+  .hov {
+    @apply transition duration-200;
+  }
+
+  .hov:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
   }
 
   /* Dark translucent panel, the visual unit of the whole site */
   .glass {
-    @apply bg-black/55 backdrop-blur-md;
+    @apply bg-ink/70 backdrop-blur-md;
   }
 
   /* Film grain over the page */
@@ -85,9 +114,9 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    opacity: 0.18;
-    mix-blend-mode: overlay;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    opacity: 0.45;
+    background-image: url("../img/grain.webp");
+    background-size: 420px 420px;
   }
 
   /* Typewriter cursor */

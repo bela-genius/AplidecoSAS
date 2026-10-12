@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const TYPE_MS = 90;
-    const ERASE_MS = 45;
+    const TYPE_MS = 75;
+    const ERASE_MS = 32;
     const HOLD_MS = 1700;
-    const GAP_MS = 350;
+    const GAP_MS = 380;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     document.querySelectorAll("[data-typewriter]").forEach((el) => {
