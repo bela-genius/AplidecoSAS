@@ -7,6 +7,14 @@ from .forms import AppointmentForm
 from .models import Appointment, Certification, ContactRequest, Page, Project, SiteSettings
 
 
+CYL_VERBS = ["Diseña", "Crea", "Imagina", "Construye", "Renueva"]
+CYL_NOUNS = ["fachadas", "pinturas", "trabajos", "obras", "decoraciones"]
+
+
+def _drum(words):
+    return [{"w": word, "a": i * 72, "k": i} for i, word in enumerate(words)]
+
+
 def home(request):
     featured_products = Product.objects.filter(is_active=True, is_featured=True)[:4]
     service_categories = Category.objects.filter(is_active=True, show_as_service=True)
@@ -43,11 +51,27 @@ def home(request):
         "slider_projects": slider_projects,
         "certifications": certifications,
         "trust_stats": trust_stats,
+        "verbs": _drum(CYL_VERBS),
+        "nouns": _drum(CYL_NOUNS),
     }
     return render(request, "cms/home.html", context)
 
 
+def about(request):
+    return render(request, "cms/about.html")
+
+
+def catalog(request):
+    return render(request, "cms/catalog.html")
+
+
+def chatbot(request):
+    return render(request, "cms/chatbot.html")
+
+
 def page_detail(request, slug):
+    if slug == "quienes-somos":
+        return redirect("cms:about", permanent=True)
     page = get_object_or_404(Page, slug=slug, is_published=True)
     certifications = Certification.objects.all()
     return render(request, "cms/page_detail.html", {"page": page, "certifications": certifications})

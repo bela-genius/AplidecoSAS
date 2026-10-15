@@ -2,91 +2,116 @@
 {% load static %}
 {% block title %}Aplideco S.A.S. | Pintura de fachadas y acabados en Medellín{% endblock %}
 {% block og_title %}Aplideco S.A.S. | Pintura de fachadas y acabados en Medellín{% endblock %}
-
 {% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
-{% block header_logo %}<span aria-hidden="true"></span>{% endblock %}
 {% block main_open %}{% endblock %}
 {% block main_close %}{% endblock %}
 
 {% block content %}
+{% with wa=site_settings.whatsapp_number|default:"573103929839" %}
+
 <!-- 1. HERO -->
-<section class="relative isolate overflow-hidden">
-    <img src="{% static 'img/hero/bg-torre.webp' %}" alt="" aria-hidden="true"
-         class="absolute inset-0 -z-30 h-full w-full object-cover object-[28%_50%]">
-    <div class="absolute inset-0 -z-20 bg-[linear-gradient(90deg,rgba(20,18,18,.38)_0%,rgba(20,18,18,.6)_46%,#0f0d0c_80%)] max-lg:bg-[linear-gradient(180deg,rgba(20,18,18,.45)_0%,rgba(20,18,18,.7)_55%,#0f0d0c_100%)]"></div>
+<section class="relative isolate overflow-hidden lg:h-[800px]">
+    <div class="mesh-red absolute inset-0 -z-30"></div>
+    <img src="{% static 'img/tower.webp' %}" alt="" aria-hidden="true" fetchpriority="high"
+         class="absolute -z-20 h-auto max-w-none w-[359%] -left-[259%] top-0 opacity-20 mix-blend-luminosity lg:w-[118%] lg:-left-[48%] lg:-top-[52%] lg:[mask-image:linear-gradient(90deg,#000_0%,#000_50%,transparent_70%)]">
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_78%,#0f0d0c_100%)]"></div>
     <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
 
-    <h1 class="sr-only">{{ site_settings.site_name|default:"Aplideco" }} — {{ site_settings.tagline|default:"Construimos con identidad." }}</h1>
+    <h1 class="sr-only">{{ site_settings.site_name|default:"Aplideco" }} — Diseña tus fachadas. Acabados y obras en Medellín.</h1>
 
-    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-24 sm:pt-28 pb-12 sm:pb-16 grid gap-12 lg:grid-cols-[1fr_1.12fr] items-stretch lg:min-h-[800px]">
-        <div class="flex flex-col justify-between gap-12">
+    <div class="page relative z-10 grid gap-8 pb-14 pt-[172px] lg:h-full lg:grid-cols-[1fr_620px] lg:gap-10 lg:pb-20 lg:pt-[140px]">
+        <!-- Texto cilíndrico + botón de contacto -->
+        <div class="order-2 flex flex-col gap-8 lg:order-1 lg:justify-between lg:gap-0 lg:pt-9">
             <div>
-                <a href="{% url 'cms:home' %}" class="hov flex w-fit items-center gap-3 sm:gap-5" aria-label="{{ site_settings.site_name }}">
-                    <img src="{% static 'img/emblem-red.png' %}" alt="" class="h-24 w-24 sm:h-36 sm:w-36 lg:h-48 lg:w-48 shrink-0">
-                    <span class="leading-none">
-                        <span class="block font-brand text-5xl sm:text-7xl lg:text-[80px] font-medium tracking-[-0.02em] text-[#f6f2ec]">Aplideco</span>
-                        <span class="block mt-2 ml-1 font-brand text-xl sm:text-3xl tracking-[0.3em] text-bone/60">S.A.S</span>
-                    </span>
-                </a>
-                <p class="tagline mt-5">Aplicaciones <span class="text-rose">&middot;</span> Decoraciones <span class="text-rose">&middot;</span> Obras Civiles</p>
+                <div class="cyl font-bold tracking-[-0.035em]" data-cyl>
+                    <div class="cyl-view w-full max-w-[470px] lg:max-w-[760px]" aria-hidden="true">
+                        <div class="drum" data-drum="v">
+                            {% for v in verbs %}<div class="cw" data-k="{{ v.k }}" style="transform: rotateX({{ v.a }}deg) translateZ(var(--r))">{{ v.w }}</div>{% endfor %}
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3 lg:gap-[22px]" aria-hidden="true">
+                        <span class="text-white/50" style="line-height: var(--lh)">tus</span>
+                        <div class="cyl-view w-[270px] lg:w-[560px]">
+                            <div class="drum" data-drum="n">
+                                {% for n in nouns %}<div class="cw italic text-rose" data-k="{{ n.k }}" style="transform: rotateX({{ n.a }}deg) translateZ(var(--r))">{{ n.w }}</div>{% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <p class="cyl-static" style="line-height: var(--lh)">Diseña tus <i class="text-rose">fachadas</i></p>
+                </div>
+                <p class="mt-3.5 hidden font-accent text-4xl font-medium italic text-white/85 lg:block">Acabados y obras en Medellín</p>
             </div>
-
-            <a href="{% url 'cms:page_detail' 'quienes-somos' %}" class="hov group bleed-l flex w-[calc(100%+var(--edge))] max-w-[calc(600px+var(--edge))] flex-col items-start justify-center gap-0.5 rounded-r-[999px] pr-10 py-6 bg-[rgba(29,28,28,.93)]">
-                <span class="rounded-2xl bg-wine px-6 py-2.5 text-xl sm:text-[28px] leading-tight">¿Quiénes somos?</span>
-                <span class="ml-1 text-2xl sm:text-4xl italic text-bone/90">Conócenos</span>
+            <a href="{% url 'cms:schedule' %}" class="btn-white self-start max-lg:max-w-[340px] max-lg:!pl-6 max-lg:!text-[17px] max-lg:leading-tight">
+                <span>Descubre cómo puedes <br class="lg:hidden">contactarnos</span>
+                <span class="go ring max-lg:!h-[46px] max-lg:!w-[46px]"><svg class="nudge" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
             </a>
         </div>
 
-        <div class="self-center">
-            <div data-hero-slider class="relative w-full rounded-[2rem] sm:rounded-[2.75rem] border-2 border-bone/30 bg-bone/10 p-2.5 backdrop-blur-sm" data-aos="fade-up" role="region" aria-roledescription="carrusel" aria-label="Trabajos de Aplideco">
-                <div class="relative aspect-[4/3] sm:aspect-[3/2] overflow-hidden rounded-[1.5rem] sm:rounded-[2.1rem] bg-[#1d1c1c]">
-                    <a data-slide href="{% url 'store:product_list' %}" aria-label="Ver catálogo">
-                        <img src="{% static 'img/hero/muro-relieve.webp' %}" alt="Muro con acabado texturizado en relieve" class="object-[50%_40%]">
-                    </a>
-                    <a data-slide href="{% url 'store:product_list' %}" aria-label="Ver catálogo" tabindex="-1">
-                        <img src="{% static 'img/hero/muro-piedra.webp' %}" alt="Muro con revestimiento efecto piedra e iluminación" class="object-[50%_30%]" loading="lazy">
-                    </a>
-                    <a data-slide href="{% url 'store:product_list' %}" aria-label="Ver catálogo" tabindex="-1">
-                        <img src="{% static 'img/hero/fachada-andamio.webp' %}" alt="Operario pintando una fachada desde un andamio" class="object-[50%_38%]" loading="lazy">
-                    </a>
-                    <a data-slide href="{% url 'store:product_list' %}" aria-label="Ver catálogo" tabindex="-1">
-                        <img src="{% static 'img/hero/trabajo-alturas.webp' %}" alt="Operario con arnés trabajando en altura en una fachada" class="object-[50%_58%]" loading="lazy">
-                    </a>
+        <!-- Carrusel -->
+        <div class="order-1 lg:order-2">
+            <div data-carousel data-interval="5200" role="region" aria-roledescription="carrusel" aria-label="Trabajos de Aplideco">
+                <div class="relative rounded-[30px] border-2 border-white/30 bg-white/10 p-2 lg:rounded-[44px] lg:p-2.5">
+                    <div class="relative h-[270px] overflow-hidden rounded-[22px] bg-[#1d1c1c] lg:h-[410px] lg:rounded-[34px]">
+                        <a data-slide href="{% url 'cms:catalog' %}" data-cap="Trabajo en alturas" aria-label="Ver catálogo: Trabajo en alturas">
+                            <img src="{% static 'img/tower.webp' %}" alt="Operario con casco blanco trabajando en altura en una torre" style="object-position: 70% 45%" fetchpriority="high">
+                        </a>
+                        <a data-slide href="{% url 'cms:catalog' %}" data-cap="Muro texturizado" aria-label="Ver catálogo: Muro texturizado">
+                            <img src="{% static 'img/stone.webp' %}" alt="Muro con textura de piedra iluminado con luces" style="object-position: 50% 30%" loading="lazy">
+                        </a>
+                        <a data-slide href="{% url 'cms:catalog' %}" data-cap="Pintura de fachada" aria-label="Ver catálogo: Pintura de fachada">
+                            <img src="{% static 'img/facade.webp' %}" alt="Operarios pintando una fachada oscura con andamio" style="object-position: 50% 38%" loading="lazy">
+                        </a>
+                        <a data-slide href="{% url 'cms:catalog' %}" data-cap="Obra en acceso" aria-label="Ver catálogo: Obra en acceso">
+                            <img src="{% static 'img/scaffold.webp' %}" alt="Obra con andamio y un operario en un acceso" style="object-position: 50% 32%" loading="lazy">
+                        </a>
+                        <div data-cap-text class="absolute bottom-3 left-3 z-10 rounded-full bg-ink/80 px-3.5 py-1.5 text-[13px] tracking-[0.02em] lg:bottom-[18px] lg:left-[18px] lg:px-[18px] lg:py-2 lg:text-[15px]" aria-live="off">Trabajo en alturas</div>
+                        <button type="button" data-prev aria-label="Imagen anterior" class="absolute left-2 top-1/2 z-10 -mt-[22px] flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(248,242,233,.92)] lg:left-3.5 lg:-mt-6 lg:h-12 lg:w-12">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d1c1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+                        </button>
+                        <button type="button" data-next aria-label="Imagen siguiente" class="absolute right-2 top-1/2 z-10 -mt-[22px] flex h-11 w-11 items-center justify-center rounded-full bg-[rgba(248,242,233,.92)] lg:right-3.5 lg:-mt-6 lg:h-12 lg:w-12">
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d1c1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+                        </button>
+                        <div class="absolute bottom-1 right-1.5 z-10 flex items-center lg:bottom-1.5 lg:right-3">
+                            {% for i in "1234" %}<button type="button" data-dot aria-label="Ir a la imagen {{ i }}" class="flex h-11 w-[22px] items-center justify-center lg:w-[26px]"><span class="dot-i"></span></button>{% endfor %}
+                        </div>
+                    </div>
                 </div>
             </div>
-            <p class="mt-6 text-center">
-                <span class="block text-3xl sm:text-5xl font-bold tracking-[-0.02em] leading-[1.05]">Explora nuestro <em class="text-rose">Catálogo</em></span>
-                <span class="mt-1 block text-xl sm:text-3xl italic text-bone/90">Haz click en las imágenes</span>
-            </p>
-            <div class="mt-6 flex justify-center">
-                <a href="{% url 'store:product_list' %}" class="btn btn-outline">Ver catálogo completo <span aria-hidden="true">&rarr;</span></a>
+            <div class="mt-[18px] text-center lg:mt-[26px]">
+                <div class="text-[31px] font-bold leading-[1.05] tracking-[-0.02em] lg:text-[46px]">Explora nuestro <i class="text-rose">Catálogo</i></div>
+                <div class="mt-0.5 font-accent text-[23px] font-medium italic text-white/90 lg:mt-1 lg:text-[32px]">Haz click en las imágenes</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- 2. ¿YA TIENES ALGO EN MENTE? -->
-<section class="relative bg-[rgba(29,27,29,.94)]">
-    <div class="max-w-[1400px] mx-auto px-4 sm:px-8 py-9 sm:py-14 flex items-center justify-between gap-6" data-aos="fade-up">
-        <div>
-            <h2 class="font-sans normal-case font-bold text-[2.2rem] sm:text-6xl lg:text-[90px] leading-none tracking-[-0.025em]">¿Ya <em>tienes</em> Algo en <em class="text-azure-soft">Mente</em>?</h2>
-            <p class="mt-3 ml-1 sm:ml-4 text-xl sm:text-4xl italic text-bone/90">Incluso si aún no…</p>
-        </div>
-        <img src="{% static 'img/emblem-blue.png' %}" alt="" class="h-16 w-16 sm:h-28 sm:w-28 lg:h-[130px] lg:w-[130px] shrink-0">
-    </div>
-</section>
-
-<!-- 3. CHATBOT + WHATSAPP -->
+<!-- 2. BANDA + CHAT -->
 <section class="relative isolate overflow-hidden">
-    <img src="{% static 'img/hero/fachada-andamio.webp' %}" alt="" aria-hidden="true"
-         class="absolute inset-0 -z-30 h-full w-full object-cover object-[50%_30%]">
-    <div class="absolute inset-0 -z-20 bg-[rgba(52,52,56,.6)]"></div>
+    <img src="{% static 'img/facade.webp' %}" alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 -z-30 h-full w-full object-cover object-[50%_30%]">
+    <div class="absolute inset-0 -z-20 bg-[rgba(52,52,56,.62)]"></div>
     <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
 
-    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 py-12 sm:py-16 grid gap-12 lg:grid-cols-12 items-start">
-        <div class="lg:col-span-7 space-y-8" data-aos="fade-up">
-            <div class="bleed-l flex flex-wrap items-center gap-x-5 gap-y-4 rounded-r-[110px] pr-8 sm:pr-10 py-5 sm:py-6 bg-[rgba(37,38,41,.95)]">
-                <svg viewBox="0 0 160 160" class="h-16 w-16 sm:h-[84px] sm:w-[84px] shrink-0" aria-hidden="true">
+    <div class="page pt-3.5 lg:pt-9" data-aos="fade-up">
+        <div class="mesh-band relative h-[196px] overflow-hidden rounded-[36px] border border-white/[.14] shadow-[0_24px_60px_rgba(0,0,0,.45)] lg:h-[212px] lg:rounded-[56px]">
+            <div class="noise absolute inset-0"></div>
+            <div class="absolute inset-0 flex items-center justify-between gap-3 pl-[22px] pr-[18px] lg:px-16">
+                <div>
+                    <h2 class="font-sans text-[38px] font-bold normal-case leading-[1.02] tracking-[-0.03em] lg:text-[78px]">¿Ya <i>tienes</i> algo en <i class="text-azure-soft">mente</i>?</h2>
+                    <p class="ml-1 mt-1 font-accent text-2xl font-medium italic text-white/90 lg:ml-1.5 lg:mt-2.5 lg:text-4xl">Incluso si aún no...</p>
+                </div>
+                <div class="flex h-[74px] w-[74px] shrink-0 items-center justify-center rounded-full border border-white/[.18] bg-[rgba(4,10,28,.55)] backdrop-blur-[14px] lg:h-[150px] lg:w-[150px]">
+                    <img src="{% static 'img/emblem-blue.png' %}" alt="" class="h-11 w-11 lg:h-[92px] lg:w-[92px]">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page flex flex-col gap-8 pb-16 pt-[30px] lg:flex-row lg:items-start lg:justify-between lg:gap-10 lg:pb-16 lg:pt-11">
+        <div class="lg:w-[900px]" data-aos="fade-up">
+            <!-- Conversa -->
+            <div class="bleed-l flex h-[108px] w-[calc(350px-var(--gutter)+var(--edge))] items-center gap-3.5 rounded-r-[70px] bg-[rgba(37,38,41,.95)] lg:h-[150px] lg:w-[calc(900px-var(--gutter)+var(--edge))] lg:gap-[30px] lg:rounded-r-[110px]">
+                <svg viewBox="0 0 160 160" class="h-[76px] w-[76px] shrink-0 lg:h-[120px] lg:w-[120px]" aria-hidden="true">
                     <circle cx="80" cy="9" r="7" fill="#fff"/><rect x="77" y="14" width="6" height="20" fill="#fff"/>
                     <path d="M22 70C22 28 52 22 80 22s58 6 58 48" fill="none" stroke="#fff" stroke-width="9" stroke-linecap="round"/>
                     <rect x="12" y="58" width="20" height="46" rx="10" fill="#fff"/><rect x="128" y="58" width="20" height="46" rx="10" fill="#fff"/>
@@ -96,117 +121,112 @@
                     <path d="M138 100Q138 128 104 132" fill="none" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
                     <rect x="92" y="126" width="18" height="12" rx="6" fill="#fff"/>
                 </svg>
-                <div class="leading-none">
-                    <p class="text-3xl sm:text-[42px] italic">Conversa</p>
-                    <p class="mt-1 text-xl sm:text-[28px]">Con nuestro <span class="text-azure-link">ChatBot</span></p>
+                <div>
+                    <p class="font-accent text-[30px] font-medium italic leading-none lg:text-[46px]">Conversa</p>
+                    <p class="mt-0.5 text-[23px] lg:mt-1 lg:text-[40px]">Con nuestro <span class="text-azure-link">ChatBot</span></p>
                 </div>
-                <button type="button" data-open-chat class="btn btn-azure relative ml-auto !px-6 !pr-14 sm:!pr-16 !py-3 !text-xl sm:!text-2xl border-4 border-azure-dark shadow-[inset_0_3px_0_rgba(255,255,255,.3)]">
-                    Aplideco_bot
-                    <img src="{% static 'img/hand.png' %}" alt="" class="pointer-events-none absolute right-2 bottom-1 w-8 sm:w-10 h-auto">
-                </button>
             </div>
 
-            <p class="min-h-[2.15em] ml-0 sm:ml-2 font-display uppercase text-[2.5rem] sm:text-[4.4rem] leading-[1.04] tracking-[0.01em]" aria-label="Aplideco Bot, solicitud" aria-live="off">
-                <span aria-hidden="true">Aplideco_bot, <span data-typewriter data-words='["(Solicitud)","(Cotizar pintura de fachada)","(Impermeabilizar mi terraza)","(Estuco y acabados de obra)","(Trabajo en alturas)","(Sellar filtraciones)","(Agendar una visita técnica)"]'></span><span class="tw-cursor"></span></span>
+            <!-- Botón del bot -->
+            <div class="relative -mt-[18px] mr-[22px] text-right lg:-mt-[30px] lg:ml-[500px] lg:mr-0 lg:text-left">
+                <a href="{% url 'cms:chatbot' %}" class="hov relative inline-block rounded-full border-[3px] border-[#0b3f94] bg-[#0073fd] px-[34px] py-[9px] text-[26px] shadow-[inset_0_3px_0_rgba(255,255,255,.3)] lg:border-4 lg:px-[54px] lg:py-3.5 lg:text-[38px]">Aplideco_bot
+                    <img src="{% static 'img/hand.png' %}" alt="" class="pointer-events-none absolute -bottom-[30px] -right-3.5 h-auto w-11 lg:-bottom-11 lg:-right-[26px] lg:w-16">
+                </a>
+            </div>
+
+            <!-- Máquina de escribir -->
+            <p class="mx-1 mt-[26px] min-h-[142px] font-typer text-[46px] font-extrabold uppercase leading-[1.04] tracking-[0.01em] lg:ml-2 lg:mt-[38px] lg:min-h-[132px] lg:text-[64px]" aria-label="Aplideco bot, solicitud">
+                <span aria-hidden="true">Aplideco_bot, (<span data-typewriter data-words='["Solicitud","Cotizar pintura de fachada","Impermeabilizar mi terraza","Estuco y acabados de obra","Trabajo en alturas","Sellar filtraciones","Agendar una visita técnica"]'>Solicitud</span>)<span class="cur ml-1 font-normal lg:ml-1.5">|</span></span>
             </p>
 
-            <div>
-                <div class="bleed-l max-w-[calc(800px+var(--edge))] rounded-r-[30px] pr-8 py-5 bg-[rgba(103,111,125,.72)] text-xl sm:text-[30px] leading-[1.4]">
-                    <p>Puedes consultar sobre <em>nuestros servicios</em></p>
-                    <p class="pl-4">Planificar tu <em>próxima fachada</em>…</p>
-                    <p class="pl-4"><em>Conocernos más…</em></p>
-                </div>
-                <div class="relative mt-2 ml-8 sm:ml-[26rem] flex h-14 w-48 sm:w-[230px] sm:h-[60px] items-center justify-center gap-2.5 rounded-full bg-[#e4e4e4]" aria-hidden="true">
-                    <span class="typing-dot !h-3 !w-3 !bg-[#5b5b5f]"></span><span class="typing-dot !h-3 !w-3 !bg-[#5b5b5f]" style="animation-delay:.2s"></span><span class="typing-dot !h-3 !w-3 !bg-[#5b5b5f]" style="animation-delay:.4s"></span>
-                    <span class="absolute -left-0.5 -bottom-1.5 h-0 w-0 border-t-[18px] border-l-[16px] border-t-[#e4e4e4] border-l-transparent"></span>
-                </div>
+            <!-- Consulta -->
+            <div class="bleed-l [--bleed-pad:4px] mt-3.5 w-[calc(352px-var(--gutter)+var(--edge))] rounded-r-[22px] bg-[rgba(103,111,125,.74)] py-4 pr-4 text-lg leading-[1.45] lg:mt-[18px] lg:w-[calc(800px-var(--gutter)+var(--edge))] lg:rounded-r-[30px] lg:py-[22px] lg:pr-[30px] lg:text-[30px] lg:leading-[1.4] lg:[--bleed-pad:8px]">
+                <p>Puedes consultar sobre <i>nuestros servicios</i></p>
+                <p class="pl-2.5 lg:pl-4">Planificar tu <i>próxima fachada</i>...</p>
+                <p class="pl-2.5 lg:pl-4"><i>Conocernos más...</i></p>
+            </div>
+
+            <!-- Burbuja -->
+            <div class="relative ml-[150px] mt-2 flex h-[50px] w-[170px] items-center justify-center gap-[9px] rounded-full bg-[#e4e4e4] lg:ml-[520px] lg:mt-1.5 lg:h-[60px] lg:w-[230px] lg:gap-2.5" aria-hidden="true">
+                <span class="typing-dot !h-2.5 !w-2.5 !bg-[#5b5b5f] lg:!h-3 lg:!w-3"></span><span class="typing-dot !h-2.5 !w-2.5 !bg-[#5b5b5f] lg:!h-3 lg:!w-3" style="animation-delay:.2s"></span><span class="typing-dot !h-2.5 !w-2.5 !bg-[#5b5b5f] lg:!h-3 lg:!w-3" style="animation-delay:.4s"></span>
+                <span class="absolute -bottom-[5px] -left-0.5 h-0 w-0 border-l-[13px] border-t-[15px] border-l-transparent border-t-[#e4e4e4]"></span>
             </div>
         </div>
 
-        <div class="lg:col-span-5 lg:justify-self-end w-full max-w-[470px]" data-aos="fade-up" data-aos-delay="100">
-            <div class="rounded-[2.5rem] sm:rounded-[4rem] border-[3px] border-[#f5f1ea] bg-ink/30 px-6 sm:px-9 pt-9 sm:pt-10 pb-8 text-center">
-                <p class="text-2xl sm:text-[34px] italic leading-tight">También, encuéntranos en:</p>
-                <div class="mt-5 flex items-center justify-center gap-3">
-                    <svg viewBox="0 0 24 24" class="h-12 w-12 sm:h-[76px] sm:w-[76px] shrink-0" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                    <span class="text-4xl sm:text-[60px] font-bold tracking-[-0.03em]">Whatsapp</span>
-                </div>
-                <p class="mt-1 text-2xl sm:text-[38px] tracking-[0.05em]">{{ site_settings.contact_phone }}</p>
-                <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hola%20Aplideco%2C%20quiero%20m%C3%A1s%20informaci%C3%B3n%20sobre%20sus%20servicios." target="_blank" rel="noopener" class="hov mt-7 block rounded-[2.25rem] bg-azure-sky px-4 pt-6 pb-7 shadow-[inset_0_3px_0_rgba(255,255,255,.35)]">
-                    <span class="block text-3xl sm:text-[42px] italic font-semibold leading-none">Presiona para</span>
-                    <span class="block mt-1 text-4xl sm:text-[52px] font-bold italic tracking-[-0.03em] text-[#1d3a5c] leading-[1.1]">Escribirnos</span>
-                </a>
+        <!-- WhatsApp -->
+        <div class="w-full rounded-[48px] border-[3px] border-[#f5f1ea] bg-[rgba(15,13,12,.3)] px-[22px] pb-6 pt-7 text-center lg:mt-1 lg:w-[470px] lg:shrink-0 lg:rounded-[64px] lg:px-[34px] lg:pb-[34px] lg:pt-10" data-aos="fade-up" data-aos-delay="100">
+            <p class="font-accent text-[26px] font-medium italic lg:text-[34px]">También, encuéntranos en:</p>
+            <div class="mt-3.5 flex items-center justify-center gap-2 lg:mt-[22px] lg:gap-3">
+                <svg viewBox="0 0 24 24" class="h-[54px] w-[54px] lg:h-[76px] lg:w-[76px]" fill="#fff" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+                <span class="text-[44px] font-bold tracking-[-0.03em] lg:text-[60px]">Whatsapp</span>
             </div>
-        </div>
-    </div>
-</section>
-
-<!-- 4. VISÍTANOS -->
-<section class="relative isolate overflow-hidden">
-    <img src="{% static 'img/hero/fachada-andamio.webp' %}" alt="" aria-hidden="true"
-         class="absolute inset-0 -z-30 h-full w-full object-cover object-[50%_45%]">
-    <div class="absolute inset-0 -z-20 bg-[rgba(48,46,46,.62)]"></div>
-    <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
-
-    <div class="relative max-w-[1400px] mx-auto px-4 sm:px-8 pt-12 sm:pt-16 pb-14 sm:pb-20 grid gap-x-12 gap-y-12 lg:grid-cols-[1.6fr_1fr] lg:items-start">
-        <h2 class="font-sans normal-case italic font-bold text-6xl sm:text-8xl lg:text-[112px] leading-none tracking-[-0.04em]" data-aos="fade-up">Visítanos</h2>
-
-        <div class="lg:text-right" data-aos="fade-up" data-aos-delay="100">
-            <p class="text-4xl sm:text-6xl leading-none tracking-[-0.03em]"><b><em>Agenda</em></b> tu cita:</p>
-            <a href="{% url 'cms:schedule' %}?modalidad=virtual" class="btn btn-cream btn-lg mt-6 w-full lg:w-auto !px-14 sm:!px-20 !text-4xl sm:!text-5xl italic font-bold tracking-[-0.03em]">Virtual</a>
-        </div>
-
-        <div class="bleed-l lg:max-w-[calc(1010px+var(--edge))] rounded-r-[60px] sm:rounded-r-[120px] pr-6 sm:pr-12 py-8 bg-[rgba(15,13,12,.95)] grid gap-6 sm:grid-cols-[230px_1fr] items-center" data-aos="fade-up">
-            <div>
-                <p class="text-base sm:text-[21px] leading-snug">Escanea cada QR o haz click en cada ícono…</p>
-                <p class="mt-5 text-2xl sm:text-3xl italic leading-none">Nuestras</p>
-                <p class="text-2xl sm:text-3xl leading-[1.1]">Redes <span class="text-azure-link">Sociales</span></p>
-            </div>
-            <div class="flex flex-wrap lg:flex-nowrap items-center gap-x-6 gap-y-5">
-                <a href="https://www.facebook.com/p/Aplideco-sas-100064813512941/" target="_blank" rel="noopener" class="hov flex items-center gap-3" aria-label="Facebook de Aplideco">
-                    <svg viewBox="0 0 24 24" class="h-14 w-14 sm:h-[68px] sm:w-[68px] shrink-0" fill="#fff" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
-                    <img src="{% static 'img/qr-2.png' %}" alt="Código QR de Facebook" class="h-24 w-24 sm:h-[118px] sm:w-[118px]">
-                </a>
-                <a href="https://www.instagram.com/aplideco/" target="_blank" rel="noopener" class="hov flex items-center gap-3" aria-label="Instagram de Aplideco">
-                    <svg viewBox="0 0 92 92" class="h-14 w-14 sm:h-[68px] sm:w-[68px] shrink-0" fill="none" stroke="#fff" stroke-width="7" aria-hidden="true"><rect x="5" y="5" width="82" height="82" rx="24"/><circle cx="46" cy="46" r="19"/><circle cx="68" cy="24" r="4" fill="#fff" stroke="none"/></svg>
-                    <img src="{% static 'img/qr-1.png' %}" alt="Código QR de Instagram" class="h-24 w-24 sm:h-[118px] sm:w-[118px]">
-                </a>
-            </div>
-        </div>
-
-        <div class="lg:max-w-[330px] lg:justify-self-end w-full" data-aos="fade-up" data-aos-delay="100">
-            <p class="text-4xl sm:text-[58px] leading-none tracking-[-0.03em]">Presencial:</p>
-            <div class="mt-6 flex flex-col gap-3">
-                <a href="{% url 'cms:schedule' %}?modalidad=presencial" class="btn btn-cream btn-lg">Reservar en línea</a>
-                <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hola%20Aplideco%2C%20quiero%20agendar%20una%20visita%20presencial." target="_blank" rel="noopener" class="btn btn-stone btn-lg">
-                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
-                    Whatsapp
-                </a>
-                <button type="button" data-open-chat class="btn btn-sage btn-lg">
-                    <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.4A8 8 0 1 1 21 12z"/></svg>
-                    con Aplideco_Bot
-                </button>
-            </div>
-        </div>
-
-        <div class="lg:col-span-2 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between" data-aos="fade-up">
-            <div class="flex items-center gap-5 sm:gap-7">
-                <svg viewBox="0 0 64 80" class="h-24 w-[4.8rem] sm:h-[132px] sm:w-[104px] shrink-0" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" aria-hidden="true"><path d="M32 4C17 4 7 15 7 28c0 18 25 46 25 46s25-28 25-46C57 15 47 4 32 4z"/><circle cx="32" cy="28" r="11"/></svg>
-                <div>
-                    <p class="text-2xl sm:text-[32px] italic leading-none">Nuestra Oficina</p>
-                    <p class="mt-1 text-4xl sm:text-[62px] leading-[1.05] tracking-[-0.03em]">Medellín, Colombia</p>
-                    <p class="mt-2 text-lg sm:text-[28px] leading-snug"><span class="text-azure-link">Dirección:</span> <span class="text-bone/80">{% if site_settings.address %}{{ site_settings.address }}{% else %}[por completar]{% endif %}</span></p>
-                </div>
-            </div>
-            <a href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&query={{ site_settings.address|default:'Aplideco S.A.S Medellín'|urlencode }}{% endif %}" target="_blank" rel="noopener" class="btn btn-butter btn-lg w-full lg:w-auto lg:min-w-[300px] shrink-0">
-                <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0114 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.6"/></svg>
-                Ver en Maps
+            <p class="mt-0.5 text-[28px] tracking-[0.05em] lg:mt-1 lg:text-[38px]">{{ site_settings.contact_phone|default:"3103929839" }}</p>
+            <a href="https://wa.me/{{ wa }}" target="_blank" rel="noopener" class="hov mt-[22px] block rounded-[28px] bg-azure-sky px-3.5 pb-5 pt-[18px] shadow-[inset_0_3px_0_rgba(255,255,255,.35)] lg:mt-[30px] lg:rounded-[36px] lg:px-[18px] lg:pb-7 lg:pt-[26px]">
+                <span class="block font-accent text-[31px] font-semibold italic leading-none lg:text-[42px]">Presiona para</span>
+                <span class="block text-[38px] font-bold italic leading-[1.1] tracking-[-0.03em] text-[#1d3a5c] lg:text-[52px]">Escribirnos</span>
             </a>
         </div>
     </div>
 </section>
+
+<!-- 3. VISÍTANOS -->
+<section class="relative isolate overflow-hidden">
+    <img src="{% static 'img/scaffold.webp' %}" alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 -z-30 h-full w-full object-cover object-[50%_45%]">
+    <div class="absolute inset-0 -z-20 bg-[rgba(48,46,46,.64)]"></div>
+    <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
+
+    <div class="page grid grid-cols-[minmax(0,1fr)] gap-y-8 pb-14 pt-9 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-x-10 lg:gap-y-10 lg:pb-20 lg:pt-10">
+        <h2 class="font-sans text-[68px] font-bold normal-case italic leading-none tracking-[-0.04em] lg:ml-[22px] lg:text-[112px]" data-aos="fade-up">Visítanos</h2>
+
+        <div class="flex items-center justify-between gap-3 lg:block lg:text-right" data-aos="fade-up" data-aos-delay="100">
+            <p class="text-[34px] leading-none tracking-[-0.03em] lg:whitespace-nowrap lg:text-[62px]"><b><i>Agenda</i></b> tu cita:</p>
+            <a href="{% url 'cms:schedule' %}?modalidad=virtual" class="hov inline-block rounded-full bg-cream shrink-0 px-6 pb-2.5 pt-2 text-[28px] font-bold italic tracking-[-0.03em] text-[#1d1c1c] lg:mt-5 lg:px-[92px] lg:pb-2.5 lg:pt-1.5 lg:text-[64px]">Virtual</a>
+        </div>
+
+        <!-- Redes y QR -->
+        <div class="bleed-l w-[calc(368px-var(--gutter)+var(--edge))] rounded-r-[56px] bg-[rgba(15,13,12,.95)] py-6 pr-5 lg:flex lg:h-[345px] lg:w-auto lg:max-w-[calc(987px-var(--gutter)+var(--edge))] lg:items-center lg:gap-[22px] lg:rounded-r-[120px] lg:py-0 lg:pr-0 lg:[--bleed-pad:16px]" data-aos="fade-up">
+            <div class="lg:w-[250px] lg:shrink-0">
+                <p class="max-w-[230px] text-base leading-[1.3] lg:text-[21px]">Escanea cada QR o haz click en cada ícono...</p>
+                <p class="mt-3.5 flex items-baseline gap-2 lg:mt-[26px] lg:block"><span class="font-accent text-2xl font-medium italic leading-none lg:text-[30px]">Nuestras</span> <span class="text-2xl leading-[1.1] lg:block lg:text-[30px]">Redes <span class="text-[#6aa9ff]">Sociales</span></span></p>
+            </div>
+            <div class="mt-3.5 flex justify-between gap-2 lg:mt-0 lg:flex-1 lg:justify-start lg:gap-[22px]">
+                <div class="flex flex-col items-center lg:flex-row lg:gap-[22px]">
+                    <a href="https://www.facebook.com/p/Aplideco-sas-100064813512941/" target="_blank" rel="noopener" aria-label="Facebook de Aplideco" class="hov block h-12 w-12 shrink-0 lg:h-[92px] lg:w-[92px]"><svg viewBox="0 0 24 24" class="h-full w-full" fill="#fff" aria-hidden="true"><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg></a>
+                    <a href="https://www.facebook.com/p/Aplideco-sas-100064813512941/" target="_blank" rel="noopener" aria-label="Código QR de Facebook" class="hov mt-1.5 block lg:mt-0"><img src="{% static 'img/qr-2.png' %}" alt="Código QR de Facebook" class="h-[147px] w-[147px] lg:h-[245px] lg:w-[245px]" loading="lazy"></a>
+                </div>
+                <div class="flex flex-col items-center lg:flex-row lg:gap-[22px]">
+                    <a href="https://www.instagram.com/aplideco/" target="_blank" rel="noopener" aria-label="Instagram de Aplideco" class="hov block h-12 w-12 shrink-0 lg:ml-2.5 lg:h-[92px] lg:w-[92px]"><svg viewBox="0 0 92 92" class="h-full w-full" fill="none" stroke="#fff" stroke-width="7" aria-hidden="true"><rect x="5" y="5" width="82" height="82" rx="24"/><circle cx="46" cy="46" r="19"/><circle cx="68" cy="24" r="4" fill="#fff" stroke="none"/></svg></a>
+                    <a href="https://www.instagram.com/aplideco/" target="_blank" rel="noopener" aria-label="Código QR de Instagram" class="hov mt-1.5 block lg:mt-0"><img src="{% static 'img/qr-1.png' %}" alt="Código QR de Instagram" class="h-[135px] w-[135px] lg:h-[225px] lg:w-[225px]" loading="lazy"></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Presencial -->
+        <div class="lg:w-[330px] lg:justify-self-end" data-aos="fade-up" data-aos-delay="100">
+            <p class="text-[38px] leading-none tracking-[-0.03em] lg:text-[58px]">Presencial:</p>
+            <a href="https://wa.me/{{ wa }}?text=Hola%20Aplideco%2C%20quiero%20agendar%20una%20visita%20presencial." target="_blank" rel="noopener" class="hov mt-[18px] block rounded-full bg-stone px-6 pb-[15px] pt-3 text-center text-[26px] text-[#1d1c1c] lg:mt-7 lg:px-10 lg:pb-[18px] lg:pt-3.5 lg:text-[38px]">Whatsapp</a>
+            <a href="{% url 'cms:chatbot' %}" class="hov mt-2.5 block whitespace-nowrap rounded-full bg-sage px-6 pb-3.5 pt-[11px] text-center text-[22px] text-white lg:mt-4 lg:px-4 lg:pb-4 lg:pt-3 lg:text-[28px]">con Aplideco_Bot</a>
+        </div>
+
+        <!-- Oficina + Maps -->
+        <div class="flex flex-col gap-8 lg:col-span-2 lg:flex-row lg:items-center lg:justify-between lg:gap-10" data-aos="fade-up">
+            <div class="flex items-center gap-4 lg:ml-[10px] lg:gap-[26px]">
+                <svg viewBox="0 0 64 80" class="h-[72px] w-14 shrink-0 lg:h-[132px] lg:w-[104px]" fill="none" stroke="#fff" stroke-width="3.5" stroke-linejoin="round" aria-hidden="true"><path d="M32 4C17 4 7 15 7 28c0 18 25 46 25 46s25-28 25-46C57 15 47 4 32 4z"/><circle cx="32" cy="28" r="11"/></svg>
+                <div>
+                    <p class="font-accent text-2xl font-medium italic leading-none lg:text-[32px]">Nuestra Oficina</p>
+                    <p class="text-[34px] leading-[1.05] tracking-[-0.03em] lg:text-[62px]">Medellín, Colombia</p>
+                    <p class="mt-1 text-lg lg:text-[30px]"><span class="text-[#6aa9ff]">Dirección:</span> <span class="text-white/75">{% if site_settings.address %}{{ site_settings.address }}{% else %}[por completar]{% endif %}</span></p>
+                </div>
+            </div>
+            <a href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&query={{ site_settings.address|default:'Aplideco S.A.S Medellín'|urlencode }}{% endif %}" target="_blank" rel="noopener" class="hov max-lg:bleed-l max-lg:[--bleed-pad:22px] max-lg:w-[calc(100%-22px+var(--edge))] rounded-r-full bg-butter py-5 text-[30px] text-[#1d1c1c] lg:bleed-r lg:w-[calc(760px+var(--edge))] lg:rounded-l-none lg:rounded-r-full lg:py-0 lg:pl-16 lg:pr-0 lg:text-[44px] lg:leading-[92px]">Ver en Maps...</a>
+        </div>
+    </div>
+</section>
+{% endwith %}
 {% endblock %}
 
 {% block extra_scripts %}
-<script src="{% static 'js/hero-slider.js' %}"></script>
+<script src="{% static 'js/carousel.js' %}"></script>
 <script src="{% static 'js/typewriter.js' %}"></script>
+<script src="{% static 'js/cylinder.js' %}"></script>
 {% endblock %}

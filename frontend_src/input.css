@@ -122,44 +122,262 @@
     @apply border border-bone/40 text-bone hover:bg-bone/10 hover:brightness-100;
   }
 
-  /* Header nav: translucent pills, the active page is brighter and bold */
-  .navp {
-    @apply rounded-xl border border-bone/20 bg-bone/10 px-4 py-2 text-[15px] text-bone backdrop-blur-sm transition-colors hover:bg-bone/20;
-  }
-
-  .navp.is-active {
-    @apply border-bone/45 bg-bone/20 font-bold;
-  }
-
-  .tagline {
-    @apply font-brand text-[11px] font-medium uppercase tracking-[0.2em] text-bone/70 sm:text-sm;
-  }
-
-  /* Shapes that touch the screen edge instead of floating next to it */
+  /* ---------- Diseño Aplideco: malla, cristal, botones y animaciones ---------- */
   :root {
     --gutter: 1rem;
-    --edge: calc(max(0px, (100vw - 1400px) / 2) + var(--gutter));
+    --edge: calc(max(0px, (100vw - 1440px) / 2) + var(--gutter));
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 1024px) {
     :root {
-      --gutter: 2rem;
+      --gutter: 3rem;
     }
   }
 
-  .bleed-l {
-    margin-left: calc(var(--edge) * -1);
-    padding-left: var(--edge);
+  .page {
+    @apply mx-auto w-full max-w-[1440px] px-4 lg:px-12;
   }
 
-  /* Gentle lift on buttons and tiles */
+  /* Paneles pegados al borde izquierdo de la pantalla en cualquier ancho */
+  .bleed-l {
+    margin-left: calc(var(--edge) * -1);
+    padding-left: calc(var(--edge) + var(--bleed-pad, 0px));
+  }
+
+  .bleed-r {
+    margin-right: calc(var(--edge) * -1);
+    padding-right: var(--edge);
+  }
+
+  .mesh-red {
+    background-color: #050102;
+    background-image: radial-gradient(ellipse 40% 90% at 43% 45%, rgba(5,1,2,1) 0%, rgba(5,1,2,.6) 45%, transparent 78%),
+      radial-gradient(circle at 96% 6%, #e61543 0%, #9e0b2b 26%, transparent 62%),
+      radial-gradient(ellipse 55% 50% at 8% 4%, #5a0a1e 0%, #2b030c 45%, transparent 75%),
+      radial-gradient(ellipse 65% 50% at 58% 98%, #b80d33 0%, #4a0414 48%, transparent 78%),
+      radial-gradient(circle at 12% 88%, #040001 0%, transparent 55%),
+      linear-gradient(135deg, #2b030c 0%, #050102 50%, #380410 100%);
+  }
+
+  .mesh-blue {
+    background-color: #02060f;
+    background-image: radial-gradient(ellipse 40% 90% at 43% 45%, rgba(2,6,15,1) 0%, rgba(2,6,15,.6) 45%, transparent 78%),
+      radial-gradient(circle at 96% 6%, #3d8bff 0%, #1b4fb8 26%, transparent 62%),
+      radial-gradient(ellipse 55% 50% at 8% 4%, #0f2f78 0%, #071a45 45%, transparent 75%),
+      radial-gradient(ellipse 65% 50% at 58% 98%, #2a6fe0 0%, #0a2158 48%, transparent 78%),
+      radial-gradient(circle at 12% 88%, #01040a 0%, transparent 55%),
+      linear-gradient(135deg, #071a45 0%, #02060f 50%, #0b2a6b 100%);
+  }
+
+  .mesh-band {
+    background-color: #02060f;
+    background-image: radial-gradient(ellipse 30% 130% at 43% 50%, rgba(2,6,15,1) 0%, rgba(2,6,15,.6) 50%, transparent 80%),
+      radial-gradient(ellipse 46% 170% at 98% 0%, #3d8bff 0%, #1b4fb8 35%, transparent 72%),
+      radial-gradient(ellipse 40% 150% at 0% 0%, #1b4fb8 0%, #0a2158 45%, transparent 75%),
+      radial-gradient(ellipse 50% 120% at 62% 112%, #2a6fe0 0%, #0a2158 50%, transparent 80%),
+      linear-gradient(135deg, #071a45 0%, #02060f 50%, #0b2a6b 100%);
+  }
+
+  /* Grano de película (SVG) */
+  .noise {
+    pointer-events: none;
+    opacity: 0.16;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .glass-nav {
+    background-color: rgba(18, 4, 8, 0.65);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+    border-radius: 999px;
+  }
+
+  .navp {
+    @apply shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-[17px] text-bone transition-colors hover:bg-bone/20 max-lg:px-3.5 max-lg:py-2 max-lg:text-[15px];
+  }
+
+  .navp.is-active {
+    @apply bg-bone/15 font-bold;
+  }
+
+  .noscroll {
+    scrollbar-width: none;
+  }
+
+  .noscroll::-webkit-scrollbar {
+    display: none;
+  }
+
   .hov {
-    @apply transition duration-200;
+    transition: transform 0.2s ease, filter 0.2s ease;
   }
 
   .hov:hover {
     transform: translateY(-2px);
     filter: brightness(1.08);
+  }
+
+  /* Botón primario estilo "píldora blanca + círculo rojo" */
+  .btn-white {
+    @apply hov inline-flex items-center gap-4 rounded-full bg-white py-2.5 pl-8 pr-2.5 text-lg font-semibold text-[#090204] sm:gap-6 sm:py-3 sm:pl-10 sm:pr-3 sm:text-2xl;
+  }
+
+  .btn-white .go {
+    @apply flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-crimson sm:h-14 sm:w-14;
+  }
+
+  .ring {
+    animation: ring 1.8s ease-out infinite;
+  }
+
+  .nudge {
+    animation: nudge 1.3s ease-in-out infinite;
+  }
+
+  @keyframes nudge {
+    0%, 100% {
+      transform: translateX(0);
+    }
+    50% {
+      transform: translateX(6px);
+    }
+  }
+
+  @keyframes ring {
+    0% {
+      box-shadow: 0 0 0 0 rgba(230, 21, 67, 0.6);
+    }
+    100% {
+      box-shadow: 0 0 0 16px rgba(230, 21, 67, 0);
+    }
+  }
+
+  /* Texto cilíndrico: dos tambores 3D que giran hacia abajo */
+  .cyl {
+    --lh: 96px;
+    --r: 66.1px;
+    font-size: 80px;
+  }
+
+  @media (max-width: 1023px) {
+    .cyl {
+      --lh: 48px;
+      --r: 33px;
+      font-size: 40px;
+    }
+  }
+
+  .cyl-view {
+    position: relative;
+    height: var(--lh);
+    perspective: calc(var(--lh) * 8);
+  }
+
+  .drum {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: var(--lh);
+    transform-style: preserve-3d;
+    transform: translateZ(calc(var(--r) * -1)) rotateX(calc(var(--n, 0) * -72deg));
+    transition: transform 0.9s cubic-bezier(0.65, 0, 0.25, 1);
+  }
+
+  .cw {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: var(--lh);
+    line-height: var(--lh);
+    white-space: nowrap;
+    backface-visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+
+  .cw[data-k="0"] {
+    opacity: 1;
+  }
+
+  .cw[data-k="1"],
+  .cw[data-k="4"] {
+    opacity: 0.1;
+  }
+
+  .cyl-static {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cyl-view {
+      display: none;
+    }
+
+    .cyl-static {
+      display: block;
+    }
+
+    .ring,
+    .nudge {
+      animation: none;
+    }
+  }
+
+  @keyframes blink {
+    0%, 49% {
+      opacity: 1;
+    }
+    50%, 100% {
+      opacity: 0;
+    }
+  }
+
+  .cur {
+    display: inline-block;
+    animation: blink 1s steps(1) infinite;
+  }
+
+  /* Carrusel: todas las diapositivas apiladas, cambia la activa */
+  [data-carousel] [data-slide] {
+    @apply absolute inset-0 block opacity-0 transition-opacity duration-700 ease-in-out;
+  }
+
+  [data-carousel] [data-slide].is-active {
+    @apply opacity-100;
+  }
+
+  [data-carousel] [data-slide] img {
+    @apply h-full w-full object-cover;
+  }
+
+  .dot-i {
+    display: block;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background-color: rgba(248, 242, 233, 0.5);
+    transition: width 0.25s ease, background-color 0.25s ease;
+  }
+
+  [aria-current="true"] > .dot-i {
+    width: 28px;
+    background-color: #f8f2e9;
+  }
+
+  @media (max-width: 1023px) {
+    .dot-i {
+      height: 8px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-carousel] [data-slide] {
+      transition: none;
+    }
   }
 
   /* Dark translucent panel, the visual unit of the whole site */
@@ -211,32 +429,5 @@
     }
   }
 
-  /* Hero carousel: crossfade + slow zoom */
-  [data-hero-slider] [data-slide] {
-    @apply absolute inset-0 block opacity-0 transition-opacity duration-1000 ease-in-out;
-  }
 
-  [data-hero-slider] [data-slide] img {
-    @apply h-full w-full object-cover;
-    transform: scale(1.08);
-    transition: transform 6s ease-out;
-  }
-
-  [data-hero-slider] [data-slide].is-active {
-    @apply opacity-100;
-  }
-
-  [data-hero-slider] [data-slide].is-active img {
-    transform: scale(1);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    [data-hero-slider] [data-slide],
-    [data-hero-slider] [data-slide] img,
-    .tw-cursor,
-    .typing-dot {
-      transition: none;
-      animation: none;
-    }
-  }
 }

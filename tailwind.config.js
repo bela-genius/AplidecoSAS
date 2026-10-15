@@ -18,6 +18,7 @@ module.exports = {
           soft: "#e9968c",
         },
         ink: "#0f0d0c",
+        crimson: "#e61543",
         wine: "#894141",
         rose: "#e9abb4",
         cream: {
@@ -36,9 +37,10 @@ module.exports = {
         butter: "#faffc3",
       },
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Antonio", "Inter", "system-ui", "sans-serif"],
-        brand: ["Jost", "Inter", "system-ui", "sans-serif"],
+        sans: ['"Open Sauce One"', "system-ui", "sans-serif"],
+        display: ["Antonio", '"Open Sauce One"', "system-ui", "sans-serif"],
+        accent: ['"Cormorant Garamond"', "Georgia", "serif"],
+        typer: ['"Sofia Sans Extra Condensed"', '"Arial Narrow"', "sans-serif"],
       },
       letterSpacing: {
         display: "-0.079em",
