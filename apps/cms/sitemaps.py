@@ -24,7 +24,7 @@ class StaticSitemap(CanonicalSitemap):
     changefreq = "monthly"
 
     def items(self):
-        return ["cms:home", "store:product_list", "cms:projects", "cms:schedule", "cms:contact"]
+        return ["cms:home", "cms:about", "cms:catalog", "cms:chatbot", "cms:schedule", "store:product_list", "cms:projects", "cms:contact"]
 
     def location(self, item):
         return reverse(item)

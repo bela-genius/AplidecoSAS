@@ -1,0 +1,23 @@
+{% load static %}
+<section class="bg-ink">
+    <div class="page py-6 lg:py-11" data-aos="fade-up">
+        <div class="mesh-band relative overflow-hidden rounded-[36px] border border-white/[.14] shadow-[0_24px_60px_rgba(0,0,0,.45)] lg:rounded-[56px]">
+            <div class="noise absolute inset-0"></div>
+            <div class="relative flex flex-col justify-center gap-3.5 px-[22px] py-7 lg:flex-row lg:items-center lg:justify-between lg:gap-10 lg:px-16 lg:py-0 lg:min-h-[312px]">
+                <div class="flex flex-col gap-3.5 lg:flex-row lg:items-center lg:gap-9">
+                    <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full border border-white/[.18] bg-[rgba(4,10,28,.55)] backdrop-blur-[14px] lg:h-[150px] lg:w-[150px]">
+                        <img src="{% static 'img/emblem-blue.png' %}" alt="" class="h-10 w-10 lg:h-[92px] lg:w-[92px]">
+                    </div>
+                    <div>
+                        <h2 class="font-sans text-[40px] font-bold normal-case leading-[1.02] tracking-[-0.03em] lg:text-[72px]">¿Ya tienes <i>algo</i> en <i class="text-azure-soft">mente</i>?</h2>
+                        <p class="mt-1 font-accent text-[26px] font-medium italic text-white/90 lg:mt-2 lg:text-4xl">Incluso si aún no…</p>
+                    </div>
+                </div>
+                <a href="https://wa.me/{{ site_settings.whatsapp_number|default:'573103929839' }}" target="_blank" rel="noopener" class="hov inline-flex w-full items-center justify-between gap-[22px] rounded-full bg-white py-2.5 pl-[30px] pr-2.5 text-[22px] font-semibold text-[#090204] lg:w-auto lg:text-[26px]">
+                    <span>Escribirnos</span>
+                    <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-crimson lg:h-14 lg:w-14"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>

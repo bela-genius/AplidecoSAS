@@ -4,25 +4,26 @@ from django import forms
 
 from .models import Appointment
 
+SERVICES = [
+    "Pintura de fachada",
+    "Impermeabilización",
+    "Estuco y acabados",
+    "Sellado de filtraciones",
+    "Otro / aún no lo sé",
+]
+
 
 class AppointmentForm(forms.ModelForm):
-    website = forms.CharField(required=False, widget=forms.HiddenInput)  # señuelo anti-spam
+    website = forms.CharField(required=False)  # señuelo anti-spam: debe quedar vacío
+    service = forms.ChoiceField(choices=[(s, s) for s in SERVICES], initial=SERVICES[0])
 
     class Meta:
         model = Appointment
-        fields = ["modality", "preferred_date", "preferred_slot", "full_name", "phone", "email", "message"]
-        widgets = {
-            "modality": forms.RadioSelect,
-            "preferred_date": forms.DateInput(attrs={"type": "date"}),
-            "message": forms.Textarea(attrs={"rows": 4, "placeholder": "Tipo de obra, ubicación, metros aproximados..."}),
-            "full_name": forms.TextInput(attrs={"placeholder": "Tu nombre"}),
-            "phone": forms.TextInput(attrs={"placeholder": "300 000 0000", "inputmode": "tel"}),
-            "email": forms.EmailInput(attrs={"placeholder": "tu@correo.com (opcional)"}),
-        }
+        fields = ["modality", "service", "preferred_date", "preferred_slot", "full_name", "phone"]
 
     def clean_preferred_date(self):
-        chosen = self.cleaned_data["preferred_date"]
-        if chosen < date.today():
+        chosen = self.cleaned_data.get("preferred_date")
+        if chosen and chosen < date.today():
             raise forms.ValidationError("Elige una fecha de hoy en adelante.")
         return chosen
 

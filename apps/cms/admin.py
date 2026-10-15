@@ -49,7 +49,7 @@ class ContactRequestAdmin(admin.ModelAdmin):
 
 @admin.register(Appointment)
 class AppointmentAdmin(admin.ModelAdmin):
-    list_display = ("full_name", "modality", "preferred_date", "preferred_slot", "phone", "status", "created_at")
+    list_display = ("full_name", "modality", "service", "preferred_date", "preferred_slot", "phone", "status", "created_at")
     list_editable = ("status",)
     list_filter = ("status", "modality", "preferred_date")
     search_fields = ("full_name", "phone", "email")

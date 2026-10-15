@@ -162,7 +162,8 @@ class Appointment(models.Model):
     phone = models.CharField("Teléfono / WhatsApp", max_length=30)
     email = models.EmailField("Correo electrónico", blank=True)
     modality = models.CharField("Modalidad", max_length=12, choices=Modality.choices, default=Modality.VIRTUAL)
-    preferred_date = models.DateField("Fecha preferida")
+    service = models.CharField("Servicio", max_length=40, blank=True)
+    preferred_date = models.DateField("Fecha preferida", null=True, blank=True)
     preferred_slot = models.CharField("Franja preferida", max_length=10, choices=Slot.choices, default=Slot.MORNING)
     message = models.TextField("Cuéntanos qué necesitas", blank=True)
     status = models.CharField(max_length=12, choices=Status.choices, default=Status.PENDING)
@@ -174,7 +175,8 @@ class Appointment(models.Model):
         verbose_name_plural = "Citas"
 
     def __str__(self) -> str:
-        return f"{self.full_name} · {self.get_modality_display()} · {self.preferred_date:%Y-%m-%d}"
+        when = f"{self.preferred_date:%Y-%m-%d}" if self.preferred_date else self.get_preferred_slot_display()
+        return f"{self.full_name} · {self.get_modality_display()} · {when}"
 
 
 class Certification(models.Model):

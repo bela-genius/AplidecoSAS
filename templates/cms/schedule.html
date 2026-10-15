@@ -1,108 +1,145 @@
 {% extends "base.html" %}
+{% load static %}
 {% block title %}Agenda tu cita virtual o presencial · {{ site_settings.site_name }}{% endblock %}
 {% block meta_description %}Agenda una cita virtual o una visita presencial con Aplideco S.A.S. en Medellín para tu proyecto de pintura, acabados u obra civil.{% endblock %}
+{% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
+{% block main_open %}{% endblock %}
+{% block main_close %}{% endblock %}
 {% block content %}
-<section class="border-b border-bone/10 px-6 sm:px-10 py-14">
-    <span class="text-alarm font-bold text-sm tracking-widest uppercase">Agenda</span>
-    <h1 class="font-display text-detonate text-bone text-[13vw] sm:text-7xl mt-3">Agenda tu cita</h1>
-    <p class="text-ash mt-3 max-w-xl">Elige si prefieres hablar por videollamada o una visita presencial, y cuéntanos cuándo te queda mejor. Te confirmamos por WhatsApp o por teléfono.</p>
-</section>
+{% with wa=site_settings.whatsapp_number|default:"573103929839" %}
 
-{% if appointment %}
-<section class="px-6 sm:px-10 py-16" data-aos="fade-up">
-    <div class="max-w-2xl rounded-[2rem] border border-bone/20 bg-bone/5 p-8 sm:p-10">
-        <span class="inline-flex h-12 w-12 items-center justify-center rounded-full bg-azure-sky text-[#0f2a47]" aria-hidden="true">
-            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-        </span>
-        <h2 class="font-sans normal-case text-3xl sm:text-4xl font-bold tracking-tight leading-tight mt-5">¡Listo, {{ appointment.full_name }}! Recibimos tu solicitud.</h2>
-        <dl class="mt-6 grid gap-x-8 gap-y-3 text-base sm:grid-cols-[auto_1fr]">
-            <dt class="text-ash">Modalidad</dt><dd>{{ appointment.get_modality_display }}</dd>
-            <dt class="text-ash">Fecha preferida</dt><dd>{{ appointment.preferred_date|date:"l d \d\e F \d\e Y" }}</dd>
-            <dt class="text-ash">Franja</dt><dd>{{ appointment.get_preferred_slot_display }}</dd>
-            <dt class="text-ash">Teléfono</dt><dd>{{ appointment.phone }}</dd>
-        </dl>
-        <p class="text-ash mt-6">Un asesor se pondrá en contacto contigo para confirmar el día y la hora.</p>
-        <div class="mt-8 flex flex-wrap gap-3">
-            <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text={% filter urlencode %}Hola Aplideco, acabo de solicitar una cita {{ appointment.get_modality_display|lower }} para el {{ appointment.preferred_date|date:'d/m/Y' }} ({{ appointment.get_preferred_slot_display|lower }}). Mi nombre es {{ appointment.full_name }}.{% endfilter %}" target="_blank" rel="noopener" class="btn btn-sky">Confirmar por WhatsApp</a>
-            <a href="{% url 'cms:home' %}" class="btn btn-outline">Volver al inicio</a>
+<!-- 1. HERO -->
+<section class="relative isolate overflow-hidden">
+    <div class="mesh-red absolute inset-0 -z-30"></div>
+    <img src="{% static 'img/tower.webp' %}" alt="" aria-hidden="true" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-20 mix-blend-luminosity" style="object-position:50% 40%">
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_82%,#0f0d0c_100%)]"></div>
+    <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
+
+    <div class="page relative z-10 pb-16 pt-[172px] lg:pb-24 lg:pt-[225px]">
+        <h1 class="!font-sans !normal-case text-[44px] font-bold leading-none tracking-[-0.04em] sm:text-7xl lg:text-[120px]"><i>Agenda</i> tu cita</h1>
+        <p class="mt-1 font-accent text-[26px] font-medium italic lg:text-5xl">Elige cómo prefieres</p>
+
+        <div class="mt-10 grid gap-6 lg:mt-[100px] lg:grid-cols-2 lg:gap-10">
+            <div class="rounded-[32px] bg-[rgba(29,28,28,.93)] p-7 lg:rounded-[44px] lg:px-11 lg:py-10" data-aos="fade-up">
+                <span class="inline-block rounded-full bg-[#faf3ea] px-8 pb-2 pt-1.5 text-4xl font-bold italic text-[#1d1c1c] lg:px-10 lg:text-[54px]">Virtual</span>
+                <p class="my-4 text-lg leading-[1.45] text-white/90 lg:mb-6 lg:mt-[18px] lg:text-2xl">Escríbenos y coordinamos tu visita técnica sin moverte de casa u oficina.</p>
+                <a class="hov block rounded-full bg-[#ece6dc] px-6 pb-3.5 pt-3 text-center text-2xl text-[#1d1c1c] lg:text-[32px]" href="https://wa.me/{{ wa }}?text={% filter urlencode %}Hola Aplideco, quiero agendar una cita virtual.{% endfilter %}" target="_blank" rel="noopener">Whatsapp</a>
+                <a class="hov mt-3.5 block rounded-full bg-sage px-6 pb-3.5 pt-3 text-center text-2xl text-white lg:text-[32px]" href="{% url 'cms:chatbot' %}">con Aplideco_Bot</a>
+            </div>
+            <div class="rounded-[32px] bg-[rgba(29,28,28,.93)] p-7 lg:rounded-[44px] lg:px-11 lg:py-10" data-aos="fade-up" data-aos-delay="100">
+                <div class="text-4xl leading-none tracking-[-0.03em] lg:text-[54px]">Presencial:</div>
+                <div class="my-6 flex items-center gap-5 lg:my-[30px]">
+                    <svg class="h-14 w-14 shrink-0 lg:h-20 lg:w-20" viewBox="0 0 64 80" fill="none" stroke="#fff" stroke-width="3" aria-hidden="true"><path d="M32 76C16 52 6 42 6 28 6 14 17 4 32 4s26 10 26 24c0 14-10 24-26 48z"/><circle cx="32" cy="28" r="12"/></svg>
+                    <div>
+                        <div class="font-accent text-xl font-medium italic text-white/80 lg:text-[26px]">Nuestra Oficina</div>
+                        <div class="text-3xl leading-[1.05] lg:text-[42px]">Medellín, Colombia</div>
+                        {% if site_settings.address %}<div class="mt-1 text-base lg:text-[22px]"><span class="text-[#7fa8e8]">Dirección:</span> <span class="text-white/70">{{ site_settings.address }}</span></div>{% endif %}
+                    </div>
+                </div>
+                <a class="hov block rounded-full bg-butter px-7 pb-3.5 pt-3 text-2xl text-[#1d1c1c] lg:text-[32px]" href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&query={{ site_settings.address|default:'Aplideco S.A.S Medellín'|urlencode }}{% endif %}" target="_blank" rel="noopener">Ver en Maps...</a>
+            </div>
         </div>
     </div>
 </section>
+
+<!-- 2. FORMULARIO -->
+<section class="relative isolate overflow-hidden" id="cita">
+    <div class="mesh-blue absolute inset-0 -z-30"></div>
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_82%,#0f0d0c_100%)]"></div>
+    <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
+
+    <div class="page relative z-10 py-14 lg:py-[70px]">
+{% if appointment %}
+        <div class="mx-auto max-w-3xl rounded-[32px] bg-[rgba(29,28,28,.93)] p-8 text-center lg:rounded-[44px] lg:p-14" data-aos="fade-up">
+            <span class="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-azure-sky text-[#0f2a47]" aria-hidden="true">
+                <svg viewBox="0 0 24 24" class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+            </span>
+            <h2 class="!font-sans !normal-case mt-5 text-3xl font-bold leading-tight tracking-[-0.03em] lg:text-5xl">¡Listo, {{ appointment.full_name }}!</h2>
+            <p class="mt-3 text-lg text-white/80 lg:text-2xl">Guardamos tu solicitud de cita {{ appointment.get_modality_display|lower }}. Ahora la enviamos por WhatsApp para confirmar fecha y hora.</p>
+            <a id="wa-go" href="{{ wa_url }}" target="_blank" rel="noopener" class="btn-white mt-8">
+                <span>Abrir WhatsApp</span>
+                <span class="go"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+            <p class="mt-5 text-sm text-white/60">Si no se abre solo, toca el botón. <a href="{% url 'cms:home' %}" class="underline">Volver al inicio</a></p>
+        </div>
 {% else %}
-<section class="px-6 sm:px-10 py-16 grid lg:grid-cols-[1fr_340px] gap-12">
-    <form method="post" class="space-y-6" data-aos="fade-up" novalidate>
-        {% csrf_token %}
-        {{ form.website }}
-        {% if form.non_field_errors %}<p class="rounded-2xl bg-alarm/20 px-4 py-3 text-sm">{{ form.non_field_errors.0 }}</p>{% endif %}
+        <h2 class="!font-sans !normal-case text-[40px] font-bold leading-none tracking-[-0.035em] lg:text-[80px]">Pide tu cita <i class="text-[#b9d3ff]" data-modality-word>{% if form.modality.value == "presencial" %}presencial{% else %}virtual{% endif %}</i></h2>
 
-        <fieldset>
-            <legend class="block text-xs font-bold uppercase tracking-wide text-ash mb-3">¿Cómo quieres tu cita?</legend>
-            <div class="grid sm:grid-cols-2 gap-3">
-                {% for radio in form.modality %}
-                <label class="!mb-0 !block !normal-case !tracking-normal !text-bone cursor-pointer">
-                    <input type="radio" name="{{ radio.data.name }}" value="{{ radio.data.value }}" class="peer sr-only" {% if radio.data.selected %}checked{% endif %} required>
-                    <span class="block rounded-2xl border border-bone/25 px-5 py-4 transition-colors hover:bg-bone/5 peer-checked:border-cream peer-checked:bg-cream/10 peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-azure-soft">
-                        <span class="block text-lg font-bold">{{ radio.choice_label }}</span>
-                        <span class="block text-sm font-normal text-ash mt-0.5">{% if radio.data.value == "virtual" %}Videollamada o llamada{% else %}Visita técnica a tu obra o a nuestra oficina{% endif %}</span>
-                    </span>
-                </label>
-                {% endfor %}
-            </div>
-            {% if form.modality.errors %}<p class="mt-2 text-sm text-alarm-soft">{{ form.modality.errors.0 }}</p>{% endif %}
-        </fieldset>
+        <form method="post" action="{% url 'cms:schedule' %}#cita" novalidate data-agenda class="mt-8 grid items-start gap-8 lg:mt-[60px] lg:grid-cols-2 lg:gap-14">
+            {% csrf_token %}
+            <div class="hidden" aria-hidden="true"><input type="text" name="website" tabindex="-1" autocomplete="off"></div>
+            <div class="flex flex-col gap-5 lg:gap-[22px]">
+                {% if form.non_field_errors %}<p class="rounded-2xl bg-black/40 px-4 py-3 text-sm">{{ form.non_field_errors.0 }}</p>{% endif %}
 
-        <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-                <label for="{{ form.preferred_date.id_for_label }}">Fecha preferida</label>
-                <input type="date" name="{{ form.preferred_date.html_name }}" id="{{ form.preferred_date.id_for_label }}" min="{% now 'Y-m-d' %}" value="{{ form.preferred_date.value|default_if_none:'' }}" required>
-                {% if form.preferred_date.errors %}<p class="mt-1 text-sm text-alarm-soft">{{ form.preferred_date.errors.0 }}</p>{% endif %}
-            </div>
-            <div>
-                <label for="{{ form.preferred_slot.id_for_label }}">Franja del día</label>
-                {{ form.preferred_slot }}
-            </div>
-        </div>
+                <fieldset>
+                    <legend class="mb-1.5 font-accent text-[22px] font-medium italic text-white/80 lg:text-[26px]">¿Cómo la quieres?</legend>
+                    <div class="flex gap-3">
+                        {% for radio in form.modality %}
+                        <label class="!mb-0 cursor-pointer">
+                            <input type="radio" name="modality" value="{{ radio.data.value }}" class="peer sr-only" {% if radio.data.selected %}checked{% endif %}>
+                            <span class="block rounded-full border border-white/30 bg-white/10 px-5 py-3 text-lg normal-case tracking-normal text-white sm:px-7 transition-colors peer-checked:bg-[#faf3ea] peer-checked:text-[#1d1c1c] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white lg:text-xl">{{ radio.choice_label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </fieldset>
 
-        <div>
-            <label for="{{ form.full_name.id_for_label }}">Nombre completo</label>
-            {{ form.full_name }}
-            {% if form.full_name.errors %}<p class="mt-1 text-sm text-alarm-soft">{{ form.full_name.errors.0 }}</p>{% endif %}
-        </div>
-        <div class="grid sm:grid-cols-2 gap-4">
-            <div>
-                <label for="{{ form.phone.id_for_label }}">Teléfono / WhatsApp</label>
-                {{ form.phone }}
-                {% if form.phone.errors %}<p class="mt-1 text-sm text-alarm-soft">{{ form.phone.errors.0 }}</p>{% endif %}
+                <div>
+                    <label for="id_full_name" class="!mb-1.5 !block !normal-case !tracking-normal font-accent text-[22px] font-medium italic !text-white/80 lg:text-[26px]">Tu nombre</label>
+                    <input type="text" name="full_name" id="id_full_name" placeholder="Nombre y apellido" required maxlength="120" value="{{ form.full_name.value|default_if_none:'' }}" class="!block !w-full !rounded-[20px] !border !border-white/30 !bg-white/10 !px-5 !py-3.5 !text-lg !text-white lg:!text-xl">
+                    {% if form.full_name.errors %}<p class="mt-1 text-sm text-white">{{ form.full_name.errors.0 }}</p>{% endif %}
+                </div>
+                <div>
+                    <label for="id_phone" class="!mb-1.5 !block !normal-case !tracking-normal font-accent text-[22px] font-medium italic !text-white/80 lg:text-[26px]">Teléfono / WhatsApp</label>
+                    <input type="tel" name="phone" id="id_phone" placeholder="3xx xxx xxxx" required maxlength="30" value="{{ form.phone.value|default_if_none:'' }}" class="!block !w-full !rounded-[20px] !border !border-white/30 !bg-white/10 !px-5 !py-3.5 !text-lg !text-white lg:!text-xl">
+                    {% if form.phone.errors %}<p class="mt-1 text-sm text-white">{{ form.phone.errors.0 }}</p>{% endif %}
+                </div>
+                <div>
+                    <label for="id_service" class="!mb-1.5 !block !normal-case !tracking-normal font-accent text-[22px] font-medium italic !text-white/80 lg:text-[26px]">¿Qué necesitas?</label>
+                    <select name="service" id="id_service" class="!block !w-full !rounded-[20px] !border !border-white/30 !bg-white/10 !px-5 !py-3.5 !text-lg !text-white lg:!text-xl [color-scheme:dark]">
+                        {% for s in services %}<option value="{{ s }}" {% if form.service.value == s %}selected{% endif %}>{{ s }}</option>{% endfor %}
+                    </select>
+                </div>
+                <div>
+                    <label for="id_preferred_date" class="!mb-1.5 !block !normal-case !tracking-normal font-accent text-[22px] font-medium italic !text-white/80 lg:text-[26px]">Fecha preferida <span class="text-base not-italic text-white/50">(opcional)</span></label>
+                    <input type="date" name="preferred_date" id="id_preferred_date" min="{% now 'Y-m-d' %}" value="{{ form.preferred_date.value|default_if_none:'' }}" class="!block !w-full !rounded-[20px] !border !border-white/30 !bg-white/10 !px-5 !py-3.5 !text-lg !text-white lg:!text-xl [color-scheme:dark]">
+                    {% if form.preferred_date.errors %}<p class="mt-1 text-sm text-white">{{ form.preferred_date.errors.0 }}</p>{% endif %}
+                </div>
+                <fieldset>
+                    <legend class="mb-1.5 font-accent text-[22px] font-medium italic text-white/80 lg:text-[26px]">Jornada</legend>
+                    <div class="flex gap-3">
+                        {% for radio in form.preferred_slot %}
+                        <label class="!mb-0 cursor-pointer">
+                            <input type="radio" name="preferred_slot" value="{{ radio.data.value }}" class="peer sr-only" {% if radio.data.selected %}checked{% endif %}>
+                            <span class="block rounded-full border border-white/30 bg-white/10 px-5 py-3 text-lg normal-case tracking-normal text-white sm:px-7 transition-colors peer-checked:bg-[#faf3ea] peer-checked:text-[#1d1c1c] peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-white lg:text-xl">{{ radio.choice_label }}</span>
+                        </label>
+                        {% endfor %}
+                    </div>
+                </fieldset>
             </div>
-            <div>
-                <label for="{{ form.email.id_for_label }}">Correo electrónico</label>
-                {{ form.email }}
-                {% if form.email.errors %}<p class="mt-1 text-sm text-alarm-soft">{{ form.email.errors.0 }}</p>{% endif %}
-            </div>
-        </div>
-        <div>
-            <label for="{{ form.message.id_for_label }}">Cuéntanos qué necesitas</label>
-            {{ form.message }}
-        </div>
 
-        <button type="submit" class="btn btn-cream btn-lg">Solicitar cita</button>
-    </form>
-
-    <aside class="space-y-6" data-aos="fade-up" data-aos-delay="100">
-        <div class="border-t border-bone/10 pt-6">
-            <h3 class="font-display text-detonate text-xl text-bone mb-4">¿Prefieres escribirnos?</h3>
-            <div class="flex flex-col gap-3 items-start">
-                <a href="https://wa.me/{{ site_settings.whatsapp_number }}?text=Hola%20Aplideco%2C%20quiero%20agendar%20una%20cita." target="_blank" rel="noopener" class="btn btn-stone !text-base !py-2.5">WhatsApp</a>
-                <button type="button" data-open-chat class="btn btn-sage !text-base !py-2.5">Hablar con Aplideco_Bot</button>
-                <a href="{% url 'cms:contact' %}" class="btn btn-outline !text-base !py-2.5">Pedir una cotización</a>
+            <div class="rounded-[32px] bg-[rgba(29,28,28,.93)] p-6 lg:rounded-[44px] lg:px-10 lg:py-9">
+                <div class="font-accent text-2xl font-medium italic text-rose lg:text-[28px]">Así llegará tu mensaje</div>
+                <div class="mb-6 mt-3 whitespace-pre-line rounded-[20px_20px_20px_4px] bg-[rgba(103,111,125,.72)] px-5 py-4 text-lg leading-[1.5] lg:mb-7 lg:text-[22px]" data-preview aria-live="polite">Hola Aplideco, quiero agendar una cita.</div>
+                <button type="submit" class="hov flex w-full items-center justify-between gap-5 rounded-full bg-white py-2.5 pl-7 pr-2.5 text-xl font-semibold text-[#090204] lg:pl-[30px] lg:text-[26px]">
+                    <span>Enviar por WhatsApp</span>
+                    <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-crimson lg:h-14 lg:w-14"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+                </button>
+                <p class="mt-3.5 text-center text-[15px] text-white/60">Guardamos tu solicitud y te respondemos para confirmar fecha y hora.</p>
             </div>
-        </div>
-        <div class="border-t border-bone/10 pt-6">
-            <h3 class="font-display text-detonate text-xl text-bone mb-3">Oficina</h3>
-            <p class="text-ash text-sm leading-relaxed">{% if site_settings.address %}{{ site_settings.address }}{% else %}Medellín, Colombia{% endif %}</p>
-            <a href="{% if site_settings.maps_url %}{{ site_settings.maps_url }}{% else %}https://www.google.com/maps/search/?api=1&query={{ site_settings.address|default:'Aplideco S.A.S Medellín'|urlencode }}{% endif %}" target="_blank" rel="noopener" class="btn btn-butter mt-4 !text-base !py-2.5">Ver en Maps</a>
-        </div>
-    </aside>
+        </form>
+{% endif %}
+    </div>
 </section>
+{% endwith %}
+{% endblock %}
+
+{% block extra_scripts %}
+{% load static %}
+{% if appointment %}
+<script>setTimeout(function(){ var a=document.getElementById('wa-go'); if(a) window.open(a.href,'_blank','noopener'); }, 2500);</script>
+{% else %}
+<script src="{% static 'js/agenda.js' %}"></script>
 {% endif %}
 {% endblock %}

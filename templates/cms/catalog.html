@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Catálogo de trabajos · {{ site_settings.site_name }}{% endblock %}
+{% block meta_description %}Explora el catálogo de trabajos de Aplideco S.A.S. en Medellín: trabajo en alturas, muros texturizados, pintura de fachadas y obras en accesos.{% endblock %}
+{% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
+{% block main_open %}{% endblock %}
+{% block main_close %}{% endblock %}
+
+{% block content %}
+<section class="relative isolate overflow-hidden">
+    <div class="mesh-red absolute inset-0 -z-30"></div>
+    <img src="{% static 'img/stone.webp' %}" alt="" aria-hidden="true" class="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_40%] opacity-[.18] mix-blend-luminosity">
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_82%,#0f0d0c_100%)]"></div>
+
+    <div class="page relative z-10 pb-10 pt-[170px] lg:pb-[100px] lg:pt-[215px]">
+        <div class="mb-5 text-center lg:mb-0">
+            <h1 class="font-sans text-[40px] font-bold normal-case leading-[1.05] tracking-[-0.03em] lg:text-[88px] lg:leading-none lg:tracking-[-0.035em]">Explora nuestro <i class="text-rose">Catálogo</i></h1>
+            <p class="mt-1 font-accent text-[26px] font-medium italic lg:mt-2 lg:text-[42px]">Haz click en las imágenes</p>
+        </div>
+
+        <div class="lg:mx-[142px] lg:mt-14" data-carousel data-interval="5500" data-stop-on-click role="region" aria-roledescription="carrusel" aria-label="Catálogo de trabajos de Aplideco">
+            <div class="relative rounded-[30px] border-2 border-white/30 bg-white/10 p-2 lg:rounded-[52px] lg:p-3">
+                <div class="relative h-[270px] overflow-hidden rounded-[24px] bg-[#1d1c1c] lg:h-[540px] lg:rounded-[42px]">
+                    {% for s in slides %}
+                    <div data-slide data-cap="{{ s.cap }}" data-desc="{{ s.desc }}">
+                        <img src="{% static 'img/' %}{{ s.img }}.webp" alt="{{ s.alt }}" style="object-position: {{ s.pos }}"{% if not forloop.first %} loading="lazy"{% endif %}>
+                    </div>
+                    {% endfor %}
+                    <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[110px] bg-gradient-to-b from-[rgba(15,13,12,0)] to-[rgba(15,13,12,.85)] lg:h-[170px]"></div>
+                    <div class="absolute bottom-3.5 left-4 z-10 lg:bottom-7 lg:left-9">
+                        <p data-title-text class="text-[26px] font-bold tracking-[-0.02em] lg:text-[46px]">Trabajo en alturas</p>
+                        <p data-desc-text class="font-accent text-lg font-medium italic text-white/90 lg:text-[28px]">Intervenciones en fachadas y estructuras elevadas.</p>
+                    </div>
+                    <button type="button" data-prev aria-label="Imagen anterior" class="absolute left-2.5 top-1/2 z-10 -mt-5 flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(248,242,233,.92)] lg:left-5 lg:-mt-7 lg:h-14 lg:w-14"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d1c1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+                    <button type="button" data-next aria-label="Imagen siguiente" class="absolute right-2.5 top-1/2 z-10 -mt-5 flex h-10 w-10 items-center justify-center rounded-full bg-[rgba(248,242,233,.92)] lg:right-5 lg:-mt-7 lg:h-14 lg:w-14"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1d1c1c" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+                    <div data-counter class="absolute right-2.5 top-2 z-10 rounded-full bg-[rgba(15,13,12,.75)] px-3.5 py-1.5 text-sm lg:right-[26px] lg:top-[18px]">1 / 4</div>
+                </div>
+            </div>
+            <div class="mt-2 flex justify-center">
+                {% for s in slides %}<button type="button" data-dot aria-label="Ir a la imagen {{ forloop.counter }}" class="flex h-10 w-[26px] items-center justify-center"><span class="dot-i"></span></button>{% endfor %}
+            </div>
+            <div class="mt-2 grid grid-cols-4 gap-2 lg:mt-2.5 lg:flex lg:justify-center lg:gap-[22px]">
+                {% for s in slides %}
+                <button type="button" data-thumb aria-label="Ver {{ s.cap|lower }}" class="overflow-hidden rounded-[14px] border-[3px] border-transparent opacity-60 transition aria-[current=true]:border-rose aria-[current=true]:opacity-100 lg:h-[120px] lg:w-[200px] lg:rounded-[22px]">
+                    <img src="{% static 'img/' %}{{ s.img }}-thumb.webp" alt="" style="object-position: {{ s.pos }}" class="block h-[70px] w-full object-cover lg:h-[114px]" loading="lazy">
+                </button>
+                {% endfor %}
+            </div>
+            <div class="mt-7 flex justify-center">
+                <a href="{% url 'store:product_list' %}" class="btn btn-outline">Ver materiales y servicios en la tienda <span aria-hidden="true">&rarr;</span></a>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "partials/cta_blue.html" %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/carousel.js' %}"></script>
+{% endblock %}

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from apps.store.models import Category, Product
 
-from .forms import AppointmentForm
+from .forms import SERVICES, AppointmentForm
 from .models import Appointment, Certification, ContactRequest, Page, Project, SiteSettings
 
 
@@ -57,16 +57,55 @@ def home(request):
     return render(request, "cms/home.html", context)
 
 
+LEGAL_DATA = [
+    ("Razón social", "Aplideco S.A.S"),
+    ("Tipo de sociedad", "Sociedad por Acciones Simplificada"),
+    ("NIT", "901.079.715-6"),
+    ("Domicilio", "Medellín, Antioquia"),
+    ("Matrícula mercantil", "Activa · Registro RUES"),
+]
+
+WORK_FIELDS = [
+    {
+        "kicker": "Acabados",
+        "title": "Terminación y acabado de edificios y obras de ingeniería civil",
+        "chips": [
+            "Pintura de interiores y exteriores",
+            "Enlucido y estuco",
+            "Yeso y paneles en seco",
+            "Revestimientos",
+            "Vidriería",
+        ],
+    },
+    {
+        "kicker": "Instalaciones",
+        "title": "Otras instalaciones especializadas",
+        "chips": ["Aislamiento", "Sellado de filtraciones", "Impermeabilización"],
+    },
+]
+
+
 def about(request):
-    return render(request, "cms/about.html")
+    return render(request, "cms/about.html", {"legal": LEGAL_DATA, "work": WORK_FIELDS})
+
+
+CATALOG_SLIDES = [
+    {"img": "tower", "alt": "Operario con casco trabajando en altura en una torre", "pos": "50% 50%", "cap": "Trabajo en alturas", "desc": "Intervenciones en fachadas y estructuras elevadas."},
+    {"img": "stone", "alt": "Muro de piedra texturizada con luces puntuales", "pos": "50% 50%", "cap": "Muro texturizado", "desc": "Acabados con textura y carácter para interiores."},
+    {"img": "facade", "alt": "Operarios pintando una fachada colgados de cuerdas", "pos": "50% 35%", "cap": "Pintura de fachada", "desc": "Pintura y protección de fachadas de edificios."},
+    {"img": "scaffold", "alt": "Operario sobre un andamio en el acceso de un local", "pos": "50% 40%", "cap": "Obra en acceso", "desc": "Adecuaciones de accesos y frentes comerciales."},
+]
 
 
 def catalog(request):
-    return render(request, "cms/catalog.html")
+    return render(request, "cms/catalog.html", {"slides": CATALOG_SLIDES})
+
+
+CHATBOT_CHIPS = ["Cotizar pintura de fachada", "Impermeabilizar mi terraza", "Agendar una visita técnica", "Conocer servicios"]
 
 
 def chatbot(request):
-    return render(request, "cms/chatbot.html")
+    return render(request, "cms/chatbot.html", {"chips": CHATBOT_CHIPS})
 
 
 def page_detail(request, slug):
@@ -103,7 +142,27 @@ def contact(request):
     return render(request, "cms/contact.html")
 
 
+def appointment_message(appointment):
+    lines = [
+        "Hola Aplideco, quiero agendar una cita.",
+        f"Modalidad: {appointment.get_modality_display()}",
+        f"Nombre: {appointment.full_name}",
+        f"Teléfono: {appointment.phone}",
+        f"Servicio: {appointment.service}",
+    ]
+    slot = appointment.get_preferred_slot_display()
+    if appointment.preferred_date:
+        lines.append(f"Fecha preferida: {appointment.preferred_date:%d/%m/%Y} ({slot})")
+    else:
+        lines.append(f"Jornada preferida: {slot}")
+    return "\n".join(lines)
+
+
 def schedule(request):
+    initial_modality = request.GET.get("modalidad")
+    if initial_modality not in Appointment.Modality.values:
+        initial_modality = Appointment.Modality.VIRTUAL
+
     if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
@@ -111,11 +170,19 @@ def schedule(request):
             request.session["last_appointment"] = appointment.pk
             return redirect(f"{request.path}?enviado=1")
     else:
-        modality = request.GET.get("modalidad")
-        initial = {"modality": modality} if modality in Appointment.Modality.values else {}
-        form = AppointmentForm(initial=initial)
+        form = AppointmentForm(initial={"modality": initial_modality, "preferred_slot": Appointment.Slot.MORNING})
 
     appointment = None
+    wa_url = ""
     if request.GET.get("enviado") and request.session.get("last_appointment"):
         appointment = Appointment.objects.filter(pk=request.session["last_appointment"]).first()
-    return render(request, "cms/schedule.html", {"form": form, "appointment": appointment})
+        if appointment:
+            from urllib.parse import quote
+
+            number = SiteSettings.load().whatsapp_number or "573103929839"
+            wa_url = f"https://wa.me/{number}?text={quote(appointment_message(appointment))}"
+    return render(
+        request,
+        "cms/schedule.html",
+        {"form": form, "appointment": appointment, "wa_url": wa_url, "services": SERVICES},
+    )

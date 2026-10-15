@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Aplideco_bot · Chatbot de {{ site_settings.site_name }}{% endblock %}
+{% block meta_description %}Conversa con Aplideco_bot: cotiza pintura de fachadas, impermeabilización o agenda una visita técnica en Medellín.{% endblock %}
+{% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
+{% block main_open %}{% endblock %}
+{% block main_close %}{% endblock %}
+{% block content %}
+{% with wa=site_settings.whatsapp_number|default:"573103929839" %}
+<section class="relative isolate overflow-hidden">
+    <div class="mesh-red absolute inset-0 -z-30"></div>
+    <img src="{% static 'img/stone.webp' %}" alt="" aria-hidden="true" class="absolute inset-0 -z-20 h-full w-full object-cover opacity-20 mix-blend-luminosity" style="object-position:50% 30%">
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_82%,#0f0d0c_100%)]"></div>
+    <div class="grain absolute inset-0 -z-10" aria-hidden="true"></div>
+
+    <div class="page relative z-10 grid gap-10 pb-16 pt-[172px] lg:grid-cols-[640px_1fr] lg:justify-between lg:gap-16 lg:pb-24 lg:pt-[240px]">
+        <div>
+            <div class="flex items-center gap-4 lg:gap-6">
+                <svg class="h-20 w-20 shrink-0 lg:h-[130px] lg:w-[130px]" viewBox="0 0 120 120" fill="none" aria-hidden="true"><circle cx="60" cy="9" r="5" fill="#fff"/><path d="M60 14v14" stroke="#fff" stroke-width="5"/><rect x="26" y="28" width="68" height="58" rx="28" fill="#fff"/><circle cx="46" cy="55" r="6" fill="#1d1c1c"/><circle cx="74" cy="55" r="6" fill="#1d1c1c"/><path d="M48 70q12 9 24 0" stroke="#1d1c1c" stroke-width="5" stroke-linecap="round"/><path d="M26 56h-6a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h6zM94 56h6a8 8 0 0 1 8 8v8a8 8 0 0 1-8 8h-6z" fill="#fff"/><path d="M104 82q0 14-24 14" stroke="#fff" stroke-width="5"/><rect x="60" y="92" width="24" height="10" rx="5" fill="#fff"/></svg>
+                <div>
+                    <div class="font-accent text-3xl font-medium italic lg:text-[46px]">Conversa</div>
+                    <div class="text-2xl lg:text-[44px]">Con nuestro <span class="text-[#7fa8e8]">ChatBot</span></div>
+                </div>
+            </div>
+            <h1 class="!font-sans !normal-case mt-6 text-5xl font-bold leading-none tracking-[-0.04em] lg:mt-[34px] lg:text-[92px]">Aplideco_<i class="text-[#b9d3ff]">bot</i></h1>
+            <div class="mt-8 font-typer text-4xl font-extrabold uppercase leading-[1.05] lg:mt-9 lg:text-[64px]" aria-hidden="true">Aplideco_bot, (<span data-typewriter data-words='["Solicitud","Cotizar pintura de fachada","Impermeabilizar mi terraza","Estuco y acabados de obra","Trabajo en alturas","Sellar filtraciones","Agendar una visita técnica"]'>Solicitud</span>)<span class="cur">|</span></div>
+            <p class="my-5 font-accent text-2xl font-medium italic text-white/90 lg:mb-9 lg:text-4xl">Cuéntale qué necesitas y te orienta.</p>
+            <a class="btn-white w-full justify-between lg:w-[560px]" href="https://wa.me/{{ wa }}" target="_blank" rel="noopener">
+                <span>Escribirnos</span>
+                <span class="go"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            </a>
+        </div>
+
+        <!-- Chat de demostración -->
+        <div class="flex h-[640px] flex-col overflow-hidden rounded-[32px] border-2 border-white/35 bg-[rgba(15,13,12,.82)] lg:h-[800px] lg:rounded-[48px]" data-chat>
+            <div class="flex items-center gap-3.5 bg-[rgba(29,28,28,.95)] px-6 py-5 lg:px-[30px] lg:py-[22px]">
+                <svg class="h-12 w-12 lg:h-[58px] lg:w-[58px]" viewBox="0 0 120 120" fill="none" aria-hidden="true"><circle cx="60" cy="9" r="5" fill="#fff"/><path d="M60 14v14" stroke="#fff" stroke-width="5"/><rect x="26" y="28" width="68" height="58" rx="28" fill="#fff"/><circle cx="46" cy="55" r="6" fill="#1d1c1c"/><circle cx="74" cy="55" r="6" fill="#1d1c1c"/><path d="M48 70q12 9 24 0" stroke="#1d1c1c" stroke-width="5" stroke-linecap="round"/><path d="M26 56h-6a8 8 0 0 0-8 8v8a8 8 0 0 0 8 8h6zM94 56h6a8 8 0 0 1 8 8v8a8 8 0 0 1-8 8h-6z" fill="#fff"/><path d="M104 82q0 14-24 14" stroke="#fff" stroke-width="5"/><rect x="60" y="92" width="24" height="10" rx="5" fill="#fff"/></svg>
+                <div>
+                    <div class="text-xl font-bold lg:text-[26px]">Aplideco_bot</div>
+                    <div class="font-accent text-lg font-medium italic text-white/70 lg:text-xl">Demostración · respuestas de ejemplo</div>
+                </div>
+            </div>
+            <div class="flex flex-1 flex-col justify-end gap-3.5 overflow-hidden px-6 py-6 lg:px-[30px]" data-log aria-live="polite">
+                <div class="flex"><div class="max-w-[82%] rounded-[24px_24px_24px_4px] bg-[#dedede] px-5 py-3.5 text-lg leading-[1.4] text-[#1d1c1c] lg:text-[22px]">¡Hola! Soy Aplideco_bot. ¿En qué te puedo ayudar hoy?</div></div>
+            </div>
+            <div class="bg-[rgba(29,28,28,.95)] px-6 pb-6 pt-4 lg:pb-[26px]">
+                <div class="mb-2 font-accent text-xl font-medium italic text-white/75 lg:text-[22px]">Toca una opción:</div>
+                <div class="flex flex-wrap gap-2.5">
+                    {% for c in chips %}<button type="button" data-chip="{{ c }}" class="hov rounded-full border border-white/40 bg-white/10 px-5 py-2.5 text-base text-white lg:text-[19px]">{{ c }}</button>{% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% include "partials/cta_blue.html" %}
+{% endwith %}
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="{% static 'js/typewriter.js' %}"></script>
+<script src="{% static 'js/chatbot-demo.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}¿Quiénes somos? · {{ site_settings.site_name }}{% endblock %}
+{% block meta_description %}Aplideco S.A.S. es una sociedad por acciones simplificada con sede en Medellín, Antioquia, dedicada a los acabados y las instalaciones especializadas en obra.{% endblock %}
+{% block header_class %}absolute inset-x-0 top-0 z-40{% endblock %}
+{% block main_open %}{% endblock %}
+{% block main_close %}{% endblock %}
+
+{% block content %}
+<!-- Hero -->
+<section class="relative isolate overflow-hidden">
+    <div class="mesh-red absolute inset-0 -z-30"></div>
+    <img src="{% static 'img/stone.webp' %}" alt="" aria-hidden="true" class="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_40%] opacity-[.18] mix-blend-luminosity">
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_82%,#0f0d0c_100%)]"></div>
+
+    <div class="page relative z-10 grid gap-8 pb-11 pt-[170px] lg:min-h-[840px] lg:grid-cols-[1fr_560px] lg:items-start lg:gap-14 lg:pb-24 lg:pt-[220px]">
+        <div class="lg:pt-[30px]">
+            <h1 class="font-sans text-[62px] font-bold normal-case leading-[.98] tracking-[-0.035em] lg:text-[132px] lg:leading-[.96] lg:tracking-[-0.04em]">¿Quiénes <i class="text-rose">somos</i>?</h1>
+            <p class="mt-2 font-accent text-[34px] font-medium italic lg:mt-1.5 lg:text-[60px]">Conócenos</p>
+            <p class="mt-[18px] max-w-[700px] text-lg leading-[1.5] text-white/90 lg:mt-6 lg:text-[26px]">Aplideco S.A.S. es una sociedad por acciones simplificada con sede en Medellín, Antioquia, dedicada a los acabados y las instalaciones especializadas en obra.</p>
+        </div>
+
+        <dl class="rounded-[30px] border-2 border-white/60 bg-ink/60 px-[22px] pb-3 pt-2 lg:rounded-[44px] lg:border-white/[.65] lg:px-10 lg:pb-[26px] lg:pt-5" data-aos="fade-up">
+            {% for label, value in legal %}
+            <div class="border-t border-white/[.18] py-3 lg:py-3.5">
+                <dt class="font-accent text-xl font-medium italic text-white/70 lg:text-2xl">{{ label }}</dt>
+                <dd class="mt-0.5 text-[22px] font-medium lg:text-[28px]">{{ value }}</dd>
+            </div>
+            {% endfor %}
+        </dl>
+    </div>
+</section>
+
+<!-- Campo de trabajo -->
+<section class="relative isolate overflow-hidden">
+    <div class="mesh-blue absolute inset-0 -z-30"></div>
+    <img src="{% static 'img/facade.webp' %}" alt="" aria-hidden="true" loading="lazy" class="absolute inset-0 -z-20 h-full w-full object-cover object-[50%_30%] opacity-[.18] mix-blend-luminosity">
+    <div class="noise absolute inset-0 -z-20"></div>
+    <div class="absolute inset-0 -z-10 bg-[linear-gradient(180deg,rgba(15,13,12,0)_82%,#0f0d0c_100%)]"></div>
+
+    <div class="mt-12 bg-[rgba(29,28,28,.93)] lg:mt-[60px]" data-aos="fade-up">
+        <div class="page flex flex-col py-6 lg:h-[160px] lg:flex-row lg:items-center lg:justify-between lg:py-0">
+            <h2 class="font-sans text-[44px] font-bold normal-case leading-[1.02] tracking-[-0.03em] lg:text-[72px]">Nuestro <i class="text-[#b9d3ff]">campo</i> de trabajo</h2>
+            <p class="mt-1 font-accent text-2xl font-medium italic lg:mt-0 lg:text-[40px]">Lo que hacemos en obra</p>
+        </div>
+    </div>
+
+    <div class="page grid gap-[22px] pb-12 pt-[22px] lg:grid-cols-2 lg:gap-10 lg:pb-24 lg:pt-14">
+        {% for card in work %}
+        <article class="rounded-[30px] bg-[rgba(29,28,28,.93)] px-[22px] py-[26px] lg:rounded-[44px] lg:px-11 lg:py-10" data-aos="fade-up" data-aos-delay="{{ forloop.counter0 }}00">
+            <p class="font-accent text-[22px] font-medium italic text-rose lg:text-[28px]">{{ card.kicker }}</p>
+            <h3 class="mt-1.5 font-sans text-[26px] font-bold normal-case leading-[1.1] tracking-[-0.02em] lg:text-[34px]">{{ card.title }}</h3>
+            <ul class="mt-[18px] flex flex-wrap gap-2 lg:mt-7 lg:gap-3">
+                {% for chip in card.chips %}<li class="rounded-full bg-white/[.13] px-4 py-2 text-[17px] lg:px-[22px] lg:py-2.5 lg:text-[22px]">{{ chip }}</li>{% endfor %}
+            </ul>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+
+{% include "partials/cta_blue.html" %}
+{% endblock %}
